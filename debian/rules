@@ -1,14 +1,11 @@
 #!/usr/bin/make -f
 
-DEB_HOST_MULTIARCH=$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-
 %:
 	dh $@
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--sysconfdir=/etc/monit \
-		--with-ssl-lib-dir=/usr/lib/$(DEB_HOST_MULTIARCH)
+		--sysconfdir=/etc/monit
 
 override_dh_installinit:
 	dh_installinit -- "start 99 2 3 4 5 . stop 01 0 1 6 ."
