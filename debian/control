@@ -45,3 +45,13 @@ Description: utility for monitoring and managing daemons or similar programs
   * An http interface with optional SSL support to make monit
     accessible from a webbrowser
 
+
+Package: monit-dbg
+Architecture: any
+Depends: ${misc:Depends}, monit (= ${binary:Version})
+Priority: extra
+Section: debug
+Description: debug symbols for monit
+ This package provides debugging symbols for all binary packages built
+ from source package.
+

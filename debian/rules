@@ -1,7 +1,8 @@
 #!/usr/bin/make -f
 
+
 %:
-	dh $@
+	dh $@ --dbg-package=monit-dbg
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
@@ -14,4 +15,7 @@ override_dh_fixperms:
 	dh_fixperms
 	chmod 600 debian/monit/etc/monit/monitrc
 	chmod 0700 debian/monit/var/lib/monit/events
+
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/monit
 
