@@ -16,8 +16,8 @@
 ##
 ## Start Monit in the background (run as a daemon):
 #
-  set daemon  120             # check services at 2-minute intervals
-#     with start delay 240  # optional: delay the first check by 4-minutes (by 
+  set daemon  30            # check services at 2-minute intervals
+     with start delay 240   # optional: delay the first check by 4-minutes (by
 #                           # default Monit check immediately after Monit start)
 #
 #
@@ -25,27 +25,29 @@
 ## omitted, Monit will use 'user' facility by default. If you want to log to 
 ## a standalone log file instead, specify the full path to the log file
 #
-  set logfile /var/log/monit.log
+  set logfile syslog facility log_daemon
 #
 #
-### Set the location of the Monit id file which stores the unique id for the
-### Monit instance. The id is generated and stored on first Monit start. By 
-### default the file is placed in $HOME/.monit.id.
+## Set the location of the Monit id file which stores the unique id for the
+## Monit instance. The id is generated and stored on first Monit start. By
+## default the file is placed in $HOME/.monit.id.
 #
+# set idfile /var/.monit.id
   set idfile /var/lib/monit/id
 #
-### Set the location of the Monit state file which saves monitoring states
-### on each cycle. By default the file is placed in $HOME/.monit.state. If
-### the state file is stored on a persistent filesystem, Monit will recover
-### the monitoring state across reboots. If it is on temporary filesystem, the
-### state will be lost on reboot which may be convenient in some situations.
+## Set the location of the Monit state file which saves monitoring states
+## on each cycle. By default the file is placed in $HOME/.monit.state. If
+## the state file is stored on a persistent filesystem, Monit will recover
+## the monitoring state across reboots. If it is on temporary filesystem, the
+## state will be lost on reboot which may be convenient in some situations.
 #
 #  NOTE: state file is now defined in /etc/default/monit, change it there
 #  set statefile /var/lib/monit/state
 #
 ## Set the list of mail servers for alert delivery. Multiple servers may be 
-## specified using a comma separator. By default Monit uses port 25 - it is
-## possible to override this with the PORT option.
+## specified using a comma separator. If the first mail server fails, Monit
+# will use the second mail server in the list and so on. By default Monit uses
+# port 25 - it is possible to override this with the PORT option.
 #
 # set mailserver mail.bar.baz,               # primary mailserver
 #                backup.bar.baz port 10025,  # backup mailserver on port 10025
@@ -59,9 +61,9 @@
 ## size using the SLOTS option (if omitted, the queue is limited by space 
 ## available in the back end filesystem).
 #
-  set eventqueue
-      basedir /var/monit  # set the base directory where events will be stored
-      slots 100           # optionally limit the queue size
+#  set eventqueue
+#      basedir /var/lib/monit/events # set the base directory where events will be stored
+#      slots 100                     # optionally limit the queue size
 #
 #
 ## Send status and events to M/Monit (for more informations about M/Monit 
@@ -76,22 +78,21 @@
 #     # and register without credentials     # Don't register credentials
 #
 #
-#
-## Monit by default uses the following alert mail format:
-##
+## Monit by default uses the following format for alerts if the the mail-format
+## statement is missing::
 ## --8<--
-## From: monit@$HOST                         # sender
-## Subject: monit alert --  $EVENT $SERVICE  # subject
+## set mail-format {
+##      from: monit@$HOST
+##   subject: monit alert --  $EVENT $SERVICE
+##   message: $EVENT Service $SERVICE
+##                 Date:        $DATE
+##                 Action:      $ACTION
+##                 Host:        $HOST
+##                 Description: $DESCRIPTION
 ##
-## $EVENT Service $SERVICE                   #
-##                                           #
-## 	Date:        $DATE                   #
-## 	Action:      $ACTION                 #
-## 	Host:        $HOST                   # body
-## 	Description: $DESCRIPTION            #
-##                                           #
-## Your faithful employee,                   #
-## Monit                                     #
+##            Your faithful employee,
+##            Monit
+## }
 ## --8<--
 ##
 ## You can override this message format or parts of it, such as subject
@@ -114,12 +115,12 @@
 ## services monitored and manage services from a web interface. See the
 ## Monit Wiki if you want to enable SSL for the web server. 
 #
-# set httpd port 2812 and
-#     use address localhost  # only accept connection from localhost
-#     allow localhost        # allow localhost to connect to the server and
-#     allow admin:monit      # require user 'admin' with password 'monit'
-#     allow @monit           # allow users of group 'monit' to connect (rw)
-#     allow @users readonly  # allow users of group 'users' to connect readonly
+ set httpd port 2812 and
+    use address localhost  # only accept connection from localhost
+    allow localhost        # allow localhost to connect to the server and
+#    allow admin:monit      # require user 'admin' with password 'monit'
+#    allow @monit           # allow users of group 'monit' to connect (rw)
+#    allow @users readonly  # allow users of group 'users' to connect readonly
 #
 ###############################################################################
 ## Services
@@ -243,5 +244,5 @@
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-   include /etc/monit/conf.d/*
+   include /etc/monit/monitrc.d/*
 #
