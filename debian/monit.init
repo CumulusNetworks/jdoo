@@ -27,6 +27,7 @@ NAME=monit
 DESC="daemon monitor"
 MONIT_OPTS=
 PID="/var/run/$NAME.pid"
+MONIT_STATE="/var/run/monit/state"
 
 # Check if DAEMON binary exist
 [ -f $DAEMON ] || exit 0
@@ -60,7 +61,7 @@ then
   MONIT_OPTS="$MONIT_OPTS -d $CHECK_INTERVALS"
 fi
 
-MONIT_OPTS="-c $CONFIG $MONIT_OPTS"
+MONIT_OPTS="-p $PID -s $MONIT_STATE -c $CONFIG $MONIT_OPTS"
 
 monit_not_configured () {
   if [ "$1" != "stop" ]
@@ -72,12 +73,20 @@ monit_not_configured () {
   exit 0
 }
 
+# Check syntax of config files
+monit_check_syntax () {
+  $DAEMON $MONIT_OPTS -t || {
+    echo "syntax check failed"
+    exit 1
+  }
+}
+
 monit_check_config () {
   # Check for emtpy config.
   if [ "`grep -s -v \"^#\" $CONFIG`" = "" ]
   then
     echo "empty config, please edit $CONFIG."
-    exit 0
+    exit 1
   fi
 }
 
@@ -115,6 +124,10 @@ monit_checks () {
   monit_check_config
   # Check permissions of configfile
   monit_check_perms
+  # Make sure the state directory is created
+  mkdir -p "$(dirname ${MONIT_STATE})"
+  # Always check syntax before starting/restarting a new daemon
+  monit_check_syntax
 }
 
 case "$1" in
@@ -143,6 +156,7 @@ case "$1" in
     ;;
   reload)
     log_daemon_msg "Reloading $DESC configuration" "$NAME"
+    monit_check_syntax
     if start-stop-daemon --stop --signal HUP --quiet \
                                 --oknodo --pidfile $PID \
                                 --exec $DAEMON -- $MONIT_OPTS
@@ -153,11 +167,12 @@ case "$1" in
 	fi
     ;;
   restart|force-reload)
+    monit_check_syntax
     $0 stop
     $0 start
     ;;
   syntax)
-    $DAEMON $MONIT_OPTS -t
+    monit_check_syntax
     ;;
   status)
     status_of_proc -p $PID $DAEMON $NAME
