@@ -1,4 +1,4 @@
-etc/default
-etc/monit
 etc/monit/conf.d
-var/lib/monit
+etc/monit/monitrc.d
+etc/monit/templates
+var/lib/monit/events

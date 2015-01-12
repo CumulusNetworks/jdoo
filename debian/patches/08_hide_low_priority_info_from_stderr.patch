@@ -1,0 +1,30 @@
+Description: Hide stderr output from LogInfo and LogDebug.
+Author: Sergey B Kirpichev <skirpichev@gmail.com>
+
+---
+ src/log.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+--- a/src/log.c
++++ b/src/log.c
+@@ -411,14 +411,16 @@
+ 
+   LOCK(log_mutex)
+ 
++  if (priority < LOG_INFO) {
+ #ifdef HAVE_VA_COPY
+     va_copy(ap_copy, ap);
+-  vfprintf(stderr, s, ap_copy);
+-  va_end(ap_copy);
++    vfprintf(stderr, s, ap_copy);
++    va_end(ap_copy);
+ #else
+-  vfprintf(stderr, s, ap);
++    vfprintf(stderr, s, ap);
+ #endif
+-  fflush(stderr);
++    fflush(stderr);
++  }
+ 
+   if (Run.dolog) {
+     if (Run.use_syslog) {

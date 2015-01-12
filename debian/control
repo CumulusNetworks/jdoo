@@ -1,14 +1,19 @@
 Source: monit
 Section: admin
 Priority: optional
-Maintainer: Stefan Alfredsson <alfs@debian.org>
-Build-Depends: debhelper (>> 3.0.0), byacc, flex, cdbs (>= 0.2.4), libssl-dev, automake1.9, dpatch, libpam-dev
-Standards-Version: 3.8.4.0
+Maintainer: Sergey B Kirpichev <skirpichev@gmail.com>
+DM-Upload-Allowed: yes
+Build-Depends: debhelper (>= 9), libssl-dev, libpam-dev, libkvm-dev [kfreebsd-any]
+Standards-Version: 3.9.3
+Homepage: http://mmonit.com/monit/
+Vcs-Git: git://git.debian.org/git/collab-maint/monit.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/monit.git;a=summary
 
 Package: monit
 Architecture: any
-Depends: ${shlibs:Depends}
-Description: A utility for monitoring and managing daemons or similar programs
+Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.2-13)
+Suggests: exim4 | postfix | mail-transport-agent
+Description: utility for monitoring and managing daemons or similar programs
  monit is a utility for monitoring and managing daemons or similar
  programs running on a Unix system. It will start specified programs
  if they are not running and restart programs not responding.
@@ -32,11 +37,11 @@ Description: A utility for monitoring and managing daemons or similar programs
   * Check a file or directory timestamp
   * Alert, stop or restart a process based on its characteristics
   * MD5 checksum for programs started and stopped by monit
-  * Alert notification for program timeout, restart, checksum, stop 
+  * Alert notification for program timeout, restart, checksum, stop
     resource and timestamp error
   * Flexible and customizable email alert messages
-  * Protocol verification. HTTP, FTP, SMTP, POP, IMAP, NNTP, SSH, DWP, 
+  * Protocol verification. HTTP, FTP, SMTP, POP, IMAP, NNTP, SSH, DWP,
     LDAPv2 and LDAPv3
-  * An http interface with optional SSL support to make monit 
+  * An http interface with optional SSL support to make monit
     accessible from a webbrowser
 
