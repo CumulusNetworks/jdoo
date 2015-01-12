@@ -1,0 +1,65 @@
+Description: Fix binary path in monit.upstart and
+  monit.service examples.
+Author: Sergey B Kirpichev <skirpichev@gmail.com>
+Forwarded: not-needed
+
+---
+ contrib/monit.service |   12 ++++++------
+ contrib/monit.upstart |    6 +++---
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+Index: b/contrib/monit.upstart
+===================================================================
+--- a/contrib/monit.upstart	2012-06-01 14:00:21.000000000 +0400
++++ b/contrib/monit.upstart	2012-06-01 14:00:26.000000000 +0400
+@@ -12,7 +12,7 @@
+ #   initctl reload-configuration
+ #
+ # You can manually start and stop monit like this:
+-# 
++#
+ # start monit
+ # stop monit
+ #
+@@ -27,7 +27,7 @@
+ expect daemon
+ respawn
+ 
+-exec /usr/local/bin/monit -c /etc/monitrc
++exec /usr/bin/monit -c /etc/monit/monitrc
+ 
+-pre-stop exec /usr/local/bin/monit -c /etc/monitrc quit
++pre-stop exec /usr/bin/monit -c /etc/monit/monitrc quit
+ 
+Index: b/contrib/monit.service
+===================================================================
+--- a/contrib/monit.service	2012-06-01 14:01:08.000000000 +0400
++++ b/contrib/monit.service	2012-06-01 14:02:33.000000000 +0400
+@@ -1,11 +1,11 @@
+ # This file is a systemd template for the monit service. To
+-# register monit with systemd, place this file in 
++# register monit with systemd, place this file in
+ # /lib/systemd/system/ and start monit using systemctl:
+ #
+-# Enable monit to start on boot: 
++# Enable monit to start on boot:
+ #         systemctl enable monit.service
+ #
+-# Start monit immediately: 
++# Start monit immediately:
+ #         systemctl start monit.service
+ #
+ # Stop monit:
+@@ -20,9 +20,9 @@
+ 
+ [Service]
+ Type=simple
+-ExecStart=/usr/local/bin/monit -I
+-ExecStop=/usr/local/bin/monit quit
+-ExecReload=/usr/local/bin/monit reload
++ExecStart=/usr/bin/monit -I
++ExecStop=/usr/bin/monit quit
++ExecReload=/usr/bin/monit reload
+ 
+ [Install]
+ WantedBy=multi-user.target

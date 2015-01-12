@@ -1,5 +1,6 @@
-# monit: auth account password session
-# auth       sufficient     pam_securityserver.so
-auth       sufficient     pam_unix.so
-auth       required       pam_deny.so
-account    required       pam_permit.so
+#
+# The PAM configuration file for the monit daemon
+#
+
+@include common-auth
+@include common-account

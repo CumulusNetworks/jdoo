@@ -1,0 +1,3 @@
+monitrc etc/monit/
+debian/monitrc.d/* etc/monit/monitrc.d/
+debian/templates/* etc/monit/templates/

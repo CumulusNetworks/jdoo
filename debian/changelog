@@ -1,3 +1,123 @@
+monit (1:5.2.5-1) unstable; urgency=low
+
+  * Imported Upstream version 5.2.5
+  * Removed patches, applied by upstream
+
+ -- Jonathan Toppins <jtoppins@cumulusnetworks.com>  Mon, 12 Jan 2015 10:00:02 +0400
+
+monit (1:5.2.4-4) unstable; urgency=low
+
+  * Use tiny debian/rules, bump up debhelper compat level
+  * Removed CHANGES.txt from monit.docs (this is a changelog already)
+  * Override init.d start/stop defaults
+  * Cleanup debian/monit.dirs
+  * Remove /var/log/monit.log in postrm script
+  * Add references to BTS in TODO.Debian
+  * Override dh_auto_configure - added argument --bindir=/usr/sbin
+  * Don't set initail delay for monit startup
+  * Quote dh_installinit params
+  * Set default $HOST to FQDN hostname (Closes: #613768)
+  * Add monit alias to /etc/aliases
+  * Add Forwarded: headers in debian/patches/
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Mon, 21 Mar 2011 15:50:39 +0300
+
+monit (1:5.2.4-3) unstable; urgency=low
+
+  * Refresh patches with --diffstat
+  * Upstream fix for SMTP protocol (original test issues both EHLO and
+    HELO, regardless of server reply).  Closes: #614984.
+  * Use @include common-* stanzas for monit PAM configuration (Thanks to
+    Paulo Ricardo Bruck)
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Wed, 16 Mar 2011 23:55:26 +0300
+
+monit (1:5.2.4-2) unstable; urgency=low
+
+  * Drop Build-Depends on quilt (not needed due to package format)
+  * Do set -e in postinst script explicitly (not in sha-bang) to make
+    lintian happy
+  * Cleanup description (thanks to lintian: description-synopsis-starts-
+    with-an-article)
+  * Update copyright year for upstream
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Fri, 04 Mar 2011 16:44:28 +0300
+
+monit (1:5.2.4-1) unstable; urgency=low
+
+  * Create & rotate /var/log/monit.log with root:adm owner and group
+    (Closes: #613764)
+  * Adopt DEP5 (Machine-readable debian/copyright format)
+  * Suggest MTA (exim4, postfix, etc)
+  * Cleanup patch 05_monitrc.patch: disable "set alert root@localhost"
+    and "set mailserver localhost"
+  * Cleanup logrotate script
+  * Add eventqueue basedir
+  * New upstream release (5.2.4).  Closes: #613770.
+  * Unfuzz 02_monit.1_debian_path.patch
+  * Added "DM-Upload-Allowed: yes" control field
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Fri, 04 Mar 2011 14:21:01 +0300
+
+monit (1:5.2.3-2) unstable; urgency=low
+
+  [ Sergey B Kirpichev ]
+  * Fix monit_not_configured () message text (see Ubuntu bug #666268)
+  * Add Vcs-* fields to debian/control
+  * Fix initscript dependencies to start after and stop before other
+    services (Closes: #606731, thanks to Joey Parrish <joey.parrish@gmail.com>)
+  * Add patch 04_LOGMASK.patch: set strict file mode creation mask for
+    logfile
+  * Allow monit to start by default, provide minimal monitrc file
+    (Closes: #583132, thanks to Thomas Clavier <tom@tcweb.org>)
+  * Use logging to file, instead of syslog by default, add logrotate
+    script
+  * Handle MONIT_OPTS configuration variable in initscript to pass
+    command line arguments at startup, eg. -d 180 (Closes: #589895)
+  * Cleanup /etc/default/monit file (Closes: #612767)
+  * Rewrote initscript using lsb-helpers, add depends on lsb-base
+
+  [ Jeremiah C. Foster ]
+  * Minor typo correction for debian/copyright
+
+  [ Sergey B Kirpichev ]
+  * Create TODO.Debian file, add item
+  * Fix some spelling errors (added patch 06)
+  * Merge monitrc patches
+  * Drop patch/unpatch logic from debian/rules
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Mon, 14 Feb 2011 16:59:02 +0300
+
+monit (1:5.2.3-1) unstable; urgency=low
+
+  * New maintainer (Closes: #593941)
+  * change patch system: dpatch -> quilt
+  * Switch to dpkg-source 3.0 (quilt) format
+  * New upstream release (5.2.3)
+  * Include ${misc:Depends} in depends section of debian/control
+  * Bump up Standards-Version (to 3.9.1)
+  * Add lintian override for permissions of etc/monit/monitrc
+  * Bump up debhelper compatibility version (to 5)
+  * Declare versioned dependency on debhelper
+  * move direct source tree changes in monitrc to 03_monitrc.patch
+  * add Homepage header to debian/control
+  * minor fix for debian/copyright: refer to new maintainer, new
+    homepage and GPL-3
+
+ -- Sergey B Kirpichev <skirpichev@gmail.com>  Mon, 17 Jan 2011 16:12:19 +0300
+
+monit (1:5.2.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Stefan Alfredsson <alfs@debian.org>  Sat, 25 Sep 2010 22:03:04 +0200
+
+monit (1:5.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Stefan Alfredsson <alfs@debian.org>  Thu, 23 Sep 2010 22:47:48 +0200
+
 monit (1:5.1.1-1) unstable; urgency=low
 
   * New upstream release (Closes: #573777)

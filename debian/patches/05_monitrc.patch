@@ -1,0 +1,87 @@
+Description: setup default minimal monitrc file to allow
+ monit daemon start after install.
+Bug-Debian: http://bugs.debian.org/583132
+Author: Sergey B Kirpichev <skirpichev@gmail.com>
+Forwarded: not-needed
+
+---
+ monitrc |   28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
+
+--- a/monitrc
++++ b/monitrc
+@@ -16,7 +16,7 @@
+ ##
+ ## Start Monit in the background (run as a daemon):
+ #
+-set daemon  60              # check services at 1-minute intervals
++  set daemon 120            # check services at 2-minute intervals
+ #   with start delay 240    # optional: delay the first check by 4-minutes (by 
+ #                           # default Monit check immediately after Monit start)
+ #
+@@ -26,6 +26,7 @@
+ ## a standalone log file instead, specify the full path to the log file
+ #
+ # set logfile syslog facility log_daemon                       
++  set logfile /var/log/monit.log
+ #
+ #
+ ## Set the location of the Monit id file which stores the unique id for the
+@@ -33,6 +34,7 @@
+ ## default the file is placed in $HOME/.monit.id.
+ #
+ # set idfile /var/.monit.id
++  set idfile /var/lib/monit/id
+ #
+ ## Set the location of the Monit state file which saves monitoring states
+ ## on each cycle. By default the file is placed in $HOME/.monit.state. If
+@@ -40,7 +42,7 @@
+ ## the monitoring state across reboots. If it is on temporary filesystem, the
+ ## state will be lost on reboot which may be convenient in some situations.
+ #
+-# set statefile /var/.monit.state
++  set statefile /var/lib/monit/state
+ #
+ ## Set the list of mail servers for alert delivery. Multiple servers may be 
+ ## specified using a comma separator. If the first mail server fails, Monit 
+@@ -59,9 +61,9 @@
+ ## size using the SLOTS option (if omitted, the queue is limited by space 
+ ## available in the back end filesystem).
+ #
+-# set eventqueue
+-#     basedir /var/monit  # set the base directory where events will be stored
+-#     slots 100           # optionally limit the queue size
++  set eventqueue
++      basedir /var/lib/monit/events # set the base directory where events will be stored
++      slots 100                     # optionally limit the queue size
+ #
+ #
+ ## Send status and events to M/Monit (for more informations about M/Monit 
+@@ -113,13 +115,13 @@
+ ## services monitored and manage services from a web interface. See the
+ ## Monit Wiki if you want to enable SSL for the web server. 
+ #
+-set httpd port 2812 and
+-    use address localhost  # only accept connection from localhost
+-    allow localhost        # allow localhost to connect to the server and
+-    allow admin:monit      # require user 'admin' with password 'monit'
+-    allow @monit           # allow users of group 'monit' to connect (rw)
+-    allow @users readonly  # allow users of group 'users' to connect readonly
+-
++# set httpd port 2812 and
++#    use address localhost  # only accept connection from localhost
++#    allow localhost        # allow localhost to connect to the server and
++#    allow admin:monit      # require user 'admin' with password 'monit'
++#    allow @monit           # allow users of group 'monit' to connect (rw)
++#    allow @users readonly  # allow users of group 'users' to connect readonly
++#
+ ###############################################################################
+ ## Services
+ ###############################################################################
+@@ -242,5 +244,5 @@
+ ## It is possible to include additional configuration parts from other files or
+ ## directories.
+ #
+-#  include /etc/monit.d/*
++   include /etc/monit/conf.d/*
+ #

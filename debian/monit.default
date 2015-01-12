@@ -1,15 +1,10 @@
-# Defaults for monit initscript
-# sourced by /etc/init.d/monit
-# installed at /etc/default/monit by maintainer scripts
-# Stefan Alfredsson <alfs@debian.org>
+# /etc/default/monit
 
-# You must set this variable to for monit to start
-startup=0
+# Defaults for monit initscript.  This file is sourced by
+# /bin/sh from /etc/init.d/monit.
 
-# You can change the location of the state file here
-# It can also be set in monitrc
-# STATEFILE="/var/lib/monit/monit.state"
+# You must set this variable to yes for monit to start
+START=yes
 
-# To change the intervals which monit should run,
-# edit the configuration file /etc/monit/monitrc
-# It can no longer be configured here.
+# Options to pass to monit
+#MONIT_OPTS=
