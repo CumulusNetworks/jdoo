@@ -1,0 +1,33 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## config_file_relocation.dpatch by  <alfs@kossan>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad monit-4.10.1/file.c /tmp/dpep.zWsLpf/monit-4.10.1/file.c
+--- monit-4.10.1/file.c	Sun Aug 12 20:02:48 2007
++++ /tmp/dpep.zWsLpf/monit-4.10.1/file.c	Tue Jan 29 21:43:29 2008
+@@ -158,6 +158,11 @@
+     return (rcfile);
+   }
+   memset(rcfile, 0, STRLEN);
++  snprintf(rcfile, STRLEN, "/etc/monit/%s", MONITRC);
++  if(File_exist(rcfile)) {
++    return (rcfile);
++  }
++  memset(rcfile, 0, STRLEN);
+   snprintf(rcfile, STRLEN, "/etc/%s", MONITRC);
+   if(File_exist(rcfile)) {
+     return (rcfile);
+@@ -178,8 +183,8 @@
+     return (rcfile);
+   }
+   LogError("%s: Cannot find the control file at "
+-      "~/.%s, /etc/%s, %s/%s, /usr/local/etc/%s or at ./%s \n",
+-      prog, MONITRC, MONITRC, SYSCONFDIR, MONITRC, MONITRC, MONITRC);
++       "~/.%s, /etc/monit/%s, /etc/%s, /usr/local/etc/%s or at ./%s \n",
++       prog, MONITRC, MONITRC, MONITRC, MONITRC, MONITRC);
+   exit(1);
+   
+ }
