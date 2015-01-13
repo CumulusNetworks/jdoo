@@ -5,8 +5,7 @@
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--sysconfdir=/etc/monit \
-		--with-ssl-lib-dir=/usr/lib
+		--sysconfdir=/etc/monit
 
 override_dh_installinit:
 	dh_installinit -- "start 99 2 3 4 5 . stop 01 0 1 6 ."
