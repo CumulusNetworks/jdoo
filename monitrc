@@ -40,7 +40,8 @@
 ### the monitoring state across reboots. If it is on temporary filesystem, the
 ### state will be lost on reboot which may be convenient in some situations.
 #
-  set statefile /var/lib/monit/state
+#  NOTE: state file is now defined in /etc/default/monit, change it there
+#  set statefile /var/lib/monit/state
 #
 ## Set the list of mail servers for alert delivery. Multiple servers may be 
 ## specified using a comma separator. By default Monit uses port 25 - it is

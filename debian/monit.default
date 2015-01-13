@@ -6,5 +6,8 @@
 # You must set this variable to yes for monit to start
 START=yes
 
+# Monit state file
+#MONIT_STATE=/var/run/monit/state
+
 # Options to pass to monit
 #MONIT_OPTS=
