@@ -392,14 +392,16 @@ static void log_log(int priority, const char *s, va_list ap) {
 
   LOCK(log_mutex)
 
+  if (priority < LOG_INFO) {
 #ifdef HAVE_VA_COPY
     va_copy(ap_copy, ap);
-  vfprintf(stderr, s, ap_copy);
-  va_end(ap_copy);
+    vfprintf(stderr, s, ap_copy);
+    va_end(ap_copy);
 #else
-  vfprintf(stderr, s, ap);
+    vfprintf(stderr, s, ap);
 #endif
-  fflush(stderr);
+    fflush(stderr);
+  }
 
   if (Run.dolog) {
     if (Run.use_syslog) {
