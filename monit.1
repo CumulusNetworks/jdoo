@@ -319,7 +319,7 @@ usage, memory and load average.
 .IX Header "HOW TO MONITOR"
 Monit is configured and controlled via a control file called
 \&\fBmonitrc\fR. The default location for this file is ~/.monitrc. If
-this file does not exist, Monit will try /etc/monitrc, then
+this file does not exist, Monit will try /etc/monit/monitrc, then
 \&\f(CW@sysconfdir\fR@/monitrc and finally ./monitrc.
 .PP
 A Monit control file consists of a series of service entries and
@@ -475,7 +475,7 @@ the command line and here is what you must add to /etc/inittab:
 .PP
 .Vb 2
 \&  # Run Monit in standard run\-levels
-\&  mo:2345:respawn:/usr/local/bin/monit \-Ic /etc/monitrc
+\&  mo:2345:respawn:/usr/sbin/monit -Ic /etc/monitrc
 .Ve
 .PP
 After you have modified init's configuration file, you can run
@@ -1785,7 +1785,7 @@ Monit does not start a possible cracked program or script.
 Example:
 .PP
 .Vb 2
-\& check file monit.bin with path "/usr/local/bin/monit"
+\& check file monit.bin with path "/usr/sbin/monit"
 \&       if failed permission 0555 then unmonitor
 .Ve
 .PP
@@ -3801,9 +3801,9 @@ is not important.
 \&\fI~/.monitrc\fR  
    Default run control file
 .PP
-\&\fI/etc/monitrc\fR
+\&\fI/etc/monit/monitrc\fR
    If the control file is not found in the default 
-   location and /etc contains a \fImonitrc\fR file, this
+   location and /etc/monit/ contains a \fImonitrc\fR file, this
    file will be used instead.
 .PP
 \&\fI./monitrc\fR  
