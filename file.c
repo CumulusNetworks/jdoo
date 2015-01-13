@@ -184,6 +184,11 @@ char *File_findControlFile() {
     return (rcfile);
   }
   memset(rcfile, 0, STRLEN);
+  snprintf(rcfile, STRLEN, "/etc/monit/%s", MONITRC);
+  if(File_exist(rcfile)) {
+    return (rcfile);
+  }
+  memset(rcfile, 0, STRLEN);
   snprintf(rcfile, STRLEN, "/etc/%s", MONITRC);
   if(File_exist(rcfile)) {
     return (rcfile);
@@ -204,8 +209,8 @@ char *File_findControlFile() {
     return (rcfile);
   }
   LogError("%s: Cannot find the control file at "
-      "~/.%s, /etc/%s, %s/%s, /usr/local/etc/%s or at ./%s \n",
-      prog, MONITRC, MONITRC, SYSCONFDIR, MONITRC, MONITRC, MONITRC);
+       "~/.%s, /etc/monit/%s, /etc/%s, /usr/local/etc/%s or at ./%s \n",
+       prog, MONITRC, MONITRC, MONITRC, MONITRC, MONITRC);
   exit(1);
   
 }
