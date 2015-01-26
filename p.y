@@ -823,6 +823,25 @@ checkproc       : CHECKPROC SERVICENAME PIDFILE PATH {
                   }
                 ;
 
+checkprogram    : CHECKPROG SERVICENAME PATHTOK PATH {
+                    createservice(TYPE_PROGRAM, $<string>2, $4, check_process);
+                  }
+                | CHECKPROG SERVICENAME MATCH STRING {
+                    createservice(TYPE_PROGRAM, $<string>2, $4, check_process);
+                    matchset.ignore = FALSE;
+                    matchset.match_path = NULL;
+                    matchset.match_string = xstrdup($4);
+                    addmatch(&matchset, ACTION_IGNORE, 0);
+                  }
+                | CHECKPROG SERVICENAME MATCH PATH {
+                    createservice(TYPE_PROGRAM, $<string>2, $4, check_process);
+                    matchset.ignore = FALSE;
+                    matchset.match_path = NULL;
+                    matchset.match_string = xstrdup($4);
+                    addmatch(&matchset, ACTION_IGNORE, 0);
+                  }
+                ;
+
 checkfile       : CHECKFILE SERVICENAME PATHTOK PATH {
                     createservice(TYPE_FILE, $<string>2, $4, check_file);
                   }

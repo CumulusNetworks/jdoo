@@ -166,6 +166,7 @@
 #define TYPE_SYSTEM        5
 #define TYPE_FIFO          6
 #define TYPE_STATUS        7
+#define TYPE_PROGRAM       8
 
 #define RESOURCE_ID_CPU_PERCENT       1
 #define RESOURCE_ID_MEM_PERCENT       2

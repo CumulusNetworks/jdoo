@@ -335,6 +335,11 @@ check[ \t]+(process[ \t])? {
                     return CHECKPROC;
                   }
 
+check[ \t]+(program[ \t])? {
+                    BEGIN(SERVICE_COND);
+                    return CHECKPROG;
+                  }
+
 check[ \t]+device { /* Filesystem alias for backward compatibility  */
                     BEGIN(SERVICE_COND);
                     return CHECKFILESYS;
