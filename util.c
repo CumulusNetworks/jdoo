@@ -959,6 +959,18 @@ void Util_printService(Service_T s) {
         printf(" %-20s = ", "Load avg. (15min)");
         break;
 
+      case RESOURCE_ID_SYSLOAD1:
+        printf(" %-20s = ", "SysLoad avg. (1min)");
+        break;
+
+      case RESOURCE_ID_SYSLOAD5:
+        printf(" %-20s = ", "SysLoad avg. (5min)");
+        break;
+
+      case RESOURCE_ID_SYSLOAD15:
+        printf(" %-20s = ", "SysLoad avg. (15min)");
+        break;
+
       case RESOURCE_ID_CHILDREN:
         printf(" %-20s = ", "Children");
         break;
@@ -1000,6 +1012,19 @@ void Util_printService(Service_T s) {
         printf("if %s %.1f %s ", operatornames[q->operator], q->limit / 10.0, Util_getEventratio(a->failed, buf, sizeof(buf)));
         printf("then %s ", Util_describeAction(a->failed, buf, sizeof(buf)));
         printf("else if succeeded %s ", Util_getEventratio(a->succeeded, buf, sizeof(buf)));
+        printf("then %s", Util_describeAction(a->succeeded, buf, sizeof(buf)));
+        break;
+
+      case RESOURCE_ID_SYSLOAD1:
+      case RESOURCE_ID_SYSLOAD5:
+      case RESOURCE_ID_SYSLOAD15:
+        printf("if %s %.1f %s ",
+            operatornames[q->operator],
+            (double) q->limit,
+            Util_getEventratio(a->failed, buf, sizeof(buf)));
+        printf("then %s ", Util_describeAction(a->failed, buf, sizeof(buf)));
+        printf("else if succeeded %s ",
+            Util_getEventratio(a->succeeded, buf, sizeof(buf)));
         printf("then %s", Util_describeAction(a->succeeded, buf, sizeof(buf)));
         break;
 

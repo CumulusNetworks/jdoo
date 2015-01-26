@@ -289,6 +289,7 @@
 %token CHECKPROC CHECKFILESYS CHECKFILE CHECKDIR CHECKHOST CHECKSYSTEM CHECKFIFO CHECKSTATUS
 %token CHILDREN SYSTEM
 %token RESOURCE MEMORY TOTALMEMORY LOADAVG1 LOADAVG5 LOADAVG15 SWAP
+%token SYSLOADAVG1 SYSLOADAVG5 SYSLOADAVG15
 %token MODE ACTIVE PASSIVE MANUAL CPU TOTALCPU CPUUSER CPUSYSTEM CPUWAIT
 %token GROUP REQUEST DEPENDS BASEDIR SLOT EVENTQUEUE SECRET HOSTHEADER
 %token UID GID MMONIT INSTANCE USERNAME PASSWORD
@@ -1351,6 +1352,7 @@ resourcesystemlist : resourcesystemopt
                    ;
 
 resourcesystemopt  : resourceload
+                   | resourcesysload
                    | resourcemem
                    | resourceswap
                    | resourcecpu
@@ -1432,6 +1434,18 @@ resourceloadavg : LOADAVG1  { $<number>$ = RESOURCE_ID_LOAD1; }
                 | LOADAVG5  { $<number>$ = RESOURCE_ID_LOAD5; }
                 | LOADAVG15 { $<number>$ = RESOURCE_ID_LOAD15; }
                 ;
+
+resourcesysload : resourcesysloadavg operator NUMBER PERCENT {
+                    resourceset.resource_id = $<number>1;
+                    resourceset.operator = $<number>2;
+                    resourceset.limit = $3;
+                  }
+                ;
+
+resourcesysloadavg : SYSLOADAVG1  { $<number>$ = RESOURCE_ID_SYSLOAD1; }
+                   | SYSLOADAVG5  { $<number>$ = RESOURCE_ID_SYSLOAD5; }
+                   | SYSLOADAVG15 { $<number>$ = RESOURCE_ID_SYSLOAD15; }
+                   ;
 
 value           : REAL { $<real>$ = $1; }
                 | NUMBER { $<real>$ = (float) $1; }

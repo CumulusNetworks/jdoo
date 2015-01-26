@@ -106,6 +106,9 @@ notequal    ("notequal"|"ne"|"!=")
 loadavg1    load(avg)[ ]*(\([ ]*1[ ]*(m|min)?[ ]*\))?
 loadavg5    load(avg)[ ]*\([ ]*5[ ]*(m|min)?[ ]*\)
 loadavg15   load(avg)[ ]*\([ ]*15[ ]*(m|min)?[ ]*\)
+sysloadavg1    sysload(avg)[ ]*(\([ ]*1[ ]*(m|min)?[ ]*\))?
+sysloadavg5    sysload(avg)[ ]*\([ ]*5[ ]*(m|min)?[ ]*\)
+sysloadavg15   sysload(avg)[ ]*\([ ]*15[ ]*(m|min)?[ ]*\)
 cpuuser     cpu[ ]*(usage)*[ ]*\([ ]*(us|usr|user)?[ ]*\)
 cpusyst     cpu[ ]*(usage)*[ ]*\([ ]*(sy|sys|system)?[ ]*\)
 cpuwait     cpu[ ]*(usage)*[ ]*\([ ]*(wa|wait)?[ ]*\)
@@ -314,6 +317,9 @@ fips              { return FIPS; }
 {loadavg1}        { return LOADAVG1; }
 {loadavg5}        { return LOADAVG5; }
 {loadavg15}       { return LOADAVG15; }
+{sysloadavg1}     { return SYSLOADAVG1; }
+{sysloadavg5}     { return SYSLOADAVG5; }
+{sysloadavg15}    { return SYSLOADAVG15; }
 {cpuuser}         { return CPUUSER; }
 {cpusyst}         { return CPUSYSTEM; }
 {cpuwait}         { return CPUWAIT; }

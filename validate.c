@@ -661,6 +661,7 @@ static void check_process_resources(Service_T s, Resource_T r) {
 
   int okay = TRUE;
   char report[STRLEN]={0};
+  double sysloadavg = 0.0;
 
   ASSERT(s && r);
 
@@ -790,6 +791,48 @@ static void check_process_resources(Service_T s, Resource_T r) {
       okay = FALSE;
     } else
       snprintf(report, STRLEN, "'%s' loadavg(15min) check succeeded [current loadavg(15min)=%.1f]", s->name, systeminfo.loadavg[2]);
+    break;
+
+  case RESOURCE_ID_SYSLOAD1:
+    sysloadavg = ((systeminfo.loadavg[0] / systeminfo.cpus) * 100.0);
+    if (Util_evalQExpression(r->operator, (int) sysloadavg, r->limit)) {
+      snprintf(report, STRLEN, "sysloadavg(1min) of %.1f matches resource "
+               "limit [sysloadavg(1min)%s%.1f]", sysloadavg,
+               operatorshortnames[r->operator], (double) r->limit);
+      okay = FALSE;
+    } else {
+      snprintf(report, STRLEN, "'%s' sysloadavg(1min) check succeeded "
+               "[current sysloadavg(1min)=%.1f]", s->name,
+               sysloadavg);
+    }
+    break;
+
+  case RESOURCE_ID_SYSLOAD5:
+    sysloadavg = ((systeminfo.loadavg[1] / systeminfo.cpus) * 100.0);
+    if (Util_evalQExpression(r->operator, (int) sysloadavg, r->limit)) {
+      snprintf(report, STRLEN, "sysloadavg(5min) of %.1f matches resource "
+               "limit [sysloadavg(5min)%s%.1f]", sysloadavg,
+               operatorshortnames[r->operator], (double) r->limit);
+      okay = FALSE;
+    } else {
+      snprintf(report, STRLEN, "'%s' sysloadavg(5min) check succeeded "
+               "[current sysloadavg(5min)=%.1f]", s->name,
+               sysloadavg);
+    }
+    break;
+
+  case RESOURCE_ID_SYSLOAD15:
+    sysloadavg = ((systeminfo.loadavg[2] / systeminfo.cpus) * 100.0);
+    if (Util_evalQExpression(r->operator, (int) sysloadavg, r->limit)) {
+      snprintf(report, STRLEN, "sysloadavg(15min) of %.1f matches resource "
+               "limit [sysloadavg(15min)%s%.1f]", sysloadavg,
+               operatorshortnames[r->operator], (double) r->limit);
+      okay = FALSE;
+    } else {
+      snprintf(report, STRLEN, "'%s' sysloadavg(15min) check succeeded "
+               "[current sysloadavg(15min)=%.1f]", s->name,
+               sysloadavg);
+    }
     break;
 
   case RESOURCE_ID_CHILDREN:

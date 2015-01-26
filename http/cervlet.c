@@ -1771,6 +1771,18 @@ static void print_service_rules_resource(HttpResponse res, Service_T s) {
         case RESOURCE_ID_LOAD15: 
           out_print(res, "Load average (15min)");
           break;
+
+        case RESOURCE_ID_SYSLOAD1:
+          out_print(res, "System Load average (1min)");
+          break;
+
+        case RESOURCE_ID_SYSLOAD5:
+          out_print(res, "System Load average (5min)");
+          break;
+
+        case RESOURCE_ID_SYSLOAD15:
+          out_print(res, "System Load average (15min)");
+          break;
           
         case RESOURCE_ID_CHILDREN:
           out_print(res, "Children");
@@ -1812,6 +1824,15 @@ static void print_service_rules_resource(HttpResponse res, Service_T s) {
         case RESOURCE_ID_LOAD5:
         case RESOURCE_ID_LOAD15:
           out_print(res, "If %s %.1f %s ", operatornames[q->operator], q->limit / 10.0, Util_getEventratio(a->failed, buf, sizeof(buf)));
+          out_print(res, "then %s ", Util_describeAction(a->failed, buf, sizeof(buf)));
+          out_print(res, "else if succeeded %s ", Util_getEventratio(a->succeeded, buf, sizeof(buf)));
+          out_print(res, "then %s", Util_describeAction(a->succeeded, buf, sizeof(buf)));
+          break;
+
+        case RESOURCE_ID_SYSLOAD1:
+        case RESOURCE_ID_SYSLOAD5:
+        case RESOURCE_ID_SYSLOAD15:
+          out_print(res, "If %s %.1f %s ", operatornames[q->operator], q->limit, Util_getEventratio(a->failed, buf, sizeof(buf)));
           out_print(res, "then %s ", Util_describeAction(a->failed, buf, sizeof(buf)));
           out_print(res, "else if succeeded %s ", Util_getEventratio(a->succeeded, buf, sizeof(buf)));
           out_print(res, "then %s", Util_describeAction(a->succeeded, buf, sizeof(buf)));
