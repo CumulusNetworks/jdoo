@@ -2,7 +2,7 @@
 
 
 %:
-	dh $@ --dbg-package=monit-dbg
+	dh $@ --dbg-package=monit-dbg --with autoreconf
 
 override_dh_auto_configure:
 	dh_auto_configure -- \

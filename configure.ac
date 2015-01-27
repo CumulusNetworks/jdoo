@@ -3,14 +3,14 @@
 #
 
 # autoconf requirement
-AC_PREREQ([2.53])
+AC_PREREQ([2.69])
 
 # Init autoconf and automake
 
 # Note: in  case of beta subversion, use underscore "_" rather then dash "-"
 # since RPM doesn't allow dash in Version
 # Example: 5.0_beta2
-AC_INIT([monit], [5.2.5], [monit-general@nongnu.org])
+AC_INIT([monit],[5.2.5],[monit-general@nongnu.org])
 
 # Package info
 AC_REVISION([$Revision: 1.194 $])
@@ -280,7 +280,18 @@ AC_TYPE_MODE_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
-AC_TYPE_SIGNAL
+AC_DIAGNOSE([obsolete],[your code may safely assume C89 semantics that RETSIGTYPE is void.
+Remove this warning and the `AC_CACHE_CHECK' when you adjust the code.])dnl
+AC_CACHE_CHECK([return type of signal handlers],[ac_cv_type_signal],[AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([#include <sys/types.h>
+#include <signal.h>
+],
+		 [return *(signal (0, 0)) (0) == 1;])],
+		   [ac_cv_type_signal=int],
+		   [ac_cv_type_signal=void])])
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    (`int' or `void').])
+
 
 # Check for structures.
 AC_STRUCT_TM
@@ -331,29 +342,29 @@ AC_SUBST(EXTERNALS)
 
 # Check for SOL_IP
 AC_MSG_CHECKING(for SOL_IP)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 	#include <netdb.h>
 	#include <sys/socket.h>
-], [
+]], [[
 	int level = SOL_IP;
-], [
+]])],[
 	AC_MSG_RESULT(yes)
 	AC_DEFINE([HAVE_SOL_IP], [1], [Define to 1 if SOL_IP is defined.])
-], [
+],[
 	AC_MSG_RESULT(no)
 ])
 
 AC_MSG_CHECKING(for va_copy)
-AC_TRY_LINK([
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 	#include <stdarg.h>
-], [
+]], [[
 	va_list ap;
 	va_list ap_copy;
 	va_copy(ap, ap_copy);
-], [
+]])],[
 	AC_MSG_RESULT(yes)
 	AC_DEFINE([HAVE_VA_COPY], [1], [Define to 1 if VA_COPY is defined.])
-], [
+],[
 	AC_MSG_RESULT(no)
 ])
 
