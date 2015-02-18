@@ -1,4 +1,4 @@
-monit (1:5.2.5-1) unstable; urgency=low
+monit-gpl (1:5.2.5-1) unstable; urgency=low
 
   * Imported Upstream version 5.2.5
   * Removed patches, applied by upstream

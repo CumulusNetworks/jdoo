@@ -1,18 +1,17 @@
-Source: monit
+Source: monit-gpl
 Section: admin
 Priority: optional
-Maintainer: Sergey B Kirpichev <skirpichev@gmail.com>
+Maintainer: Jonathan Toppins <jtoppins@cumulusnetworks.com>
 DM-Upload-Allowed: yes
 Build-Depends: debhelper (>= 9), dh-autoreconf, libssl-dev, libpam-dev, libkvm-dev [kfreebsd-any]
 Standards-Version: 3.9.3
 Homepage: http://mmonit.com/monit/
-Vcs-Git: git://git.debian.org/git/collab-maint/monit.git
-Vcs-Browser: http://git.debian.org/?p=collab-maint/monit.git;a=summary
 
-Package: monit
+Package: monit-gpl
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.2-13)
 Suggests: exim4 | postfix | mail-transport-agent
+Conflicts: monit
 Description: utility for monitoring and managing daemons or similar programs
  monit is a utility for monitoring and managing daemons or similar
  programs running on a Unix system. It will start specified programs
@@ -46,7 +45,7 @@ Description: utility for monitoring and managing daemons or similar programs
     accessible from a webbrowser
 
 
-Package: monit-dbg
+Package: monit-gpl-dbg
 Architecture: any
 Depends: ${misc:Depends}, monit (= ${binary:Version})
 Priority: extra
