@@ -1,0 +1,68 @@
+#-------------------------------------------------------------------------------
+#
+# Copyright 2015 Cumulus Networks, inc  all rights reserved
+#
+#-------------------------------------------------------------------------------
+
+# NOTE! Please use 'git ls-files -i --exclude-standard'
+# command after changing this file, to see if there are
+# any tracked files which get ignored after the change.
+#
+# auto-tool output
+#
+Makefile
+config.log
+config.status
+config.h.in~
+autom4te.cache/
+configure
+libtool
+config.h
+libmonit/config.log
+libmonit/src/xconfig.h
+libmonit/config.status
+
+# debian files
+#
+debian/files
+debian/autoreconf.after
+debian/autoreconf.before
+debian/monit-gpl.debhelper.log
+debian/monit-gpl.postinst.debhelper
+debian/monit-gpl.postrm.debhelper
+debian/monit-gpl.prerm.debhelper
+debian/monit-gpl.substvars
+debian/monit-gpl/
+debian/monit-gpl-dbg.debhelper.log
+debian/monit-gpl-dbg.substvars
+debian/monit-gpl-dbg/
+
+# build artifacts
+#
+src/stamp-h1
+libmonit/src/stamp-h1
+*.o
+*.lo
+*.dirstamp
+*/.libs
+lex.yy.c
+tokens.h
+y.output
+y.tab.c
+
+# build targets
+#
+monit
+libmonit/libmonit.la
+libmonit/test/CommandTest
+libmonit/test/DirTest
+libmonit/test/ExceptionTest
+libmonit/test/FileTest
+libmonit/test/InputStreamTest
+libmonit/test/ListTest
+libmonit/test/NetTest
+libmonit/test/OutputStreamTest
+libmonit/test/StrTest
+libmonit/test/StringBufferTest
+libmonit/test/SystemTest
+libmonit/test/TimeTest
