@@ -13,21 +13,21 @@
 
  check file sshd_bin with path /usr/sbin/sshd
    group sshd
-   include /etc/monit/templates/rootbin
+   include /etc/jdoo/templates/rootbin
 
  check file sftp_bin with path /usr/lib/openssh/sftp-server
    group sshd
-   include /etc/monit/templates/rootbin
+   include /etc/jdoo/templates/rootbin
 
  check file sshd_rsa_key with path /etc/ssh/ssh_host_rsa_key
    group sshd
-   include /etc/monit/templates/rootstrict
+   include /etc/jdoo/templates/rootstrict
 
  check file sshd_dsa_key with path /etc/ssh/ssh_host_dsa_key
    group sshd
-   include /etc/monit/templates/rootstrict
+   include /etc/jdoo/templates/rootstrict
 
  check file sshd_rc with path /etc/ssh/sshd_config
    group sshd
-   include /etc/monit/templates/rootrc
+   include /etc/jdoo/templates/rootrc
 

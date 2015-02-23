@@ -1,4 +1,0 @@
-etc/monit/conf.d
-etc/monit/monitrc.d
-etc/monit/templates
-var/lib/monit/events

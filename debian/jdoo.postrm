@@ -7,16 +7,16 @@ case "$1" in
     ;;
   purge)
     # Remove logfile:
-    rm -f /var/log/monit.log
+    rm -f /var/log/jdoo.log
     # Remove the state and id files (default location):
-    rm -f /var/lib/monit/state /var/lib/monit/id
+    rm -f /var/lib/jdoo/state /var/lib/jdoo/id
 
-    # Remove monit from /etc/aliases:
+    # Remove jdoo from /etc/aliases:
     if [ -f /etc/aliases ] || [ -L /etc/aliases ]
     then
-      if grep -qi "^monit[[:space:]]*:" /etc/aliases
+      if grep -qi "^jdoo[[:space:]]*:" /etc/aliases
       then
-        sed -i '/^monit[[:space:]]*:.*$/d' /etc/aliases
+        sed -i '/^jdoo[[:space:]]*:.*$/d' /etc/aliases
         test -x /usr/bin/newaliases && newaliases || :
       fi
     fi

@@ -7,10 +7,10 @@ AC_PREREQ([2.69])
 
 # Init autoconf and automake
 
-AC_INIT([monit],
+AC_INIT([jdoo],
 	m4_esyscmd([build-tools/version-gen.sh .tarball-version]),
 	[how-to-report-bugs],
-	[monit],
+	[jdoo],
 	[http://example.com/project/website/])
 
 # Package info
@@ -799,7 +799,7 @@ AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 
 echo ""
-echo "monit has been configured with the following options:"
+echo "jdoo has been configured with the following options:"
 
 echo "                Architecture: ${ARCH}"
 if test "$use_pam" = "1"; then

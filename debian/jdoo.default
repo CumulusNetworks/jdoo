@@ -1,0 +1,13 @@
+# /etc/default/jdoo
+
+# Defaults for monit initscript.  This file is sourced by
+# /bin/sh from /etc/init.d/jdoo.
+
+# You must set this variable to yes for jdoo to start
+START=yes
+
+# Monit state file
+#JDOO_STATE=/var/run/jdoo/state
+
+# Options to pass to jdoo
+#JDOO_OPTS=

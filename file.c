@@ -184,7 +184,7 @@ char *File_findControlFile() {
     return (rcfile);
   }
   memset(rcfile, 0, STRLEN);
-  snprintf(rcfile, STRLEN, "/etc/monit/%s", MONITRC);
+  snprintf(rcfile, STRLEN, "/etc/jdoo/%s", MONITRC);
   if(File_exist(rcfile)) {
     return (rcfile);
   }

@@ -87,7 +87,7 @@
 
 
 #define VERSION            PACKAGE_VERSION
-#define MONITRC            "monitrc"
+#define MONITRC            "jdoorc"
 #define TIMEFORMAT         "%Z %b %e %T"
 #define STRERROR            strerror(errno)
 #define STRLEN             256
@@ -102,10 +102,10 @@
 /* Set pid file mode: "-rw-r--r--" */
 #define MYPIDMASK          0122
 #define MYPIDDIR           PIDDIR
-#define MYPIDFILE          "monit.pid"
-#define MYSTATEFILE        "monit.state"
-#define MYIDFILE           "monit.id"
-#define MYEVENTLISTBASE    "/var/monit"
+#define MYPIDFILE          "jdoo.pid"
+#define MYSTATEFILE        "jdoo.state"
+#define MYIDFILE           "jdoo.id"
+#define MYEVENTLISTBASE    "/var/jdoo"
 
 #define LOCALHOST          "localhost"
 

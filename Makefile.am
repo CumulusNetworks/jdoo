@@ -95,22 +95,22 @@ CFILES		= \
 		http.c      \
 		md5.c
 
-man_MANS	= monit.1
+man_MANS	= jdoo.1
 AM_YFLAGS	= -d -v -t
 AM_LFLAGS	= -i
-bin_PROGRAMS	= monit
-monit_CPPFLAGS = \
+bin_PROGRAMS	= jdoo
+jdoo_CPPFLAGS = \
 		-I. -I$(top_srcdir)/device \
 		-I$(top_srcdir)/http -I$(top_srcdir)/process \
 		-I$(top_srcdir)/protocols \
 		-D$(ARCH) -DSYSCONFDIR="\"$(sysconfdir)\""
-monit_SOURCES = \
+jdoo_SOURCES = \
 		$(GRAMMAR) $(HFILES) $(CFILES)   \
 		device/sysdep_LINUX.c          \
 		process/sysdep_LINUX.c
 
 if USE_STRFTIME
-    monit_SOURCES += external/strftime.c
+    jdoo_SOURCES += external/strftime.c
 endif
 
 # Additional things to distribute

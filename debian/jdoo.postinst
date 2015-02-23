@@ -5,16 +5,16 @@ set -e
 case "$1" in
   configure)
     # Setup logfile permissions:
-    touch /var/log/monit.log
-    chmod 640 /var/log/monit.log
-    chown root:adm /var/log/monit.log
+    touch /var/log/jdoo.log
+    chmod 640 /var/log/jdoo.log
+    chown root:adm /var/log/jdoo.log
 
-    # Add monit to /etc/aliases:
+    # Add jdoo to /etc/aliases:
     if [ -f /etc/aliases ] || [ -L /etc/aliases ]
     then
-      if ! grep -qi '^monit[[:space:]]*:' /etc/aliases
+      if ! grep -qi '^jdoo[[:space:]]*:' /etc/aliases
       then
-        echo "monit: root" >> /etc/aliases
+        echo "jdoo: root" >> /etc/aliases
         test -x /usr/bin/newaliases && newaliases || :
       fi
     fi

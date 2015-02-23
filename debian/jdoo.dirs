@@ -1,0 +1,3 @@
+etc/jdoo/jdoorc.d
+etc/jdoo/templates
+var/lib/jdoo/events

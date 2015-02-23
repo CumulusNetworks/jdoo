@@ -1,52 +1,52 @@
 ###############################################################################
-## Monit control file
+## jdoo control file
 ###############################################################################
 ##
 ## Comments begin with a '#' and extend through the end of the line. Keywords
 ## are case insensitive. All path's MUST BE FULLY QUALIFIED, starting with '/'.
 ##
-## Below you will find examples of some frequently used statements. For 
-## information about the control file and a complete list of statements and 
-## options, please have a look in the Monit manual.
+## Below you will find examples of some frequently used statements. For
+## information about the control file and a complete list of statements and
+## options, please have a look in the jdoo manual.
 ##
 ##
 ###############################################################################
 ## Global section
 ###############################################################################
 ##
-## Start Monit in the background (run as a daemon):
+## Start jdoo in the background (run as a daemon):
 #
   set daemon  30            # check services at 2-minute intervals
      with start delay 240   # optional: delay the first check by 4-minutes (by
-#                           # default Monit check immediately after Monit start)
+#                           # default jdoo check immediately after jdoo start)
 #
 #
 ## Set syslog logging with the 'daemon' facility. If the FACILITY option is
-## omitted, Monit will use 'user' facility by default. If you want to log to 
+## omitted, jdoo will use 'user' facility by default. If you want to log to
 ## a standalone log file instead, specify the full path to the log file
 #
   set logfile syslog facility log_daemon
 #
 #
-## Set the location of the Monit id file which stores the unique id for the
-## Monit instance. The id is generated and stored on first Monit start. By
-## default the file is placed in $HOME/.monit.id.
+## Set the location of the jdoo id file which stores the unique id for the
+## jdoo instance. The id is generated and stored on first jdoo start. By
+## default the file is placed in $HOME/.jdoo.id.
 #
-# set idfile /var/.monit.id
-  set idfile /var/lib/monit/id
+# set idfile /var/.jdoo.id
+  set idfile /var/lib/jdoo/id
 #
-## Set the location of the Monit state file which saves monitoring states
-## on each cycle. By default the file is placed in $HOME/.monit.state. If
-## the state file is stored on a persistent filesystem, Monit will recover
+## Set the location of the jdoo state file which saves monitoring states
+## on each cycle. By default the file is placed in $HOME/.jdoo.state. If
+## the state file is stored on a persistent filesystem, jdoo will recover
 ## the monitoring state across reboots. If it is on temporary filesystem, the
 ## state will be lost on reboot which may be convenient in some situations.
 #
-#  NOTE: state file is now defined in /etc/default/monit, change it there
-#  set statefile /var/lib/monit/state
+#  NOTE: state file is now defined in /etc/default/jdoo, change it there
+#  set statefile /var/lib/jdoo/state
 #
-## Set the list of mail servers for alert delivery. Multiple servers may be 
-## specified using a comma separator. If the first mail server fails, Monit
-# will use the second mail server in the list and so on. By default Monit uses
+## Set the list of mail servers for alert delivery. Multiple servers may be
+## specified using a comma separator. If the first mail server fails, jdoo
+# will use the second mail server in the list and so on. By default jdoo uses
 # port 25 - it is possible to override this with the PORT option.
 #
 # set mailserver mail.bar.baz,               # primary mailserver
@@ -54,23 +54,23 @@
 #                localhost                   # fallback relay
 #
 #
-## By default Monit will drop alert events if no mail servers are available. 
-## If you want to keep the alerts for later delivery retry, you can use the 
-## EVENTQUEUE statement. The base directory where undelivered alerts will be 
+## By default jdoo will drop alert events if no mail servers are available.
+## If you want to keep the alerts for later delivery retry, you can use the
+## EVENTQUEUE statement. The base directory where undelivered alerts will be
 ## stored is specified by the BASEDIR option. You can limit the maximal queue
-## size using the SLOTS option (if omitted, the queue is limited by space 
+## size using the SLOTS option (if omitted, the queue is limited by space
 ## available in the back end filesystem).
 #
 #  set eventqueue
-#      basedir /var/lib/monit/events # set the base directory where events will be stored
+#      basedir /var/lib/jdoo/events # set the base directory where events will be stored
 #      slots 100                     # optionally limit the queue size
 #
 #
-## Send status and events to M/Monit (for more informations about M/Monit 
-## see http://mmonit.com/). By default Monit registers credentials with 
+## Send status and events to M/jdoo (for more informations about M/jdoo
+## see http://mmonit.com/). By default jdoo registers credentials with
 ## M/Monit so M/Monit can smoothly communicate back to Monit and you don't
 ## have to register Monit credentials manually in M/Monit. It is possible to
-## disable credential registration using the commented out option below. 
+## disable credential registration using the commented out option below.
 ## Though, if safety is a concern we recommend instead using https when
 ## communicating with M/Monit and send credentials encrypted.
 #
@@ -78,12 +78,12 @@
 #     # and register without credentials     # Don't register credentials
 #
 #
-## Monit by default uses the following format for alerts if the the mail-format
+## jdoo by default uses the following format for alerts if the the mail-format
 ## statement is missing::
 ## --8<--
 ## set mail-format {
-##      from: monit@$HOST
-##   subject: monit alert --  $EVENT $SERVICE
+##      from: jdoo@$HOST
+##   subject: jdoo alert --  $EVENT $SERVICE
 ##   message: $EVENT Service $SERVICE
 ##                 Date:        $DATE
 ##                 Action:      $ACTION
@@ -91,7 +91,7 @@
 ##                 Description: $DESCRIPTION
 ##
 ##            Your faithful employee,
-##            Monit
+##            jdoo
 ## }
 ## --8<--
 ##
@@ -99,27 +99,27 @@
 ## or sender using the MAIL-FORMAT statement. Macros such as $DATE, etc.
 ## are expanded at runtime. For example, to override the sender, use:
 #
-# set mail-format { from: monit@foo.bar }
+# set mail-format { from: jdoo@foo.bar }
 #
 #
-## You can set alert recipients whom will receive alerts if/when a 
-## service defined in this file has errors. Alerts may be restricted on 
-## events by using a filter as in the second example below. 
+## You can set alert recipients whom will receive alerts if/when a
+## service defined in this file has errors. Alerts may be restricted on
+## events by using a filter as in the second example below.
 #
 # set alert sysadm@foo.bar                       # receive all alerts
 # set alert manager@foo.bar only on { timeout }  # receive just service-
 #                                                # timeout alert
 #
 #
-## Monit has an embedded web server which can be used to view status of 
+## Monit has an embedded web server which can be used to view status of
 ## services monitored and manage services from a web interface. See the
-## Monit Wiki if you want to enable SSL for the web server. 
+## Monit Wiki if you want to enable SSL for the web server.
 #
  set httpd port 2812 and
     use address localhost  # only accept connection from localhost
     allow localhost        # allow localhost to connect to the server and
-#    allow admin:monit      # require user 'admin' with password 'monit'
-#    allow @monit           # allow users of group 'monit' to connect (rw)
+#    allow admin:jdoo       # require user 'admin' with password 'jdoo'
+#    allow @jdoo            # allow users of group 'jdoo' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
 #
 ###############################################################################
@@ -139,15 +139,15 @@
 #    if cpu usage (system) > 30% then alert
 #    if cpu usage (wait) > 20% then alert
 #
-#    
+#
 ## Check if a file exists, checksum, permissions, uid and gid. In addition
-## to alert recipients in the global section, customized alert can be sent to 
-## additional recipients by specifying a local alert handler. The service may 
+## to alert recipients in the global section, customized alert can be sent to
+## additional recipients by specifying a local alert handler. The service may
 ## be grouped using the GROUP option. More than one group can be specified by
 ## repeating the 'group name' statement.
-#    
+#
 #  check file apache_bin with path /usr/local/apache/bin/httpd
-#    if failed checksum and 
+#    if failed checksum and
 #       expect the sum 8f7f419955cefa0b33a2ba316cba3659 then unmonitor
 #    if failed permission 755 then unmonitor
 #    if failed uid root then unmonitor
@@ -157,15 +157,15 @@
 #        } with the mail-format { subject: Alarm! }
 #    group server
 #
-#    
+#
 ## Check that a process is running, in this case Apache, and that it respond
 ## to HTTP and HTTPS requests. Check its resource usage such as cpu and memory,
-## and number of children. If the process is not running, Monit will restart 
-## it by default. In case the service is restarted very often and the 
+## and number of children. If the process is not running, Monit will restart
+## it by default. In case the service is restarted very often and the
 ## problem remains, it is possible to disable monitoring using the TIMEOUT
 ## statement. This service depends on another service (apache_bin) which
 ## is defined above.
-#    
+#
 #  check process apache with pidfile /usr/local/apache/logs/httpd.pid
 #    start program = "/etc/init.d/httpd start" with timeout 60 seconds
 #    stop program  = "/etc/init.d/httpd stop"
@@ -183,8 +183,8 @@
 #    if 3 restarts within 5 cycles then timeout
 #    depends on apache_bin
 #    group server
-#    
-#    
+#
+#
 ## Check filesystem permissions, uid, gid, space and inode usage. Other services,
 ## such as databases, may depend on this resource and an automatically graceful
 ## stop may be cascaded to them before the filesystem will become full and data
@@ -203,7 +203,7 @@
 #    group server
 #
 #
-## Check a file's timestamp. In this example, we test if a file is older 
+## Check a file's timestamp. In this example, we test if a file is older
 ## than 15 minutes and assume something is wrong if its not updated. Also,
 ## if the file size exceed a given limit, execute a script
 #
@@ -215,8 +215,8 @@
 #    if size > 100 MB then exec "/my/cleanup/script" as uid dba and gid dba
 #
 #
-## Check directory permission, uid and gid.  An event is triggered if the 
-## directory does not belong to the user with uid 0 and gid 0.  In addition, 
+## Check directory permission, uid and gid.  An event is triggered if the
+## directory does not belong to the user with uid 0 and gid 0.  In addition,
 ## the permissions have to match the octal description of 755 (see chmod(1)).
 #
 #  check directory bin with path /bin
@@ -225,8 +225,8 @@
 #    if failed gid 0 then unmonitor
 #
 #
-## Check a remote host availability by issuing a ping test and check the 
-## content of a response from a web server. Up to three pings are sent and 
+## Check a remote host availability by issuing a ping test and check the
+## content of a response from a web server. Up to three pings are sent and
 ## connection to a port and an application level network check is performed.
 #
 #  check host myserver with address 192.168.1.1
@@ -244,5 +244,5 @@
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-   include /etc/monit/monitrc.d/*
+   include /etc/jdoo/jdoorc.d/*
 #

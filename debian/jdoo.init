@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          monit
+# Provides:          jdoo
 # Required-Start:    $remote_fs
 # Required-Stop:     $remote_fs
 # Should-Start:      $all
@@ -9,9 +9,9 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: service and resource monitoring daemon
-# Description:       monit is a utility for managing and monitoring
+# Description:       jdoo is a utility for managing and monitoring
 #                    processes, programs, files, directories and filesystems
-#                    on a Unix system. Monit conducts automatic maintenance
+#                    on a Unix system. jdoo conducts automatic maintenance
 #                    and repair and can execute meaningful causal actions
 #                    in error situations.
 ### END INIT INFO
@@ -20,14 +20,14 @@ set -e
 
 . /lib/lsb/init-functions
 
-DAEMON=/usr/bin/monit
-CONFIG="/etc/monit/monitrc"
-DELAY="/etc/monit/monit_delay"
-NAME=monit
+DAEMON=/usr/bin/jdoo
+CONFIG="/etc/jdoo/jdoorc"
+DELAY="/etc/jdoo/jdoo_delay"
+NAME=jdoo
 DESC="daemon monitor"
-MONIT_OPTS=
+JDOO_OPTS=
 PID="/var/run/$NAME.pid"
-MONIT_STATE="/var/run/monit/state"
+JDOO_STATE="/var/run/jdoo/state"
 
 # Check if DAEMON binary exist
 [ -f $DAEMON ] || exit 0
@@ -39,7 +39,7 @@ if [ -n "$startup" ]
 then
   if [ "$1" = "start" ]
   then
-    printf "\tPlease, use START variable in /etc/default/monit\n"
+    printf "\tPlease, use START variable in /etc/default/jdoo\n"
     printf "\tto enable/disable $NAME startup.\n"
   fi
 
@@ -54,14 +54,14 @@ if [ -n "$CHECK_INTERVALS" ]
 then
   if [ "$1" = "start" ]
   then
-    printf "\tPlease, use MONIT_OPTS variable in /etc/default/monit\n"
+    printf "\tPlease, use JDOO_OPTS variable in /etc/default/jdoo\n"
     printf "\tto specify command line options for $NAME.\n"
   fi
 
-  MONIT_OPTS="$MONIT_OPTS -d $CHECK_INTERVALS"
+  JDOO_OPTS="$JDOO_OPTS -d $CHECK_INTERVALS"
 fi
 
-MONIT_OPTS="-p $PID -s $MONIT_STATE -c $CONFIG $MONIT_OPTS"
+JDOO_OPTS="-p $PID -s $JDOO_STATE -c $CONFIG $JDOO_OPTS"
 
 monit_not_configured () {
   if [ "$1" != "stop" ]
@@ -75,7 +75,7 @@ monit_not_configured () {
 
 # Check syntax of config files
 monit_check_syntax () {
-  $DAEMON $MONIT_OPTS -t || {
+  $DAEMON $JDOO_OPTS -t || {
     echo "syntax check failed"
     exit 1
   }
@@ -125,7 +125,7 @@ monit_checks () {
   # Check permissions of configfile
   monit_check_perms
   # Make sure the state directory is created
-  mkdir -p "$(dirname ${MONIT_STATE})"
+  mkdir -p "$(dirname ${JDOO_STATE})"
   # Always check syntax before starting/restarting a new daemon
   monit_check_syntax
 }
@@ -136,7 +136,7 @@ case "$1" in
     monit_checks $1
     if start-stop-daemon --start --quiet --oknodo \
                          --pidfile $PID --exec $DAEMON \
-                         -- $MONIT_OPTS
+                         -- $JDOO_OPTS
     then
       log_end_msg 0
     else
@@ -159,7 +159,7 @@ case "$1" in
     monit_check_syntax
     if start-stop-daemon --stop --signal HUP --quiet \
                                 --oknodo --pidfile $PID \
-                                --exec $DAEMON -- $MONIT_OPTS
+                                --exec $DAEMON -- $JDOO_OPTS
     then
       log_end_msg 0
     else

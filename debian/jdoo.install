@@ -1,0 +1,3 @@
+jdoorc etc/jdoo/
+debian/jdoorc.d/* etc/jdoo/jdoorc.d/
+debian/templates/* etc/jdoo/templates/

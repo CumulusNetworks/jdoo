@@ -10,11 +10,11 @@
 
  check file cron_bin with path /usr/sbin/cron
    group crond
-   include /etc/monit/templates/rootbin
+   include /etc/jdoo/templates/rootbin
 
  check file cron_rc with path "/etc/init.d/cron"
    group crond
-   include /etc/monit/templates/rootbin
+   include /etc/jdoo/templates/rootbin
 
  check directory cron_spool with path /var/spool/cron/crontabs
    group crond

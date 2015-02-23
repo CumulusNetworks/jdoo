@@ -1,0 +1,6 @@
+# can contain sensitive information (eq. passwords):
+jdoo: non-standard-file-perm etc/jdoo/jdoorc 0600 != 0644
+# permissions on eventqueue dir:
+jdoo: non-standard-dir-perm var/lib/jdoo/events/ 0700 != 0755
+# XXX, check this:
+jdoo: spelling-error-in-binary usr/bin/jdoo dependant dependent

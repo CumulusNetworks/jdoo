@@ -2,22 +2,22 @@
 
 
 %:
-	dh $@ --dbg-package=monit-gpl-dbg --with autoreconf
+	dh $@ --dbg-package=jdoo-dbg --with autoreconf
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--sysconfdir=/etc/monit \
+		--sysconfdir=/etc/jdoo \
 		--without-ssl
 
 override_dh_installinit:
-	dh_installinit --init-script=monit \
+	dh_installinit --init-script=jdoo \
 		-- "start 99 2 3 4 5 . stop 01 0 1 6 ."
 
 override_dh_fixperms:
 	dh_fixperms
-	chmod 600 debian/monit-gpl/etc/monit/monitrc
-	chmod 0700 debian/monit-gpl/var/lib/monit/events
+	chmod 600 debian/jdoo/etc/jdoo/jdoorc
+	chmod 0700 debian/jdoo/var/lib/jdoo/events
 
 override_dh_auto_install:
-	dh_auto_install --destdir=debian/monit-gpl
+	dh_auto_install --destdir=debian/jdoo
 
