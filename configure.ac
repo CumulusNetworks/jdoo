@@ -10,14 +10,29 @@ AC_PREREQ([2.69])
 # Note: in  case of beta subversion, use underscore "_" rather then dash "-"
 # since RPM doesn't allow dash in Version
 # Example: 5.0_beta2
-AC_INIT([monit],[5.2.5],[monit-general@nongnu.org])
+AC_INIT([monit],
+	m4_esyscmd([build-tools/version-gen.sh .tarball-version]),
+	[how-to-report-bugs],
+	[monit],
+	[http://example.com/project/website/])
 
 # Package info
-AC_REVISION([$Revision: 1.194 $])
 AC_CONFIG_SRCDIR([monitor.c])
 
+# extra autoconf macros are kept here
+AC_CONFIG_MACRO_DIR([m4])
+
+# place to put some extra build scripts
+AC_CONFIG_AUX_DIR([build-tools])
+
+# Global Variable & Defaults
+# ===============================================
+
+# Keep this in sync with what is passed in AC_INIT
+TARBALL_VERSION_FILE=".tarball-version"
+
 # ------------------------------------------------------------------------
-# Programs 
+# Programs
 # ------------------------------------------------------------------------
 
 AC_PROG_CC
@@ -34,7 +49,7 @@ if test "x$YACC" = "x"; then
 fi
 
 # ------------------------------------------------------------------------
-# Libraries 
+# Libraries
 # ------------------------------------------------------------------------
 
 # Check for libraries
@@ -46,7 +61,7 @@ AC_CHECK_LIB([crypt],  [crypt])
 
 # Wacky pthread madness
 pthread_libs=""
-AC_CHECK_LIB([pthread], 
+AC_CHECK_LIB([pthread],
 	     [pthread_create],
 	     [pthread_libs="-lpthread"])
 AC_CHECK_LIB([c_r],
@@ -62,7 +77,7 @@ then
 fi
 
 # ------------------------------------------------------------------------
-# Header files 
+# Header files
 # ------------------------------------------------------------------------
 
 # Checks for header files.
@@ -298,7 +313,7 @@ AC_STRUCT_TM
 AC_CHECK_MEMBERS([struct tm.tm_gmtoff])
 
 # ------------------------------------------------------------------------
-# Compiler 
+# Compiler
 # ------------------------------------------------------------------------
 
 # Compiler characteristics
@@ -369,7 +384,7 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 ])
 
 # ------------------------------------------------------------------------
-# Paths 
+# Paths
 # ------------------------------------------------------------------------
 
 # Find the right directory to put the root-mode PID file in
@@ -399,13 +414,13 @@ fi
 # ------------------------------------------------------------------------
 
 # Backward compatibility until we get ride of arch settings
-if test `uname` = "SunOS" 
+if test `uname` = "SunOS"
 then
    ARCH="SOLARIS"
    CFLAGS="$CFLAGS -D _REENTRANT -D_POSIX_PTHREAD_SEMANTICS"
    test_kstat="true"
    AC_DEFINE([HAVE_CPU_WAIT], [1], [Define to 1 if CPU wait information is available.])
-elif test `uname` = "Linux" 
+elif test `uname` = "Linux"
 then
    ARCH="LINUX"
    CFLAGS="$CFLAGS -D _REENTRANT"
@@ -444,11 +459,11 @@ elif test `uname` = "AIX"
 then
    ARCH="AIX"
    CFLAGS="$CFLAGS -D_THREAD_SAFE -D_REENTRANT"
-   LIBS="$LIBS -lodm"	
+   LIBS="$LIBS -lodm"
    # AIX v. 5.2
-   LIBS="$LIBS -lcfg"	
+   LIBS="$LIBS -lcfg"
    # AIX v. 5.3
-   LIBS="$LIBS -lperfstat"	
+   LIBS="$LIBS -lperfstat"
    AC_DEFINE([HAVE_CPU_WAIT], [1], [Define to 1 if CPU wait information is available.])
 else
    AC_MSG_WARN([Architecture not supported: `uname`.])
@@ -493,7 +508,7 @@ AC_MSG_CHECKING([for large files support])
 AC_ARG_WITH(largefiles,
     [  --without-largefiles    disable large files support (default: enabled)],
     [
-        dnl Check the withvalue                
+        dnl Check the withvalue
         if test "x$withval" = "xno" ; then
             use_largefiles=0
             AC_MSG_RESULT([disabled])
@@ -540,7 +555,7 @@ AC_MSG_CHECKING([for PAM support])
 AC_ARG_WITH(pam,
     [  --without-pam           disable the use of pam (default: enabled)],
     [
-        dnl Check the withvalue                
+        dnl Check the withvalue
         if test "x$withval" = "xno" ; then
             use_pam=0
             AC_MSG_RESULT([disabled])
@@ -574,7 +589,7 @@ checksslincldir() { :
     return 1
 }
 
-# Check for ssl libraries 
+# Check for ssl libraries
 checkssllibdirdynamic() { :
     if test "(" -f "$1/libcrypto.so" -o -f "$1/libcrypto.dylib" ")"  -a \
             "(" -f "$1/libssl.so"    -o -f "$1/libssl.dylib" ")" ; then
@@ -629,7 +644,7 @@ then
     AC_ARG_WITH(ssl,
         [  --without-ssl           disable the use of ssl (default: enabled)],
         [
-            dnl Check the withvalue                
+            dnl Check the withvalue
             if test "x$withval" = "xno" ; then
                 use_ssl=0
                 AC_MSG_RESULT([disabled])
@@ -670,11 +685,11 @@ then
                 checksslincldir "$withval"
             ],
             [
-                if test -z "$sslincldir"; then	
+                if test -z "$sslincldir"; then
                     dnl Search default locations of SSL includes
                     for maindir in /usr /usr/local /usr/lib /usr/pkg /var /opt /usr/sfw; do
                         for dir in "$maindir/include"\
-                                   "$maindir/include/openssl"\ 
+                                   "$maindir/include/openssl"\
                                    "$maindir/include/ssl"\
                                    "$maindir/ssl/include"; do
                             checksslincldir $dir && break 2
@@ -702,7 +717,7 @@ then
                 checkssllibdirdynamic "$withval"
             ],
             [
-                if test -z "$ssllibdir"; then	
+                if test -z "$ssllibdir"; then
                     dnl Search default locations of SSL libraries
                     for maindir in /usr \
                                    /usr/local \
@@ -788,7 +803,7 @@ else
     echo "                 SSL support: disabled"
 fi
 if test "$use_largefiles" = "1"; then
-    echo "         large files support: enabled"  
+    echo "         large files support: enabled"
 else
     echo "         large files support: disabled"
 fi

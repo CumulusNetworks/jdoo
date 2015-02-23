@@ -16,7 +16,7 @@
 # SYNOPSIS
 #     make {all|install|clean|uninstall|distclean|devclean}
 #
-# AUTHOR: 
+# AUTHOR:
 #     Jan-Henrik Haukeland, <hauk@tildeslash.com>
 #
 # CVS INFO
@@ -29,13 +29,13 @@ RM		= /bin/rm -fr
 MV              = /bin/mv -f
 ETAGS           = etags
 
-# Install modes 
+# Install modes
 MODE_PROGS      = 555
 MODE_FILES      = 444
 MODE_CONF       = 600
 MODE_DIRS       = 755
 
-INSTALL         = @INSTALL@ 
+INSTALL         = @INSTALL@
 INSTALL_PROG    = $(INSTALL) -m $(MODE_PROGS)
 INSTALL_FILE    = $(INSTALL) -m $(MODE_FILES)
 INSTALL_DIR     = $(INSTALL) -m $(MODE_DIRS) -d
@@ -53,7 +53,7 @@ MANDIR 	= @mandir@/man1
 # ------------------------------------------------------------------- #
 
 # Name of program to build
-PROG		= monit
+PROG		= @PACKAGE_NAME@
 
 INCDIR		= -I. -I./device -I./http -I./process -I./protocols
 LIB 		= @LEXLIB@ @LIBS@
@@ -89,7 +89,7 @@ SOURCE          := $(filter-out $(GRAMMAR) $(FILTER), \
                    $(GRAMMAR) $(EXTERNALS)
 
 # Object files
-OBJECTS 	:= $(SOURCE:.c=.o) 
+OBJECTS 	:= $(SOURCE:.c=.o)
 
 # Man files
 MAN_OBJS  	:= $(wildcard *.1)
@@ -121,8 +121,8 @@ endef
 
 all : $(PROG)
 
-$(PROG) : $(GRAMMAR) $(OBJECTS) 
-	$(CC) $(LINKFLAGS) $(OBJECTS) $(LIB) -o $(PROG) 
+$(PROG) : $(GRAMMAR) $(OBJECTS)
+	$(CC) $(LINKFLAGS) $(OBJECTS) $(LIB) -o $(PROG)
 
 clean::
 	$(RM) *.orig *~ \#* $(PROG) core $(OBJECTS) $(GRAMMAR) tokens.h
@@ -143,13 +143,13 @@ install:: $(PROG)
 		$(INSTALL_FILE) $(file) $(DESTDIR)$(MANDIR)/$(file) \
 	$(check-exit))
 
-uninstall:: 
+uninstall::
 	$(RM) $(DESTDIR)$(BINDIR)/$(PROG) $(check-exit)
 	$(foreach file, $(MAN_OBJS), \
 		$(RM) $(DESTDIR)$(MANDIR)/$(file) \
 	$(check-exit))
 
-doc::   
+doc::
 	doxygen doxygen.cfg
 
 etag:
