@@ -7,9 +7,6 @@ AC_PREREQ([2.69])
 
 # Init autoconf and automake
 
-# Note: in  case of beta subversion, use underscore "_" rather then dash "-"
-# since RPM doesn't allow dash in Version
-# Example: 5.0_beta2
 AC_INIT([monit],
 	m4_esyscmd([build-tools/version-gen.sh .tarball-version]),
 	[how-to-report-bugs],
@@ -25,6 +22,18 @@ AC_CONFIG_MACRO_DIR([m4])
 # place to put some extra build scripts
 AC_CONFIG_AUX_DIR([build-tools])
 
+# Other tool initializations
+# ===============================================
+
+# really severe build strictness also place generated object files (.o)
+# into the same directory as their source files, in order to avoid
+# collisions when non-recursive make is used.
+AM_INIT_AUTOMAKE([1.10 no-define foreign subdir-objects dist-bzip2 -Wall
+		  -Werror])
+
+# Check if automake supports 'pretty' builds, if so enable them by default
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 # Global Variable & Defaults
 # ===============================================
 
@@ -38,11 +47,14 @@ TARBALL_VERSION_FILE=".tarball-version"
 AC_PROG_CC
 AC_PROG_GCC_TRADITIONAL
 AC_PROG_INSTALL
+AM_PROG_CC_C_O
 AC_PROG_MAKE_SET
 AC_PROG_LEX
 	if test "$LEX" != flex; then
 		AC_MSG_ERROR([monit requires flex, not lex])
 	fi
+AM_PROG_LEX
+AC_PROG_YACC
 AC_CHECK_PROGS(YACC, 'bison -y' byacc yacc)
 if test "x$YACC" = "x"; then
 		AC_MSG_ERROR([monit requires bison, byacc or yacc])
@@ -347,13 +359,12 @@ AC_CHECK_FUNCS(backtrace)
 
 jm_FUNC_GNU_STRFTIME
 
-EXTERNALS=""
+USE_STRFTIME=""
 if test "$jm_cv_func_working_gnu_strftime" = "no"; then
 	# We do not have have a working strftime supporting %z
-	EXTERNALS="$EXTERNALS external/strftime.c"
+	USE_STRFTIME="true"
 fi
-
-AC_SUBST(EXTERNALS)
+AM_CONDITIONAL(USE_STRFTIME, test "x${USE_STRFTIME}" = "xtrue")
 
 # Check for SOL_IP
 AC_MSG_CHECKING(for SOL_IP)
@@ -470,7 +481,7 @@ else
    CFLAGS="$CFLAGS -D _REENTRANT"
    ARCH="UNKNOWN"
 fi
-AC_SUBST(ARCH)
+AC_SUBST([ARCH])
 
 # ------------------------------------------------------------------------
 # Resource code
@@ -782,6 +793,7 @@ fi
 # Outputs
 # ------------------------------------------------------------------------
 
+AC_SUBST([TARBALL_VERSION_FILE])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

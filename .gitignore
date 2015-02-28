@@ -8,62 +8,73 @@
 # command after changing this file, to see if there are
 # any tracked files which get ignored after the change.
 #
-# auto-tool output
+# General Rules
 #
-Makefile
-config.log
-config.status
-config.h.in
-config.h.in~
-autom4te.cache/
-configure
-libtool
-config.h
-libmonit/config.log
-libmonit/src/xconfig.h
-libmonit/config.status
-
-# debian files
-#
-debian/files
-debian/autoreconf.after
-debian/autoreconf.before
-debian/monit-gpl.debhelper.log
-debian/monit-gpl.postinst.debhelper
-debian/monit-gpl.postrm.debhelper
-debian/monit-gpl.prerm.debhelper
-debian/monit-gpl.substvars
-debian/monit-gpl/
-debian/monit-gpl-dbg.debhelper.log
-debian/monit-gpl-dbg.substvars
-debian/monit-gpl-dbg/
-
-# build artifacts
-#
-src/stamp-h1
-libmonit/src/stamp-h1
+.*
 *.o
-*.lo
-*.dirstamp
-*/.libs
-lex.yy.c
-tokens.h
-y.output
-y.tab.c
+*.o.*
+*.a
+*.s
+*.so
+*.so.dbg
+*.gz
+*.bz2
+*.lzma
+*.xz
+*.lzo
+*.patch
+*~
+*.orig
+Makefile
+Makefile.in
+config.*
+stamp-h1
 
-# build targets
 #
-monit
-libmonit/libmonit.la
-libmonit/test/CommandTest
-libmonit/test/DirTest
-libmonit/test/ExceptionTest
-libmonit/test/FileTest
-libmonit/test/InputStreamTest
-libmonit/test/ListTest
-libmonit/test/NetTest
-libmonit/test/OutputStreamTest
-libmonit/test/StrTest
-libmonit/test/StringBufferTest
-libmonit/test/SystemTest
-libmonit/test/TimeTest
+# Top-level generic files
+#
+/aclocal.m4
+/monit
+/tags
+/TAGS
+/configure
+/build-tools/
+/autom4te.cache/
+
+# cscope files
+cscope.*
+ncscope.*
+
+# gnu global files
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+
+#
+# git files we don't want to ignore
+#
+!.gitignore
+
+#
+# build tools we don't want to ignore
+#
+!/build-tools/version-gen.h
+!/contrib/monit-OSX-startup.tar.gz
+!/contrib/waitdate.patch
+
+#
+# yacc and lex generated files
+#
+l.c
+p.[ch]
+p.output
+
+#
+# Debian files to ignore
+#
+debian/autoreconf.*
+debian/files
+debian/monit-gpl*.substvars
+debian/monit-gpl*debhelper*
+debian/monit-gpl*/
