@@ -8,7 +8,7 @@ AC_PREREQ([2.69])
 # Init autoconf and automake
 
 AC_INIT([jdoo],
-	m4_esyscmd([build-tools/version-gen.sh .tarball-version]),
+	m4_esyscmd([build-tools/version-gen.sh .tarball-version  "s/\(.?*\)-\(.?*\)-.*/\1.\2/"]),
 	[how-to-report-bugs],
 	[jdoo],
 	[http://example.com/project/website/])

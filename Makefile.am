@@ -114,7 +114,21 @@ if USE_STRFTIME
 endif
 
 # Additional things to distribute
-EXTRA_DIST	= $(top_srcdir)/.version
+EXTRA_DIST	= $(top_srcdir)/.version \
+			  $(top_srcdir)/debian \
+			  $(top_srcdir)/device/*.[ch] \
+			  $(top_srcdir)/process/*.[ch] \
+			  $(top_srcdir)/contrib \
+			  $(top_srcdir)/doc \
+			  $(top_srcdir)/build-tools/version-gen.sh \
+			  $(top_srcdir)/protocols/NOTES \
+			  $(top_srcdir)/README* \
+			  $(top_srcdir)/CHANGES.txt \
+			  $(top_srcdir)/monit.spec \
+			  $(top_srcdir)/PLATFORMS \
+			  $(top_srcdir)/LICENSE \
+			  $(top_srcdir)/jdoorc \
+			  $(top_srcdir)/jdoo.1
 BUILT_SOURCES	= $(top_srcdir)/.version \
 			$(GRAMMAR_H)
 
