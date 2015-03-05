@@ -719,7 +719,10 @@ static void include_file(char *pattern) {
 
   if ( glob(pattern,  GLOB_MARK, NULL, &globbuf) != 0 ) {
 
+    /* silently ignore the fact that no files to include were found
+     * for a specific include glob.
     yywarning("include files not found");
+    */
     
     return;
 
