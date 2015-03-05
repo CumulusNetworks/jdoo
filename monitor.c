@@ -732,9 +732,15 @@ static void help() {
  * Print version information
  */
 static void version() {
-  printf("This is Monit version " VERSION "\n");
-  printf("Copyright (C) 2000-2011 Tildeslash Ltd.");
+  printf(PACKAGE_STRING "\n");
+  printf(PACKAGE_NAME " is a fork of Monit 5.2.5\n");
+  printf("Monit Copyright (C) 2000-2011 Tildeslash Ltd.");
   printf(" All Rights Reserved.\n");
+  printf(PACKAGE_NAME " Copyright (C) 2015 Cumulus Networks\n"
+         " This program comes with ABSOLUTELY NO WARRANTY;\n"
+         " This is free software, distributed under version 3 of the GPL;\n"
+         " see http://www.gnu.org/licenses/gpl.txt for details.\n");
+
 }
 
 

@@ -159,7 +159,7 @@ if test -z "$tarball_version_file"; then
 	exit 1
 fi
 
-#export GIT_DIR=$(dirname $tarball_version_file)/.git
+export GIT_DIR=$(dirname $tarball_version_file)/.git
 tag_sed_script="${tag_sed_script:-s/\(.?*\)-\(.*\)-\(.*\)/\1.\2_\3/}"
 nl='
 '
@@ -177,7 +177,7 @@ if test -f "$tarball_version_file"; then
 fi
 
 # read git version, if the repo has uncommitted changes append
-# '-dirty' to version.
+# '_dirty' to version.
 if test -z "$v"; then
 	v=$(git describe --match "$prefix*" --abbrev=$abbrev \
 		--dirty="_dirty" 2>/dev/null) || v=UNKNOWN
