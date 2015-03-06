@@ -82,3 +82,4 @@ debian/monit-gpl*debhelper*
 debian/jdoo*debhelper*
 debian/monit-gpl*/
 debian/jdoo*/
+!debian/jdoorc.d

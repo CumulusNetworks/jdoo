@@ -3,7 +3,7 @@
    group sshd
    start program = "/etc/init.d/ssh start"
    stop  program = "/etc/init.d/ssh stop"
-   if failed host localhost port 22 with proto ssh then restart
+   if does not exist for 1 cycle then restart
    if 5 restarts with 5 cycles then timeout
    depend on sshd_bin
    depend on sftp_bin
