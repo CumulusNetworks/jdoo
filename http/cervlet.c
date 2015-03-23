@@ -2298,7 +2298,7 @@ static void print_status(HttpRequest req, HttpResponse res, int version)
   else
   {
     char *uptime = Util_getUptime(Util_getProcessUptime(Run.pidfile), " ");
-    out_print(res, "The Monit daemon %s uptime: %s\n\n", VERSION, uptime);
+    out_print(res, "The " PACKAGE_NAME " daemon " VERSION " uptime: %s\n\n", uptime);
     FREE(uptime);
 
     for(s= servicelist_conf; s; s= s->next_conf)

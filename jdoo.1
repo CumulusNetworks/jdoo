@@ -123,46 +123,46 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "MONIT 1"
-.TH MONIT 1 "www.mmonit.com" "March 28. 2011" "User Commands"
+.IX Title "JDOO 1"
+.TH JDOO 1 "www.cumulusnetworks.com" "March 28. 2015" "User Commands"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
 .SH "NAME"
-Monit \- utility for monitoring services on a Unix system
+Jdoo \- utility for monitoring services on a Unix system
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBmonit\fR [options] {arguments}
+\&\fBjdoo\fR [options] {arguments}
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\fBmonit\fR is a utility for managing and monitoring processes,
-files, directories and filesystems on a Unix system. Monit
+\&\fBjdoo\fR is a utility for managing and monitoring processes,
+files, directories and filesystems on a Unix system. Jdoo
 conducts automatic maintenance and repair and can execute
-meaningful causal actions in error situations. E.g. Monit can
+meaningful causal actions in error situations. E.g. Jdoo can
 start a process if it does not run, restart a process if it does
 not respond and stop a process if it uses too much resources. You
-may use Monit to monitor files, directories and filesystems for
+may use Jdoo to monitor files, directories and filesystems for
 changes, such as timestamps changes, checksum changes or size
 changes.
 .PP
-Monit is controlled via an easy to configure control file based
-on a free-format, token-oriented syntax. Monit logs to syslog or
+Jdoo is controlled via an easy to configure control file based
+on a free-format, token-oriented syntax. Jdoo logs to syslog or
 to its own log file and notifies you about error conditions via
-customizable alert messages. Monit can perform various \s-1TCP/IP\s0
+customizable alert messages. Jdoo can perform various \s-1TCP/IP\s0
 network checks, protocol checks and can utilize \s-1SSL\s0 for such
-checks. Monit provides a http(s) interface and you may use a
-browser to access the Monit program.
+checks. Jdoo provides a http(s) interface and you may use a
+browser to access the Jdoo program.
 .SH "GENERAL OPERATION"
 .IX Header "GENERAL OPERATION"
-The behavior of Monit is controlled by command-line options
-\&\fIand\fR a run control file, \fI~/.monitrc\fR, the syntax of which we
+The behavior of Jdoo is controlled by command-line options
+\&\fIand\fR a run control file, \fI~/.jdoorc\fR, the syntax of which we
 describe in a later section. Command-line options override
-\&\fI.monitrc\fR declarations.
+\&\fI.jdoorc\fR declarations.
 .PP
-The following options are recognized by monit. However, it is
+The following options are recognized by Jdoo. However, it is
 recommended that you set options (when applicable) directly in
-the \fI.monitrc\fR control file.
+the \fI.jdoorc\fR control file.
 .SS "General Options and Arguments"
 .IX Subsection "General Options and Arguments"
 \&\fB\-c\fR \fIfile\fR
@@ -195,7 +195,7 @@ the \fI.monitrc\fR control file.
 .PP
 \&\fB\-H\fR \fI[filename]\fR
    Print \s-1MD5\s0 and \s-1SHA1\s0 hashes of the file or of stdin if the 
-   filename is omitted; Monit will exit afterwards
+   filename is omitted; Jdoo will exit afterwards
 .PP
 \&\fB\-V\fR
    Print version number and patch level
@@ -203,8 +203,8 @@ the \fI.monitrc\fR control file.
 \&\fB\-h\fR
    Print a help text
 .PP
-In addition to the options above, Monit can be started with one
-of the following action arguments; Monit will then execute the
+In addition to the options above, Jdoo can be started with one
+of the following action arguments; Jdoo will then execute the
 action and exit without transforming itself to a daemon.
 .PP
 \&\fBstart all\fR
@@ -228,7 +228,7 @@ action and exit without transforming itself to a daemon.
 .PP
 \&\fBstop name\fR
    Stop the named service and disable its monitoring. 
-   The name is a service entry name from the monitrc 
+   The name is a service entry name from the jdoorc
    file.
 .PP
 \&\fBrestart all\fR
@@ -238,7 +238,7 @@ action and exit without transforming itself to a daemon.
 .PP
 \&\fBrestart name\fR
    Restart the named service. The name is a service entry 
-   name from the monitrc file.
+   name from the jdoorc file.
 .PP
 \&\fBmonitor all\fR     
    Enable monitoring of all services listed in the
@@ -248,7 +248,7 @@ action and exit without transforming itself to a daemon.
 .PP
 \&\fBmonitor name\fR
    Enable monitoring of the named service.  The name is
-   a service entry name from the monitrc file. Monit will
+   a service entry name from the jdoorc file. Jdoo will
    also enable monitoring of all services this service 
    depends on.
 .PP
@@ -260,7 +260,7 @@ action and exit without transforming itself to a daemon.
 .PP
 \&\fBunmonitor name\fR
    Disable monitoring of the named service. The name is
-   a service entry name from the monitrc file. Monit 
+   a service entry name from the jdoorc file. Jdoo
    will also disable monitoring of all services that 
    depends on this service.
 .PP
@@ -271,15 +271,15 @@ action and exit without transforming itself to a daemon.
     Print short status information for each service.
 .PP
 \&\fBreload\fR
-    Reinitialize a running Monit daemon, the daemon will
+    Reinitialize a running Jdoo daemon, the daemon will
     reread its configuration, close and reopen log files.
 .PP
 \&\fBquit\fR
-    Kill a Monit daemon process
+    Kill a jdoo daemon process
 .PP
 \&\fBvalidate\fR
    Check all services listed in the control file. This 
-   action is also the default behavior when Monit runs 
+   action is also the default behavior when Jdoo runs
    in daemon mode.
 .PP
 \&\fBprocmatch regex\fR
@@ -289,26 +289,26 @@ action and exit without transforming itself to a daemon.
    the pattern.
 .SH "WHAT TO MONITOR"
 .IX Header "WHAT TO MONITOR"
-You may use Monit to monitor daemon processes or similar programs
-running on localhost. Monit is particular useful for monitoring
+You may use Jdoo to monitor daemon processes or similar programs
+running on localhost. Jdoo is particular useful for monitoring
 daemon processes, such as those started at system boot time from
 /etc/init.d/. For instance sendmail, sshd, apache and mysql. In
-difference to many monitoring systems, Monit can act if an error
-situation should occur, e.g.; if sendmail is not running, monit
+difference to many monitoring systems, Jdoo can act if an error
+situation should occur, e.g.; if sendmail is not running, Jdoo
 can start sendmail or if apache is using too much resources (e.g.
-if a DoS attack is in progress) Monit can stop or restart apache
-and send you an alert message. Monit can also monitor process
+if a DoS attack is in progress) Jdoo can stop or restart apache
+and send you an alert message. Jdoo can also monitor process
 characteristics, such as; if a process has become a zombie and
 how much memory or cpu cycles a process is using.
 .PP
-You may also use Monit to monitor files, directories and
-filesystems on localhost. Monit can monitor these items for
+You may also use Jdoo to monitor files, directories and
+filesystems on localhost. Jdoo can monitor these items for
 changes, such as timestamps changes, checksum changes or size
 changes. This is also useful for security reasons \- you can
 monitor the md5 checksum of files that should not change.
 .PP
-You may even use Monit to monitor remote hosts. First and
-foremost Monit is a utility for monitoring and mending services
+You may even use Jdoo to monitor remote hosts. First and
+foremost Jdoo is a utility for monitoring and mending services
 on localhost, but if a service depends on a remote service, e.g.
 a database server or an application server, it might by useful to
 be able to test a remote host as well.
@@ -317,12 +317,12 @@ You may monitor the general system-wide resources such as cpu
 usage, memory and load average.
 .SH "HOW TO MONITOR"
 .IX Header "HOW TO MONITOR"
-Monit is configured and controlled via a control file called
-\&\fBmonitrc\fR. The default location for this file is ~/.monitrc. If
-this file does not exist, Monit will try /etc/monit/monitrc, then
-\&\f(CW@sysconfdir\fR@/monitrc and finally ./monitrc.
+Jdoo is configured and controlled via a control file called
+\&\fBjdoorc\fR. The default location for this file is ~/.jdoorc. If
+this file does not exist, Jdoo will try /etc/jdoo/jdoorc, then
+\&\f(CW@sysconfdir\fR@/jdoorc and finally ./jdoorc.
 .PP
-A Monit control file consists of a series of service entries and
+A Jdoo control file consists of a series of service entries and
 global option statements in a free-format, token-oriented syntax.
 Comments begin with a # and extend through the end of the line.
 There are three kinds of tokens in the control file: grammar
@@ -343,11 +343,11 @@ a glob string.
 A service entry starts with the keyword \fIcheck\fR followed by the
 service type.
 .PP
-A Monit control file example:
+A Jdoo control file example:
 .PP
 .Vb 3
 \& #
-\& # Monit control file
+\& # jdoo control file
 \& # 
 \&
 \& set daemon 120 # Poll at 2\-minute intervals
@@ -355,7 +355,7 @@ A Monit control file example:
 \& set alert foo@bar.baz
 \& set httpd port 2812 and use address localhost
 \&     allow localhost   # Allow localhost to connect
-\&     allow admin:Monit # Allow Basic Auth
+\&     allow admin:jdoo # Allow Basic Auth
 \&
 \& check system myhost.mydomain.tld
 \&    if loadavg (1min) > 4 then alert
@@ -389,8 +389,8 @@ A Monit control file example:
 \&     # Run /watch/dog in the case that the binary was changed
 \&     if failed checksum then exec "/watch/dog"
 \&
-\& include /etc/monit/mysql.monitrc
-\& include /etc/monit/mail/*.monitrc
+\& include /etc/jdoo/mysql.jdoorc
+\& include /etc/jdoo/mail/*.jdoorc
 .Ve
 .PP
 The above example illustrates a service entry for monitoring the
@@ -399,38 +399,38 @@ of the various statements will be explained in the following
 sections.
 .SH "LOGGING"
 .IX Header "LOGGING"
-Monit will log status and error messages to a log file. Use the
-\&\fIset logfile\fR statement in the monitrc control file. To setup
-Monit to log to its own logfile, use e.g. \fIset logfile
-/var/log/monit.log\fR. If \fBsyslog\fR is given as a value for the
+Jdoo will log status and error messages to a log file. Use the
+\&\fIset logfile\fR statement in the jdoorc control file. To setup
+Jdoo to log to its own logfile, use e.g. \fIset logfile
+/var/log/jdoo.log\fR. If \fBsyslog\fR is given as a value for the
 \&\fI\-l\fR command-line switch (or the keyword \fIset logfile syslog\fR
-is found in the control file) Monit will use the \fBsyslog\fR system
+is found in the control file) Jdoo will use the \fBsyslog\fR system
 daemon to log messages with a priority assigned to each message
 based on the context. To turn off logging, simply do not set the
 logfile in the control file (and of course, do not use the \-l
 switch)
 .SH "DAEMON MODE"
 .IX Header "DAEMON MODE"
-The \fI\-d interval\fR command-line switch runs Monit in daemon
+The \fI\-d interval\fR command-line switch runs Jdoo in daemon
 mode. You must specify a numeric argument which is a polling
 interval in seconds.
 .PP
-In daemon mode, Monit detaches from the console, puts itself in
+In daemon mode, Jdoo detaches from the console, puts itself in
 the background and runs continuously, monitoring each specified
 service and then goes to sleep for the given poll interval.
 .PP
 Simply invoking
 .PP
 .Vb 1
-\&              Monit \-d 300
+\&              jdoo \-d 300
 .Ve
 .PP
-will poll all services described in your \fI~/.monitrc\fR file every
+will poll all services described in your \fI~/.jdoorc\fR file every
 5 minutes.
 .PP
 It is strongly recommended to set the poll interval in your
-~/.monitrc file instead, by using \fIset daemon \f(BIn\fI\fR, where \fBn\fR
-is an integer number of seconds. If you do this, Monit will
+~/.jdoorc file instead, by using \fIset daemon \f(BIn\fI\fR, where \fBn\fR
+is an integer number of seconds. If you do this, Jdoo will
 always start in daemon mode (as long as no action arguments are
 given). Example (check every 5 minutes):
 .PP
@@ -438,7 +438,7 @@ given). Example (check every 5 minutes):
 \&  set daemon 300
 .Ve
 .PP
-If you need Monit to wait some time at startup before it start
+If you need Jdoo to wait some time at startup before it start
 checking services you can use the delay statement. Example (check
 every 5 minutes, wait 1 minute on start before first monitoring
 cycle):
@@ -447,11 +447,11 @@ cycle):
 \&  set daemon 300 with start delay 60
 .Ve
 .PP
-Monit makes a per-instance lock-file in daemon mode. If you need
-more Monit instances, you will need more configuration files,
+Jdoo makes a per-instance lock-file in daemon mode. If you need
+more Jdoo instances, you will need more configuration files,
 each pointing to its own lock-file.
 .PP
-Calling \fImonit\fR with a Monit daemon running in the background
+Calling \fIjdoo\fR with a Jdoo daemon running in the background
 sends a wake-up signal to the daemon, forcing it to check
 services immediately.
 .PP
@@ -459,27 +459,27 @@ The \fIquit\fR argument will kill a running daemon process instead
 of waking it up.
 .SH "INIT SUPPORT"
 .IX Header "INIT SUPPORT"
-Monit can run and be controlled from \fIinit\fR. If Monit should
-crash, \fIinit\fR will re-spawn a new Monit process. Using init to
-start Monit is probably the best way to run Monit if you want to
-be certain that you always have a running Monit daemon on your
+Jdoo can run and be controlled from \fIinit\fR. If Jdoo should
+crash, \fIinit\fR will re-spawn a new Jdoo process. Using init to
+start Jdoo is probably the best way to run Jdoo if you want to
+be certain that you always have a running Jdoo daemon on your
 system. (It's obvious, but never the less worth to stress; Make
 sure that the control file does not have any syntax errors before
-you start Monit from init. Also, make sure that if you run monit
-from init, that you do not start Monit from a startup scripts as
+you start Jdoo from init. Also, make sure that if you run Jdoo
+from init, that you do not start Jdoo from a startup scripts as
 well).
 .PP
-To setup Monit to run from init, you can either use the 'set
-init' statement in monit's control file or use the \-I option from
+To setup Jdoo to run from init, you can either use the 'set
+init' statement in Jdoo's control file or use the \-I option from
 the command line and here is what you must add to /etc/inittab:
 .PP
 .Vb 2
-\&  # Run Monit in standard run\-levels
-\&  mo:2345:respawn:/usr/sbin/monit -Ic /etc/monitrc
+\&  # Run Jdoo in standard run\-levels
+\&  mo:2345:respawn:/usr/sbin/jdoo -Ic /etc/jdoorc
 .Ve
 .PP
 After you have modified init's configuration file, you can run
-the following command to re-examine /etc/inittab and start monit:
+the following command to re-examine /etc/inittab and start Jdoo:
 .PP
 .Vb 1
 \&  telinit q
@@ -491,17 +491,17 @@ For systems without telinit:
 \&  kill \-1 1
 .Ve
 .PP
-If Monit is used to monitor services that are also started at
+If Jdoo is used to monitor services that are also started at
 boot time (e.g. services started via \s-1SYSV\s0 init rc scripts or via
 inittab) then, in some cases, a race condition could occur. That
-is; if a service is slow to start, Monit can assume that the
+is; if a service is slow to start, Jdoo can assume that the
 service is not running and possibly try to start it and raise an
 alert, while, in fact the service is already about to start or
 already in its startup sequence. Please see the \s-1FAQ\s0 for solutions
 to this problem.
 .SH "INCLUDE FILES"
 .IX Header "INCLUDE FILES"
-The Monit control file, \fImonitrc\fR, can include additional
+The Jdoo control file, \fIjdoorc\fR, can include additional
 configuration files. This feature helps to maintain a certain
 structure or to place repeating settings into one file. Include
 statements can be placed at virtually any spot. The syntax is the
@@ -518,7 +518,7 @@ the globstring need to be embedded into quotes (') or double
 quotes ("). For example,
 .PP
 .Vb 1
-\& INCLUDE "/etc/monit/Monit configuration files/printer.*.monitrc"
+\& INCLUDE "/etc/jdoo/jdoo configuration files/printer.*.jdoorc"
 .Ve
 .PP
 loads any file matching the single globstring.  If the globstring
@@ -532,7 +532,7 @@ in a non sorted manner.  If you need to rely on a certain order,
 you might need to use single \fIinclude\fR statements.
 .SH "GROUP SUPPORT"
 .IX Header "GROUP SUPPORT"
-Service entries in the control file, \fImonitrc\fR, can be grouped
+Service entries in the control file, \fIjdoorc\fR, can be grouped
 together by the \fIgroup\fR statement. The syntax is simply (keyword
 in capital):
 .PP
@@ -541,26 +541,26 @@ in capital):
 .Ve
 .PP
 With this statement it is possible to group similar service
-entries together and manage them as a whole. Monit provides
+entries together and manage them as a whole. Jdoo provides
 functions to start, stop, restart, monitor and unmonitor a
 group of services, like so:
 .PP
 To start a group of services from the console:
 .PP
 .Vb 1
-\&  Monit \-g <groupname> start
+\&  jdoo \-g <groupname> start
 .Ve
 .PP
 To stop a group of services:
 .PP
 .Vb 1
-\&  Monit \-g <groupname> stop
+\&  jdoo \-g <groupname> stop
 .Ve
 .PP
 To restart a group of services:
 .PP
 .Vb 1
-\&  Monit \-g <groupname> restart
+\&  jdoo \-g <groupname> restart
 .Ve
 .PP
 Note:
@@ -576,69 +576,69 @@ multiple times:
 .Ve
 .SH "MONITORING MODE"
 .IX Header "MONITORING MODE"
-Monit supports three monitoring modes per service: \fIactive\fR,
+Jdoo supports three monitoring modes per service: \fIactive\fR,
 \&\fIpassive\fR and \fImanual\fR. See also the example section below for
 usage of the mode statement.
 .PP
-In \fIactive\fR mode, Monit will monitor a service and in case of
-problems Monit will act and raise alerts, start, stop or restart
+In \fIactive\fR mode, Jdoo will monitor a service and in case of
+problems Jdoo will act and raise alerts, start, stop or restart
 the service. Active mode is the default mode.
 .PP
-In \fIpassive\fR mode, Monit will passively monitor a service and
+In \fIpassive\fR mode, Jdoo will passively jdooor a service and
 specifically \fBnot\fR try to fix a problem, but it will still raise
 alerts in case of a problem.
 .PP
 For use in clustered environments there is also a \fImanual\fR
-mode. In this mode, Monit will enter \fIactive\fR mode \fBonly\fR if a
-service was brought under monit's control, for example by
+mode. In this mode, Jdoo will enter \fIactive\fR mode \fBonly\fR if a
+service was brought under Jdoo's control, for example by
 executing the following command in the console:
 .PP
 .Vb 2
-\&  Monit start sybase 
-\&  (Monit will call sybase\*(Aqs start method and enable monitoring)
+\&  jdoo start sybase
+\&  (jdoo will call sybase\*(Aqs start method and enable monitoring)
 .Ve
 .PP
-If a service was not started by Monit or was stopped or disabled
+If a service was not started by Jdoo or was stopped or disabled
 for example by:
 .PP
 .Vb 2
-\&  Monit stop sybase 
-\&  (Monit will call sybase\*(Aqs stop method and disable monitoring)
+\&  jdoo stop sybase
+\&  (jdoo will call sybase\*(Aqs stop method and disable monitoring)
 .Ve
 .PP
-Monit will then not monitor the service. This allows for having
-services configured in monitrc and start it with Monit only if it
+Jdoo will then not monitor the service. This allows for having
+services configured in jdoorc and start it with Jdoo only if it
 should run. This feature can be used to build a simple failsafe
 cluster.
 .PP
-A service's monitoring state is persistent across Monit restart.
+A service's monitoring state is persistent across Jdoo restart.
 This means that you probably would like to make certain that
 services in manual mode are stopped or in unmonitored mode at
 server shutdown. Do for instance the following in a server
 shutdown script:
 .PP
 .Vb 1
-\&  Monit stop sybase
+\&  jdoo stop sybase
 .Ve
 .PP
 or
 .PP
 .Vb 1
-\&  Monit unmonitor sybase
+\&  jdoo unmonitor sybase
 .Ve
 .PP
-If you use Monit in a HA-cluster you should place the state file
+If you use Jdoo in a HA-cluster you should place the state file
 in a temporary filesystem so if the machine should crash and the
 stand-by machine take over services, any manual monitoring mode
 services that were started on the crashed machine won't be
 started on reboot. Use for example:
 .PP
 .Vb 1
-\&  set statefile /tmp/monit.state
+\&  set statefile /tmp/jdoo.state
 .Ve
 .SH "ALERT MESSAGES"
 .IX Header "ALERT MESSAGES"
-Monit will raise an email alert in the following situations:
+Jdoo will raise an email alert in the following situations:
 .PP
 .Vb 10
 \& o A service timed out
@@ -658,11 +658,11 @@ Monit will raise an email alert in the following situations:
 \& o An action is done per administrator\*(Aqs request
 .Ve
 .PP
-Monit will send an alert each time a monitored object changed.
+Jdoo will send an alert each time a monitored object changed.
 This involves:
 .PP
 .Vb 8
-\& o Monit started, stopped or reloaded
+\& o jdoo started, stopped or reloaded
 \& o A file checksum changed
 \& o A file size changed
 \& o A file content match
@@ -672,9 +672,9 @@ This involves:
 \& o A process PPID changed
 .Ve
 .PP
-You use the alert statement to notify Monit that you want alert
+You use the alert statement to notify Jdoo that you want alert
 messages sent to an email address. If you do not specify an alert
-statement, Monit will not send alert messages.
+statement, Jdoo will not send alert messages.
 .PP
 There are two forms of alert statement:
 .PP
@@ -689,7 +689,7 @@ addresses.
 .PP
 Recipients in the global and in the local lists are alerted when
 a service failed, recovered or changed. If the same email address
-is in the global and in the local list, Monit will only send one
+is in the global and in the local list, Jdoo will only send one
 alert. Local (per service) defined alert email addresses override
 global addresses in case of a conflict. Finally, you may choose
 to only use a global alert list (recommended), a local per
@@ -699,14 +699,14 @@ It is also possible to disable the global alerts locally for
 particular service(s) and recipients.
 .SS "Setting a global alert statement"
 .IX Subsection "Setting a global alert statement"
-If a change occurred on a monitored services, Monit will send an
+If a change occurred on a monitored services, Jdoo will send an
 alert to all recipients in the global list who has registered
 interest for the event type. Here is the syntax for the global
 alert statement:
 .IP "\s-1SET\s0 \s-1ALERT\s0 mail-address [ [\s-1NOT\s0] {events}] [\s-1MAIL\-FORMAT\s0 {mail\-format}] [\s-1REMINDER\s0 number]" 4
 .IX Item "SET ALERT mail-address [ [NOT] {events}] [MAIL-FORMAT {mail-format}] [REMINDER number]"
 .PP
-Simply using the following in the global section of monitrc:
+Simply using the following in the global section of jdoorc:
 .PP
 .Vb 1
 \& set alert foo@bar
@@ -747,7 +747,7 @@ block:
 \&   ...
 .Ve
 .PP
-(\fIonly\fR and \fIon\fR are noise keywords, ignored by Monit. As a
+(\fIonly\fR and \fIon\fR are noise keywords, ignored by Jdoo. As a
 side note; Noise keywords are used in the control file grammar to
 make an entry resemble English and thus make it easier to read
 (or, so goes the philosophy). The full set of available noise
@@ -755,7 +755,7 @@ keywords are listed below in the Control File section).
 .PP
 You can also setup to send alerts for all events except some by
 putting the word \fInot\fR ahead of the list. For example, if you
-want to receive alerts for all events except Monit instance
+want to receive alerts for all events except Jdoo instance
 events, you can write (note that the noise words 'but' and 'on'
 are optional):
 .PP
@@ -786,9 +786,9 @@ instead of:
 \&                      timestamp }
 .Ve
 .PP
-This will send alerts for all events to foo@bar, except Monit
+This will send alerts for all events to foo@bar, except Jdoo
 instance events. An instance event \s-1BTW\s0, is an event fired
-whenever the Monit program start or stop.
+whenever the Jdoo program start or stop.
 .PP
 Event filtering can be used to send an email to different email
 addresses depending on the events that occurred. For instance:
@@ -821,7 +821,7 @@ receive alerts for some minor subset of services:
 .PP
 For example, if you stick the noalert statement in a 'check
 system' entry, you won't receive system related alerts (such as
-Monit instance started/stopped/reloaded alert, system overloaded
+Jdoo instance started/stopped/reloaded alert, system overloaded
 alert, etc.) but will receive alerts for all other monitored
 services.
 .PP
@@ -841,24 +841,24 @@ definition of the same recipient overrides the global setting
 .Ve
 .SS "Alert message layout"
 .IX Subsection "Alert message layout"
-Monit provides a default mail message layout that is short and to
+Jdoo provides a default mail message layout that is short and to
 the point. Here's an example of a standard alert mail sent by
-monit:
+Jdoo:
 .PP
 .Vb 4
-\& From: monit@tildeslash.com
-\& Subject: Monit alert \-\- Does not exist apache 
-\& To: hauk@tildeslash.com
+\& From: jdoo@example.com
+\& Subject: jdoo alert \-\- Does not exist apache
+\& To: someuser@example.net
 \& Date: Thu, 04 Sep 2003 02:33:03 +0200
 \&
 \& Does not exist Service apache
 \&
 \&        Date:   Thu, 04 Sep 2003 02:33:03 +0200
 \&        Action: restart
-\&        Host:   www.tildeslash.com
+\&        Host:   www.example.com
 \&
 \& Your faithful employee,
-\& monit
+\& jdoo
 .Ve
 .PP
 If you want to, you can change the format of this message with
@@ -867,16 +867,16 @@ statement is as follows:
 .PP
 .Vb 8
 \& mail\-format {
-\&      from: monit@localhost
+\&      from: jdoo@localhost
 \&  reply\-to: support@domain.com
 \&   subject: $SERVICE $EVENT at $DATE
-\&   message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
+\&   message: jdoo $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 \&            Yours sincerely,
-\&            monit
+\&            jdoo
 \& }
 .Ve
 .PP
-Where the keyword \fIfrom:\fR is the email address Monit should
+Where the keyword \fIfrom:\fR is the email address Jdoo should
 pretend it is sending from. It does not have to be a real mail
 address, but it must be a proper formated mail address, on the
 form: name@domain. The \fIreply-to:\fR keyword can be used to set
@@ -889,7 +889,7 @@ character.
 .PP
 All of these format keywords are optional, but if used, you must
 provide at least one. Thus if you only want to change the from
-address Monit is using you can do:
+address Jdoo is using you can do:
 .PP
 .Vb 1
 \& set alert foo@bar with mail\-format { from: bofh@bar.baz }
@@ -905,34 +905,34 @@ expanded into the text with these values:
 \& A string describing the event that occurred. The values are
 \& fixed and are:
 \&
-\& Event:    | Failure state:           | Success state:              
+\& Event:    | Failure state:           | Success state:
 \& \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
-\& ACTION    | "Action done"            | "Action done"               
-\& CHECKSUM  | "Checksum failed"        | "Checksum succeeded"        
-\& CONNECTION| "Connection failed"      | "Connection succeeded"      
+\& ACTION    | "Action done"            | "Action done"
+\& CHECKSUM  | "Checksum failed"        | "Checksum succeeded"
+\& CONNECTION| "Connection failed"      | "Connection succeeded"
 \& CONTENT   | "Content failed",        | "Content succeeded"
-\& DATA      | "Data access error"      | "Data access succeeded"     
-\& EXEC      | "Execution failed"       | "Execution succeeded"       
+\& DATA      | "Data access error"      | "Data access succeeded"
+\& EXEC      | "Execution failed"       | "Execution succeeded"
 \& FSFLAG    | "Filesystem flags failed"| "Filesystem flags succeeded"
-\& GID       | "GID failed"             | "GID succeeded"             
-\& ICMP      | "ICMP failed"            | "ICMP succeeded"            
-\& INSTANCE  | "Monit instance changed" | "Monit instance changed not"
-\& INVALID   | "Invalid type"           | "Type succeeded"            
-\& NONEXIST  | "Does not exist"         | "Exists"                    
-\& PERMISSION| "Permission failed"      | "Permission succeeded"      
+\& GID       | "GID failed"             | "GID succeeded"
+\& ICMP      | "ICMP failed"            | "ICMP succeeded"
+\& INSTANCE  | "jdoo instance changed"  | "jdoo instance changed not"
+\& INVALID   | "Invalid type"           | "Type succeeded"
+\& NONEXIST  | "Does not exist"         | "Exists"
+\& PERMISSION| "Permission failed"      | "Permission succeeded"
 \& PID       | "PID failed"             | "PID succeeded"
 \& PPID      | "PPID failed"            | "PPID succeeded"
-\& RESOURCE  | "Resource limit matched" | "Resource limit succeeded"  
-\& SIZE      | "Size failed"            | "Size succeeded"            
-\& TIMEOUT   | "Timeout"                | "Timeout recovery"          
-\& TIMESTAMP | "Timestamp failed"       | "Timestamp succeeded"       
+\& RESOURCE  | "Resource limit matched" | "Resource limit succeeded"
+\& SIZE      | "Size failed"            | "Size succeeded"
+\& TIMEOUT   | "Timeout"                | "Timeout recovery"
+\& TIMESTAMP | "Timestamp failed"       | "Timestamp succeeded"
 \& UID       | "UID failed"             | "UID succeeded"
 .Ve
 .IP "\(bu" 4
 \&\fI\f(CI$SERVICE\fI\fR
 .Sp
 .Vb 1
-\& The service entry name in monitrc
+\& The service entry name in jdoorc
 .Ve
 .IP "\(bu" 4
 \&\fI\f(CI$DATE\fI\fR
@@ -944,7 +944,7 @@ expanded into the text with these values:
 \&\fI\f(CI$HOST\fI\fR
 .Sp
 .Vb 1
-\& The name of the host Monit is running on
+\& The name of the host Jdoo is running on
 .Ve
 .IP "\(bu" 4
 \&\fI\f(CI$ACTION\fI\fR
@@ -978,14 +978,14 @@ global set-statement (keywords are in capital):
 Format set with this statement will apply to every alert
 statement that does \fInot\fR have its own specified mail-format.
 This statement is most useful for setting a default from address
-for messages sent by monit, like so:
+for messages sent by Jdoo, like so:
 .PP
 .Vb 1
-\& set mail\-format { from: monit@foo.bar.no }
+\& set mail\-format { from: jdoo@foo.bar.no }
 .Ve
 .SS "Setting an error reminder"
 .IX Subsection "Setting an error reminder"
-Monit by default sends just one error notification if a service
+Jdoo by default sends just one error notification if a service
 failed and another when it recovered. If you want to be notified
 more then once if a service remains in a failed state, you can
 use the reminder option to the alert statement (keywords are in
@@ -1008,7 +1008,7 @@ use:
 .Ve
 .SS "Setting a mail server for alert messages"
 .IX Subsection "Setting a mail server for alert messages"
-The mail server Monit should use to send alert messages is
+The mail server Jdoo should use to send alert messages is
 defined with a global set statement (keywords are in capital and
 optional statements in [brackets]):
 .PP
@@ -1024,7 +1024,7 @@ The port statement allows to use \s-1SMTP\s0 servers other then those
 listening on port 25. If omitted, port 25 is used unless ssl or
 tls is used, in which case port 465 is used by default.
 .PP
-Monit support plain smtp authentication \- you can set a username
+Jdoo support plain smtp authentication \- you can set a username
 and a password using the \s-1USERNAME\s0 and \s-1PASSWORD\s0 options.
 .PP
 To use secure communication, use the \s-1SSLV2\s0, \s-1SSLV3\s0 or \s-1TLSV1\s0
@@ -1032,9 +1032,9 @@ options, you can also specify the server certificate checksum
 using \s-1CERTMD5\s0 option.
 .PP
 As you can see, it is possible to set several \s-1SMTP\s0 servers. If
-Monit cannot connect to the first server in the list it will try
-the second server and so on. Monit has a default 5 seconds
-connection timeout and if the \s-1SMTP\s0 server is slow, Monit could
+Jdoo cannot connect to the first server in the list it will try
+the second server and so on. Jdoo has a default 5 seconds
+connection timeout and if the \s-1SMTP\s0 server is slow, Jdoo could
 timeout when connecting or reading from the server. If this is
 the case, you can use the optional timeout statement to explicit
 set the timeout to a higher value if needed. Here is an example
@@ -1046,17 +1046,17 @@ for setting several mail servers:
 \&     with timeout 15 seconds
 .Ve
 .PP
-Here Monit will first try to connect to the server
-\&\*(L"mail.tildeslash.com\*(R", if this server is down Monit will try
+Here Jdoo will first try to connect to the server
+\&\*(L"mail.tildeslash.com\*(R", if this server is down Jdoo will try
 \&\*(L"mail.foo.bar\*(R" on port 10025 using the given credentials via tls
 and finally \*(L"localhost\*(R". We also set an explicit connect and read
-timeout; If Monit cannot connect to the first \s-1SMTP\s0 server in the
+timeout; If Jdoo cannot connect to the first \s-1SMTP\s0 server in the
 list within 15 seconds it will try the next server and so on. The
 \&\fIset mailserver ..\fR statement is optional and if not defined
-Monit will not send email alerts. Not setting a mail server is
-recommended only if alert notification is delegated to M/Monit.
+Jdoo will not send email alerts. Not setting a mail server is
+recommended only if alert notification is delegated to Jdoo.
 .PP
-Monit, by default, use the local host name in \s-1SMTP\s0 \s-1HELO/EHLO\s0 and
+Jdoo, by default, use the local host name in \s-1SMTP\s0 \s-1HELO/EHLO\s0 and
 in the Message-ID header. Some mail servers check this
 information against \s-1DNS\s0 for spam protection and can reject the
 email if the \s-1DNS\s0 and the hostname used in the transaction does
@@ -1070,19 +1070,19 @@ local host name by using the \s-1HOSTNAME\s0 option:
 .SS "Event queue"
 .IX Subsection "Event queue"
 If the \s-1MTA\s0 (mail server) for sending alerts is not available,
-Monit \fIcan\fR queue events on the local file-system until the \s-1MTA\s0
-recover. Monit will then post queued events in order with their
+Jdoo \fIcan\fR queue events on the local file-system until the \s-1MTA\s0
+recover. Jdoo will then post queued events in order with their
 original timestamp so the events are not lost. This feature is
-most useful if Monit is used together with M/Monit and when event
+most useful if Jdoo is used together with Jdoo and when event
 history is important.
 .PP
-The event queue is persistent across monit restarts and provided
+The event queue is persistent across Jdoo restarts and provided
 that the back-end filesystem is persistent too, across system
 restart as well.
 .PP
 By default, the queue is disabled and if the alert handler fails,
-Monit will simply drop the alert message. To enable the event
-queue, add the following statement to the Monit control file:
+Jdoo will simply drop the alert message. To enable the event
+queue, add the following statement to the Jdoo control file:
 .PP
 .Vb 1
 \& SET EVENTQUEUE BASEDIR <path> [SLOTS <number>]
@@ -1091,14 +1091,14 @@ queue, add the following statement to the Monit control file:
 The <path> is the path to the directory where events will be
 stored. Optionally if you want to limit the queue size, use the
 slots option to only store up to \fInumber\fR event messages. If the
-slots option is not used, Monit will store as many events as the
+slots option is not used, Jdoo will store as many events as the
 backend filesystem allows.
 .PP
 Example:
 .PP
 .Vb 3
 \&  set eventqueue
-\&      basedir /var/monit
+\&      basedir /var/jdoo
 \&      slots 5000
 .Ve
 .PP
@@ -1108,26 +1108,26 @@ message length). The file name is composed of the unix timestamp,
 underscore and the service name, for example:
 .PP
 .Vb 1
-\& /var/monit/1131269471_apache
+\& /var/jdoo/1131269471_apache
 .Ve
 .PP
-If you are running more then one Monit instance on the same
+If you are running more then one Jdoo instance on the same
 machine, you \fBmust\fR use separated event queue directories to
 avoid sending wrong alerts to the wrong addresses.
 .PP
 If you want to purge the queue by hand, that is, remove queued
-event-files, Monit should be stopped before the removal.
+event-files, Jdoo should be stopped before the removal.
 .SH "SERVICE TIMEOUT"
 .IX Header "SERVICE TIMEOUT"
-\&\fBmonit\fR provides a service timeout mechanism for situations
+\&\fBjdoo\fR provides a service timeout mechanism for situations
 where a service simply refuses to start or respond over a longer
 period.
 .PP
 The timeout mechanism is based on number if service restarts and
 number of poll-cycles. For example, if a service had \fIx\fR
-restarts within \fIy\fR poll-cycles (where \fIx\fR <= \fIy\fR) then Monit
+restarts within \fIy\fR poll-cycles (where \fIx\fR <= \fIy\fR) then jdoo
 will perform an action (for example unmonitor the service). If a
-timeout occurs Monit will send an alert message if you have
+timeout occurs Jdoo will send an alert message if you have
 register interest for this event.
 .PP
 The syntax for the timeout statement is as follows (keywords are
@@ -1135,15 +1135,15 @@ in capital):
 .IP "\s-1IF\s0 <number> \s-1RESTART\s0 <number> \s-1CYCLE\s0(S) \s-1THEN\s0 <action>" 4
 .IX Item "IF <number> RESTART <number> CYCLE(S) THEN <action>"
 .PP
-Here is an example where Monit will unmonitor the service if it
+Here is an example where Jdoo will unmonitor the service if it
 was restarted 2 times within 3 cycles:
 .PP
 .Vb 1
 \& if 2 restarts within 3 cycles then unmonitor
 .Ve
 .PP
-To have Monit check the service again after a monitoring was
-disabled, run 'monit monitor <servicename>' from the command
+To have Jdoo check the service again after a monitoring was
+disabled, run 'jdoo monitor <servicename>' from the command
 line.
 .PP
 Example for setting custom exec on timeout:
@@ -1159,7 +1159,7 @@ Example for stopping the service:
 .Ve
 .SH "SERVICE TESTS"
 .IX Header "SERVICE TESTS"
-Monit provides several tests you may utilize in a service entry
+Jdoo provides several tests you may utilize in a service entry
 to test a service. There are two classes of tests: variable and
 constant tests. That is, the condition we test is either constant
 e.g. a number or it can vary.
@@ -1172,7 +1172,7 @@ If the <\s-1TEST\s0> condition should evaluate to true, then the
 selected action is executed each cycle the test condition remains
 true. The comparison value is constant. Recovery action is
 evaluated only once (on a failed to succeeded state change only).
-The '\s-1ELSE\s0 \s-1IF\s0 \s-1SUCCEEDED\s0' part is optional, if omitted, Monit will
+The '\s-1ELSE\s0 \s-1IF\s0 \s-1SUCCEEDED\s0' part is optional, if omitted, Jdoo will
 send an alert on recovery. The alert is sent only once on each
 state change unless overridden by the 'reminder' alert option.
 .PP
@@ -1238,11 +1238,11 @@ and then the service's start method.
 start method \fIand\fR send an alert.
 .IP "\(bu" 4
 \&\fB\s-1STOP\s0\fR stops the service by calling the service's registered
-stop method \fIand\fR send an alert. If Monit stops a service it
-will not be checked by Monit anymore nor restarted again later.
+stop method \fIand\fR send an alert. If Jdoo stops a service it
+will not be checked by Jdoo anymore nor restarted again later.
 To reactivate monitoring of the service again you must explicitly
 enable monitoring from the web interface or from the console,
-e.g. 'monit monitor apache'.
+e.g. 'jdoo monitor apache'.
 .IP "\(bu" 4
 \&\fB\s-1EXEC\s0\fR can be used to execute an arbitrary program \fIand\fR send
 an alert. If you choose this action you must state the program to
@@ -1258,19 +1258,19 @@ switch to upon start. For instance:
 .Sp
 The uid and gid switch can be useful if the program to be started
 cannot change to a lesser privileged user and group. This is
-typically needed for Java Servers. Remember, if Monit is run by
-the superuser, then all programs executed by Monit will be
+typically needed for Java Servers. Remember, if Jdoo is run by
+the superuser, then all programs executed by Jdoo will be
 started with superuser privileges unless the uid and gid
 extension was used.
 .IP "\(bu" 4
 \&\fB\s-1UNMONITOR\s0\fR will disable monitoring of the service \fIand\fR send
-an alert. The service will not be checked by Monit anymore nor
+an alert. The service will not be checked by Jdoo anymore nor
 restarted again later.  To reactivate monitoring of the service
-you must explicitly enable monitoring from monit's web interface
+you must explicitly enable monitoring from Jdoo's web interface
 or from the console using the monitor argument.
 .SS "\s-1EXISTENCE\s0 \s-1TESTING\s0"
 .IX Subsection "EXISTENCE TESTING"
-Monit's default action when service doesn't exist (for example
+Jdoo's default action when service doesn't exist (for example
 process is not running, file doesn't exist, etc.) is to perform
 service restart action.
 .PP
@@ -1289,9 +1289,9 @@ Example:
 .Ve
 .SS "\s-1RESOURCE\s0 \s-1TESTING\s0"
 .IX Subsection "RESOURCE TESTING"
-Monit can examine how much system resources a service are using.
+Jdoo can examine how much system resources a service are using.
 This test can only be used within a system or process service
-entry in the Monit control file.
+entry in the Jdoo control file.
 .PP
 Depending on system or process characteristics, services can be
 stopped or restarted and alerts can be generated. Thus it is
@@ -1362,7 +1362,7 @@ expression above is true and it is lowered whenever it is false
 .PP
 The following is an example to check that the \s-1CPU\s0 usage of a
 service is not going beyond 50% during five poll cycles. If it
-does, Monit will restart the service:
+does, Jdoo will restart the service:
 .PP
 .Vb 1
 \& if cpu is greater than 50% for 5 cycles then restart
@@ -1372,7 +1372,7 @@ See also the example section below.
 .SS "\s-1FILE\s0 \s-1CHECKSUM\s0 \s-1TESTING\s0"
 .IX Subsection "FILE CHECKSUM TESTING"
 The checksum statement may only be used in a file service
-entry. If specified in the control file, Monit will compute
+entry. If specified in the control file, Jdoo will compute
 a md5 or sha1 checksum for a file.
 .PP
 The checksum test in constant form is used to verify that a
@@ -1385,24 +1385,24 @@ file changes. Syntax (keywords are in capital):
 .IP "\s-1IF\s0 \s-1CHANGED\s0 [MD5|SHA1] \s-1CHECKSUM\s0 [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action" 4
 .IX Item "IF CHANGED [MD5|SHA1] CHECKSUM [[<X>] <Y> CYCLES] THEN action"
 .PP
-The choice of \s-1MD5\s0 or \s-1SHA1\s0 is optional. \s-1MD5\s0 features a 256 bit 
-and \s-1SHA1\s0 a 320 bit checksum. If this option is omitted Monit 
+The choice of \s-1MD5\s0 or \s-1SHA1\s0 is optional. \s-1MD5\s0 features a 256 bit
+and \s-1SHA1\s0 a 320 bit checksum. If this option is omitted Jdoo
 tries to guess the method from the \s-1EXPECT\s0 string or uses \s-1MD5\s0 as
 default.
 .PP
 \&\fIexpect\fR is optional and if used it specifies a md5 or sha1
-string Monit should expect when testing a file's checksum. If
-\&\fIexpect\fR is used, Monit will not compute an initial checksum for
+string Jdoo should expect when testing a file's checksum. If
+\&\fIexpect\fR is used, jdoo will not compute an initial checksum for
 the file, but instead use the string you submit. For example:
 .PP
 .Vb 3
-\& if failed checksum and 
+\& if failed checksum and
 \&    expect the sum 8f7f419955cefa0b33a2ba316cba3659
 \& then alert
 .Ve
 .PP
-You can, for example, use the \s-1GNU\s0 utility \fI\fImd5sum\fI\|(1)\fR or 
-\&\fI\fIsha1sum\fI\|(1)\fR to create a checksum string for a file and 
+You can, for example, use the \s-1GNU\s0 utility \fI\fImd5sum\fI\|(1)\fR or
+\&\fI\fIsha1sum\fI\|(1)\fR to create a checksum string for a file and
 use this string in the expect-statement.
 .PP
 \&\fIaction\fR is a choice of \*(L"\s-1ALERT\s0\*(R", \*(L"\s-1RESTART\s0\*(R", \*(L"\s-1START\s0\*(R", \*(L"\s-1STOP\s0\*(R",
@@ -1416,7 +1416,7 @@ server:
 .PP
 .Vb 3
 \& check file httpd.conf path /usr/local/apache/conf/httpd.conf
-\&     if changed sha1 checksum 
+\&     if changed sha1 checksum
 \&        then exec "/usr/local/apache/bin/apachectl graceful"
 .Ve
 .PP
@@ -1426,7 +1426,7 @@ which should not change, then please use the constant form and
 also read the \s-1DEPENDENCY\s0 \s-1TREE\s0 section below to see a detailed
 example on how to do this properly.
 .PP
-Monit can also test the checksum for files on a remote host via
+Jdoo can also test the checksum for files on a remote host via
 the \s-1HTTP\s0 protocol. See the \s-1CONNECTION\s0 \s-1TESTING\s0 section below.
 .SS "\s-1TIMESTAMP\s0 \s-1TESTING\s0"
 .IX Subsection "TIMESTAMP TESTING"
@@ -1517,13 +1517,13 @@ third-party applications, until the vendor fix a problem:
 .PP
 .Vb 3
 \& check file server.pid path /var/run/server.pid
-\&       if timestamp > 7 days 
+\&       if timestamp > 7 days
 \&          then exec "/usr/local/server/restart\-server"
 .Ve
 .SS "\s-1FILE\s0 \s-1SIZE\s0 \s-1TESTING\s0"
 .IX Subsection "FILE SIZE TESTING"
 The size statement may only be used in a file service entry. If
-specified in the control file, Monit will compute a size for a
+specified in the control file, jdoo will compute a size for a
 file.
 .PP
 The size test in constant form is used to verify various size
@@ -1552,9 +1552,9 @@ specified, \*(L"byte\*(R" unit is assumed by default.
 \&\*(L"\s-1EXEC\s0\*(R" or \*(L"\s-1UNMONITOR\s0\*(R".
 .PP
 The variable size test form is useful for checking a file for
-changes and send an alert or execute an action. Monit will
+changes and send an alert or execute an action. Jdoo will
 register the size of the file at startup and monitor the file for
-changes. As soon as the value changes, Monit will perform the
+changes. As soon as the value changes, Jdoo will perform the
 specified action, reset the registered value to the new value and
 continue monitoring and test if the size changes again.
 .PP
@@ -1569,13 +1569,13 @@ checks, for instance:
 which will \*(L"cut the cable\*(R" and stop a possible intruder from
 compromising the system further. This test is just one of many
 you may use to increase the security awareness on a system. If
-you plan to use Monit for security reasons we recommend that you
+you plan to use Jdoo for security reasons we recommend that you
 use this test in combination with other supported tests like
 checksum, timestamp, and so on.
 .PP
 The constant form of this test can be useful in similar or
 different contexts. It can, for instance, be used to test if a
-certain file size was exceeded and then alert you or Monit may
+certain file size was exceeded and then alert you or Jdoo may
 execute a certain action specified by you. An example is to use
 this statement to rotate log files after they have reached a
 certain size or to check that a database file does not grow
@@ -1620,7 +1620,7 @@ dependent):
 The match statement allows you to test the content of a text file
 by using regular expressions. This is a great feature if you need
 to periodically test files, such as log files, for certain
-patterns. If a pattern match, Monit defaults to raise an alert,
+patterns. If a pattern match, Jdoo defaults to raise an alert,
 other actions are also possible.
 .PP
 The syntax (keywords in capital) for using this test is:
@@ -1642,7 +1642,7 @@ The content is only being checked every cycle. If content is
 being added and removed between two checks they are unnoticed.
 .PP
 On startup the read position is set to the end of the file 
-and Monit continue to scan to the end of file on each cycle. 
+and Jdoo continue to scan to the end of file on each cycle.
 But if the file size should decrease or inode change the read 
 position is set to the start of the file.
 .PP
@@ -1666,16 +1666,16 @@ A real life example might look like this:
 .Vb 7
 \&  check file syslog with path /var/log/syslog
 \&    ignore match 
-\&        "^\ew{3} [ :0\-9]{11} [._[:alnum:]\-]+ monit\e[[0\-9]+\e]:"
-\&    ignore match /etc/monit/ignore.regex
+\&        "^\ew{3} [ :0\-9]{11} [._[:alnum:]\-]+ jdoo\e[[0\-9]+\e]:"
+\&    ignore match /etc/jdoo/ignore.regex
 \&    if match 
 \&        "^\ew{3} [ :0\-9]{11} [._[:alnum:]\-]+ mrcoffee\e[[0\-9]+\e]:"
-\&    if match /etc/monit/active.regex then alert
+\&    if match /etc/jdoo/active.regex then alert
 .Ve
 .SS "\s-1FILESYSTEM\s0 \s-1FLAGS\s0 \s-1TESTING\s0"
 .IX Subsection "FILESYSTEM FLAGS TESTING"
-Monit can test the flags of a filesystem for changes. This test
-is implicit and Monit will send alert in case of failure by
+Jdoo can test the flags of a filesystem for changes. This test
+is implicit and Jdoo will send alert in case of failure by
 default.
 .PP
 This test is useful for detecting changes of the filesystem flags
@@ -1701,11 +1701,11 @@ Example:
 .Ve
 .SS "\s-1SPACE\s0 \s-1TESTING\s0"
 .IX Subsection "SPACE TESTING"
-Monit can test file systems for space usage. This test may only
-be used within a filesystem service entry in the Monit control
+Jdoo can test file systems for space usage. This test may only
+be used within a filesystem service entry in the Jdoo control
 file.
 .PP
-Monit will check a filesystem's total space usage. If you only
+Jdoo will check a filesystem's total space usage. If you only
 want to check available space for non-superuser, you must set the
 watermark appropriately (i.e. total space minus reserved blocks
 for the superuser).
@@ -1733,14 +1733,14 @@ alternatives \*(L"byte\*(R", \*(L"kilobyte\*(R", \*(L"megabyte\*(R", \*(L"gigaby
 \&\*(L"\s-1EXEC\s0\*(R" or \*(L"\s-1UNMONITOR\s0\*(R".
 .SS "\s-1INODE\s0 \s-1TESTING\s0"
 .IX Subsection "INODE TESTING"
-If supported by the file-system, you can use Monit to test for
+If supported by the file-system, you can use Jdoo to test for
 inodes usage. This test may only be used within a filesystem
-service entry in the Monit control file.
+service entry in the Jdoo control file.
 .PP
-If the filesystem becomes unavailable, Monit will call the
-service's registered start method, if it is defined and if Monit
-is running in active mode. If Monit runs in passive mode or the
-start methods is not defined, Monit will just send an error
+If the filesystem becomes unavailable, Jdoo will call the
+service's registered start method, if it is defined and if Jdoo
+is running in active mode. If Jdoo runs in passive mode or the
+start methods is not defined, Jdoo will just send an error
 alert.
 .PP
 The syntax for the inode statement is:
@@ -1760,9 +1760,9 @@ alternative \*(L"percent\*(R" as a unit.
 \&\*(L"\s-1EXEC\s0\*(R" or \*(L"\s-1UNMONITOR\s0\*(R".
 .SS "\s-1PERMISSION\s0 \s-1TESTING\s0"
 .IX Subsection "PERMISSION TESTING"
-Monit can monitor the permission of file objects. This test may
+Jdoo can monitor the permission of file objects. This test may
 only be used within a file, fifo, directory or filesystem service
-entry in the Monit control file.
+entry in the Jdoo control file.
 .PP
 The syntax for the permission statement is:
 .IP "\s-1IF\s0 \s-1FAILED\s0 \s-1PERM\s0(\s-1ISSION\s0) octalnumber [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action [\s-1ELSE\s0 \s-1IF\s0 \s-1SUCCEEDED\s0 [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action]" 4
@@ -1770,7 +1770,7 @@ The syntax for the permission statement is:
 .PP
 \&\fIoctalnumber\fR defines permissions for a file, a directory or a
 filesystem as four octal digits (0\-7). Valid range: 0000 \- 7777 (you
-can omit the leading zeros, Monit will add the zeros to the left
+can omit the leading zeros, Jdoo will add the zeros to the left
 thus for example \*(L"640\*(R" is valid value and matches \*(L"0640\*(R").
 .PP
 \&\fIaction\fR is a choice of \*(L"\s-1ALERT\s0\*(R", \*(L"\s-1RESTART\s0\*(R", \*(L"\s-1START\s0\*(R", \*(L"\s-1STOP\s0\*(R",
@@ -1781,22 +1781,22 @@ failed.
 .PP
 We recommend that you use the \s-1UNMONITOR\s0 action in a permission
 statement. The rationale for this feature is security and that
-Monit does not start a possible cracked program or script.
+Jdoo does not start a possible cracked program or script.
 Example:
 .PP
 .Vb 2
-\& check file monit.bin with path "/usr/sbin/monit"
+\& check file jdoo.bin with path "/usr/sbin/jdoo"
 \&       if failed permission 0555 then unmonitor
 .Ve
 .PP
-If the test fails, Monit will simply send an alert and stop
+If the test fails, Jdoo will simply send an alert and stop
 monitoring the file and propagate an unmonitor action upward in
 a depend tree.
 .SS "\s-1UID\s0 \s-1TESTING\s0"
 .IX Subsection "UID TESTING"
-Monit can monitor the owner user id (uid) of a file object. This
+Jdoo can monitor the owner user id (uid) of a file object. This
 test may only be used within a file, fifo, directory or
-filesystem service entry in the Monit control file.
+filesystem service entry in the Jdoo control file.
 .PP
 The syntax for the uid statement is:
 .IP "\s-1IF\s0 \s-1FAILED\s0 \s-1UID\s0 user [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action [\s-1ELSE\s0 \s-1IF\s0 \s-1SUCCEEDED\s0 [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action]" 4
@@ -1812,7 +1812,7 @@ fail.
 .PP
 We recommend that you use the \s-1UNMONITOR\s0 action in a uid
 statement. The rationale for this feature is security and that
-Monit does not start a possible cracked program or script.
+Jdoo does not start a possible cracked program or script.
 Example:
 .PP
 .Vb 2
@@ -1820,14 +1820,14 @@ Example:
 \&       if failed uid root then unmonitor
 .Ve
 .PP
-If the test fails, Monit will simply send an alert and stop
+If the test fails, Jdoo will simply send an alert and stop
 monitoring the file and propagate an unmonitor action upward in
 a depend tree.
 .SS "\s-1GID\s0 \s-1TESTING\s0"
 .IX Subsection "GID TESTING"
-Monit can monitor the owner group id (gid) of file objects. This
+Jdoo can monitor the owner group id (gid) of file objects. This
 test may only be used within a file, fifo, directory or
-filesystem service entry in the Monit control file.
+filesystem service entry in the Jdoo control file.
 .PP
 The syntax for the gid statement is:
 .IP "\s-1IF\s0 \s-1FAILED\s0 \s-1GID\s0 user [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action [\s-1ELSE\s0 \s-1IF\s0 \s-1SUCCEEDED\s0 [[<X>] <Y> \s-1CYCLES\s0] \s-1THEN\s0 action]" 4
@@ -1843,7 +1843,7 @@ fail.
 .PP
 We recommend that you use the \s-1UNMONITOR\s0 action in a gid
 statement. The rationale for this feature is security and that
-Monit does not start a possible cracked program or script.
+Jdoo does not start a possible cracked program or script.
 Example:
 .PP
 .Vb 2
@@ -1851,13 +1851,13 @@ Example:
 \&       if failed gid root then unmonitor
 .Ve
 .PP
-If the test fails, Monit will simply send an alert and stop
+If the test fails, Jdoo will simply send an alert and stop
 monitoring the file and propagate an unmonitor action upward in
 a depend tree.
 .SS "\s-1PID\s0 \s-1TESTING\s0"
 .IX Subsection "PID TESTING"
-Monit can test the process identification number (pid) of a
-process for changes. This test is implicit and Monit will send a
+Jdoo can test the process identification number (pid) of a
+process for changes. This test is implicit and Jdoo will send a
 alert in the case of failure by default.
 .PP
 The syntax for the pid statement is:
@@ -1868,19 +1868,19 @@ The syntax for the pid statement is:
 \&\*(L"\s-1EXEC\s0\*(R" or \*(L"\s-1UNMONITOR\s0\*(R".
 .PP
 This test is useful to detect possible process restarts which has
-occurred in the timeframe between two Monit testing cycles. In
+occurred in the timeframe between two Jdoo testing cycles. In
 the case that the restart was fast and the process provides
 expected service (i.e. all tests succeeded) you will be notified
 that the process was replaced.
 .PP
 For example sshd daemon can restart very quickly, thus if someone
-changes its configuration and do sshd restart outside of Monit's
+changes its configuration and do sshd restart outside of Jdoo's
 control you will be notified that the process was replaced by a
 new instance (or you can optionally do some other action such as
 preventively stop sshd).
 .PP
 Another example is a MySQL Cluster which has its own watchdog
-with process restart ability. You can use Monit for redundant
+with process restart ability. You can use Jdoo for redundant
 monitoring.
 .PP
 Example:
@@ -1891,8 +1891,8 @@ Example:
 .Ve
 .SS "\s-1PPID\s0 \s-1TESTING\s0"
 .IX Subsection "PPID TESTING"
-Monit can test the process parent process identification number
-(ppid) of a process for changes. This test is implicit and Monit
+Jdoo can test the process parent process identification number
+(ppid) of a process for changes. This test is implicit and Jdoo
 will send alert in the case of failure by default.
 .PP
 The syntax for the ppid statement is:
@@ -1912,16 +1912,16 @@ Example:
 .Ve
 .SS "\s-1CONNECTION\s0 \s-1TESTING\s0"
 .IX Subsection "CONNECTION TESTING"
-Monit is able to perform connection testing via networked ports
+Jdoo is able to perform connection testing via networked ports
 or via Unix sockets. A connection test may only be used within a
-process or within a host service entry in the Monit control file.
+process or within a host service entry in the Jdoo control file.
 .PP
-If a service listens on one or more sockets, Monit can connect to
+If a service listens on one or more sockets, Jdoo can connect to
 the port (using either tcp or udp) and verify that the service
 will accept a connection and that it is possible to write and
 read from the socket. If a connection is not accepted or if there
-is a problem with socket i/o, Monit will assume that something is
-wrong and execute a specified action. If Monit is compiled with
+is a problem with socket i/o, Jdoo will assume that something is
+wrong and execute a specified action. If Jdoo is compiled with
 openssl, then ssl based network services can also be tested.
 .PP
 The full syntax for the statement used for connection testing is
@@ -1954,10 +1954,10 @@ socket. Servers based on Unix sockets, always runs on the local
 machine and does not use a port.
 .PP
 \&\fBtype:TYPE {TCP|UDP|TCPSSL}\fR. Optionally specify the socket type
-Monit should use when trying to connect to the port. The
+Jdoo should use when trying to connect to the port. The
 different socket types are; \s-1TCP\s0, \s-1UDP\s0 or \s-1TCPSSL\s0, where \s-1TCP\s0 is a
 regular stream based socket, \s-1UDP\s0 is a datagram socket and \s-1TCPSSL\s0
-specify that Monit should use a \s-1TCP\s0 socket with \s-1SSL\s0 when
+specify that Jdoo should use a \s-1TCP\s0 socket with \s-1SSL\s0 when
 connecting to a port. The default socket type is \s-1TCP\s0. If \s-1TCPSSL\s0
 is used you may optionally specify the \s-1SSL/TLS\s0 protocol to be
 used and the md5 sum of the server's certificate. The \s-1TCPSSL\s0
@@ -1968,8 +1968,8 @@ options are:
 .Ve
 .PP
 \&\fBproto(col):PROTO {protocols}\fR. Optionally specify the protocol
-Monit should speak when a connection is established. At the
-moment Monit knows how to speak:
+Jdoo should speak when a connection is established. At the
+moment Jdoo knows how to speak:
  \fIAPACHE-STATUS\fR
  \fI\s-1DNS\s0\fR
  \fI\s-1DWP\s0\fR
@@ -1995,7 +1995,7 @@ moment Monit knows how to speak:
  \fI\s-1SSH\s0\fR
  \fI\s-1TNS\s0\fR
  \fI\s-1PGSQL\s0\fR
-If you have compiled Monit with ssl support, Monit can also speak
+If you have compiled Jdoo with ssl support, Jdoo can also speak
 the \s-1SSL\s0 variants such as:
  \fI\s-1HTTPS\s0\fR
  \fI\s-1FTPS\s0\fR
@@ -2006,7 +2006,7 @@ To use the \s-1SSL\s0 protocol support you need to define the socket as
 \&\s-1HTTPS\s0) :
  \s-1TYPE\s0 \s-1TCPSSL\s0 \s-1PROTOCOL\s0 \s-1HTTP\s0
 If the server's protocol is not found in this list, simply do not
-specify the protocol and Monit will utilize a default test,
+specify the protocol and Jdoo will utilize a default test,
 including test if it is possible to read and write to the
 port. This default test is in most cases more than good enough to
 deduce if the server behind the port is up or not.
@@ -2030,7 +2030,7 @@ The \s-1HTTP\s0 protocol supports in addition:
 .Ve
 .PP
 The Host header option can be used to explict specify the \s-1HTTP\s0
-host header in the request. If not used, Monit will use the
+host header in the request. If not used, Jdoo will use the
 hostname or IP-address of the host as specified in the statement.
 Specifiying a host header is useful if you want to connect to the
 host using an IP-address, and the web-server handle name based
@@ -2101,7 +2101,7 @@ Obviously, do not use this test unless the httpd server you are
 testing is Apache Httpd and mod_status is activated on the
 server.
 .PP
-\&\fBsend/expect: {SEND|EXPECT} \*(L"string\*(R" ...\fR. If Monit does not
+\&\fBsend/expect: {SEND|EXPECT} \*(L"string\*(R" ...\fR. If jdoo does not
 support the protocol spoken by the server, you can write your own
 protocol-test using \fIsend\fR and \fIexpect\fR strings. The \fI\s-1SEND\s0\fR
 statement sends a string to the server port and the \fI\s-1EXPECT\s0\fR
@@ -2116,19 +2116,19 @@ the string is used as it is. The send/expect statement is:
 \& [{SEND|EXPECT} "string"]+
 .Ve
 .PP
-Note that Monit will send a string as it is, and you \fBmust\fR
+Note that Jdoo will send a string as it is, and you \fBmust\fR
 remember to include \s-1CR\s0 and \s-1LF\s0 in the string sent to the server if
 the protocol expect such characters to terminate a string (most
-text based protocols used over Internet does). Likewise monit
+text based protocols used over Internet does). Likewise Jdoo
 will read up to 256 bytes from the server and use this string
 when comparing the expect string. If the server sends strings
 terminated by \s-1CRLF\s0, (i.e. \*(L"\er\en\*(R") you \fImay\fR remember to add the
 same terminating characters to the string you expect from the
 server.
 .PP
-As mentioned above, Monit limits the expect input to 255 bytes.
+As mentioned above, Jdoo limits the expect input to 255 bytes.
 You can override the default value by using this set statement at
-the top of the Monit configuration file:
+the top of the Jdoo configuration file:
 .PP
 .Vb 1
 \& SET EXPECTBUFFER <number> ["b"|"kb"|"mb"]
@@ -2161,7 +2161,7 @@ Finally, send/expect can be used with any socket type, such as
 \&\s-1TCP\s0 sockets, \s-1UNIX\s0 sockets and \s-1UDP\s0 sockets.
 .PP
 \&\fBtimeout:with \s-1TIMEOUT\s0 x \s-1SECONDS\s0\fR. Optionally specifies the
-connect and read timeout for the connection. If Monit cannot
+connect and read timeout for the connection. If Jdoo cannot
 connect to the server within this time it will assume that the
 connection failed and execute the specified action. The default
 connect timeout is 5 seconds.
@@ -2200,7 +2200,7 @@ Here is an example of an \s-1URL\s0 where all components are used:
 \& http://user:password@www.foo.bar:8080/document/?querystring#ref
 .Ve
 .PP
-If a username and password is included in the \s-1URL\s0 Monit will
+If a username and password is included in the \s-1URL\s0 Jdoo will
 attempt to login at the server using \fBBasic Authentication\fR.
 .PP
 Testing the content returned by the server is optional. If used,
@@ -2216,23 +2216,23 @@ can be used in a \fIcheck service\fR:
 \&      then ...
 .Ve
 .PP
-Monit will look at the content-length header returned by the
+Jdoo will look at the content-length header returned by the
 server and download this amount before testing the content. That
 is, if the content-length is more than 1Mb or this header is not
-set by the server Monit will default to download up to 1 Mb and
+set by the server Jdoo will default to download up to 1 Mb and
 not more.
 .PP
 Only the http(s) protocol is supported in an \s-1URL\s0 statement. If
-the protocol is \fBhttps\fR Monit will use \s-1SSL\s0 when connecting to
+the protocol is \fBhttps\fR jdoo will use \s-1SSL\s0 when connecting to
 the server.
 .PP
 Remote host ping test
 .IX Subsection "Remote host ping test"
 .PP
-In addition Monit can perform \s-1ICMP\s0 Echo tests in remote host
+In addition Jdoo can perform \s-1ICMP\s0 Echo tests in remote host
 checks. The icmp test may only be used in a check host entry and
-Monit must run with super user privileges, that is, the root user
-must run monit. The reason is that the icmp test utilize a raw
+Jdoo must run with super user privileges, that is, the root user
+must run Jdoo. The reason is that the icmp test utilize a raw
 socket to send the icmp packet and only the super user is allowed
 to create a raw socket.
 .PP
@@ -2252,8 +2252,8 @@ The rules for action and timeout are the same as those mentioned
 above in the \s-1CONNECTION\s0 \s-1TESTING\s0 section. The count parameter
 specifies how many consecutive echo requests will be send to the
 host in one cycle. In the case that no reply came within timeout
-frame, Monit reports error. When at least one reply was received,
-the test will pass. Monit sends by default three echo requests in
+frame, Jdoo reports error. When at least one reply was received,
+the test will pass. Jdoo sends by default three echo requests in
 one cycle to prevent the random packet loss from generating false
 alarm (i.e. up to 66% packet loss is tolerated). You can set the
 count option to a value between 1 and 20, which can serve as an 
@@ -2265,7 +2265,7 @@ An icmp ping test is useful for testing if a host is up, before
 testing ports at the host. If an icmp ping test is used in a
 check host entry, this test is run first and if the ping test
 should fail we assume that the connection to the host is down and
-Monit does \fInot\fR continue to test any ports. Here's an example:
+Jdoo does \fInot\fR continue to test any ports. Here's an example:
 .PP
 .Vb 6
 \& check host xyzzy with address xyzzy.org
@@ -2278,8 +2278,8 @@ Monit does \fInot\fR continue to test any ports. Here's an example:
 .PP
 In this case, if the icmp test should fail you will get \fIone\fR
 alert and only one alert as long as the host is down, and equally
-important, Monit will \fInot\fR test port 80 and port 443. Likewise
-if the icmp ping test should succeed (again) Monit will continue
+important, Jdoo will \fInot\fR test port 80 and port 443. Likewise
+if the icmp ping test should succeed (again) Jdoo will continue
 to test both port 80 and 443.
 .PP
 Keep in mind though that some firewalls can block icmp packages
@@ -2288,7 +2288,7 @@ and thus render the test useless.
 Examples
 .IX Subsection "Examples"
 .PP
-To check a port connection and receive an alert if Monit cannot
+To check a port connection and receive an alert if Jdoo cannot
 connect to the port, use the following statement:
 .PP
 .Vb 1
@@ -2297,7 +2297,7 @@ connect to the port, use the following statement:
 .PP
 In this case the machine in question is assumed to be the default
 host. For a process entry it's \fIlocalhost\fR and for a remote host
-entry it's the \fIaddress\fR of the remote host. Monit will conduct
+entry it's the \fIaddress\fR of the remote host. Jdoo will conduct
 a tcp connection to the host at port 80 and use tcp by default.
 If you want to connect with udp, you can specify this after the
 port-statement;
@@ -2306,11 +2306,11 @@ port-statement;
 \& if failed port 53 type udp protocol dns then alert
 .Ve
 .PP
-Monit will stop trying to connect to the port after 5 seconds and
+Jdoo will stop trying to connect to the port after 5 seconds and
 assume that the server behind the port is down. You may increase
 or decrease the connect timeout by explicit add a connection
 timeout. In the following example the timeout is increased to 15
-seconds and if Monit cannot connect to the server within 15
+seconds and if Jdoo cannot connect to the server within 15
 seconds the test will fail and an alert message is sent.
 .PP
 .Vb 1
@@ -2341,8 +2341,8 @@ the port statement with a host-statement like so:
 And as mentioned above, if you do not specify a host-statement,
 \&\fIlocalhost\fR or \fIaddress\fR is assumed.
 .PP
-Monit also knows how to speak some of the more popular Internet
-protocols. So, besides testing for connections, Monit can also
+Jdoo also knows how to speak some of the more popular Internet
+protocols. So, besides testing for connections, Jdoo can also
 speak with the server in question to verify that the server
 works. For example, the following is used to test a http server:
 .PP
@@ -2364,7 +2364,7 @@ request statement, such as:
 .Ve
 .PP
 The request must contain an \s-1URI\s0 string specifying a document from
-the http server. The string will be \s-1URL\s0 encoded by Monit before
+the http server. The string will be \s-1URL\s0 encoded by Jdoo before
 it sends the request to the http server, so it's okay to use \s-1URL\s0
 unsafe characters in the request. If the request statement isn't
 specified, the default web server page will be requested.
@@ -2396,11 +2396,11 @@ Or you can use \s-1SHA1\s0 sums:
 \& then alert
 .Ve
 .PP
-Monit will compute a checksum (either \s-1MD5\s0 or \s-1SHA1\s0 is used,
+Jdoo will compute a checksum (either \s-1MD5\s0 or \s-1SHA1\s0 is used,
 depending on length of the hash) for the document (in the above
 case, /page.html) and compare the computed checksum with the
 expected checksum. If the sums does not match then the if-tests
-action is performed, in this case alert. Note that Monit will
+action is performed, in this case alert. Note that Jdoo will
 \&\fBnot\fR test the checksum for a document if the server does not
 set the \s-1HTTP\s0 \fIContent-Length\fR header. A \s-1HTTP\s0 server should set
 this header when it server a static document (i.e. a file). A
@@ -2408,8 +2408,8 @@ server will often use chunked transfer encoding instead when
 serving dynamic content (e.g. a document created by a CGI-script
 or a Servlet), but to test the checksum for dynamic content is
 not very useful. There are no limitation on the document size,
-but keep in mind that Monit will use time to download the
-document over the network so it's probably smart not to ask monit
+but keep in mind that Jdoo will use time to download the
+document over the network so it's probably smart not to ask Jdoo
 to compute a checksum for documents larger than 1Mb or so,
 depending on you network connection of course. Tip; If you get a
 checksum error even if the document has the correct sum, the
@@ -2417,7 +2417,7 @@ reason may be that the download timed out. In this case, explicit
 set a longer timeout than the default 5 seconds.
 .PP
 As mentioned above, if the server protocol is not supported by
-Monit you can write your own protocol test using send/expect
+Jdoo you can write your own protocol test using send/expect
 strings. Here we show a protocol test using send/expect for an
 imaginary \*(L"Ali Baba and the Forty Thieves\*(R" protocol:
 .PP
@@ -2442,7 +2442,7 @@ specific ssl version, as we demonstrate in this example:
 .PP
 .Vb 10
 \& if failed host shop.sol.no port 443 
-\&    type TCPSSL SSLV3 # Force Monit to use ssl version 3
+\&    type TCPSSL SSLV3 # Force jdoo to use ssl version 3
 \&    # We expect the server to return this  md5 certificate sum
 \&    # as either 12\-34\-56\-78\-90\-AB\-CD\-EF\-12\-34\-56\-78\-90\-AB\-CD\-EF
 \&    # or e.g.   1234567890ABCDEF1234567890ABCDEF
@@ -2470,7 +2470,7 @@ Here, a connection test is used in a remote host entry:
 \&       if failed port 21 and protocol ftp then alert
 .Ve
 .PP
-Since we did not explicit specify a host in the above test, monit
+Since we did not explicit specify a host in the above test, Jdoo
 will connect to port 21 at ftp.redhat.com. Apropos, the host
 address can be specified as a dotted \s-1IP\s0 address string or as
 hostname in the \s-1DNS\s0. The following is exactly[*] the same test,
@@ -2550,7 +2550,7 @@ you may specify an alternative secret, default is \*(L"testing123\*(R".
 .SH "SERVICE POLL TIME"
 .IX Header "SERVICE POLL TIME"
 Each service is polled in sequence as they are written in
-\&\fI.monitrc\fR file, unless they are part of a dependecy chain.
+\&\fI.jdoorc\fR file, unless they are part of a dependecy chain.
 However, a service may specify an individual poll time. Meaning
 that instead of checking the service on each poll cycle, the
 cycle check can be specified individually per service using the
@@ -2571,15 +2571,15 @@ In the above example, if the global poll time set by \fIset
 daemon\fR is 20 seconds, then the nginx process will be checked
 every 40 second. This is because the every statement specify that
 this process should only be checked every other cycle
-.SH "MONIT HTTPD"
-.IX Header "MONIT HTTPD"
-If specified in the control file, Monit will start a Monit daemon
+.SH "jdoo HTTPD"
+.IX Header "jdoo HTTPD"
+If specified in the control file, Jdoo will start a Jdoo daemon
 with http support. From a Browser you can then start and stop
 services, disable or enable service monitoring as well as view
-the status of each service. Also, if Monit logs to its own file,
+the status of each service. Also, if Jdoo logs to its own file,
 you can view the content of this logfile in a Browser.
 .PP
-The control file statement for starting a Monit daemon with http
+The control file statement for starting a Jdoo daemon with http
 support is a global set-statement:
 .IP "set httpd port 2812" 4
 .IX Item "set httpd port 2812"
@@ -2588,17 +2588,17 @@ And you can use this \s-1URL\s0, \fIhttp://localhost:2812/\fR, to access
 the daemon from a browser. The port number, in this case 2812,
 can be any number that you are allowed to bind to.
 .PP
-If you have compiled Monit with openssl, you can also start the
+If you have compiled Jdoo with openssl, you can also start the
 httpd server with ssl support, using the following expression:
 .PP
 .Vb 3
 \& set httpd port 2812
 \&     ssl enable
-\&     pemfile /etc/certs/monit.pem
+\&     pemfile /etc/certs/jdoo.pem
 .Ve
 .PP
 And you can use this \s-1URL\s0, \fIhttps://localhost:2812/\fR, to access
-the Monit web server over an ssl encrypted connection.
+the Jdoo web server over an ssl encrypted connection.
 .PP
 The pemfile, in the example above, holds both the server's
 private key and certificate. This file should be stored in a safe
@@ -2607,22 +2607,22 @@ is, no more than 0700.
 .PP
 In addition, if you want to check for client certificates you can
 use the \s-1CLIENTPEMFILE\s0 statement. In this case, a connecting
-client has to provided a certificate known by Monit in order to
+client has to provided a certificate known by Jdoo in order to
 connect. This file also needs to have all necessary \s-1CA\s0
 certificates. A configuration could look like:
 .PP
 .Vb 4
 \& set httpd port 2812
 \&     ssl enable
-\&     pemfile /etc/certs/monit.pem
-\&     clientpemfile /etc/certs/monit\-client.pem
+\&     pemfile /etc/certs/jdoo.pem
+\&     clientpemfile /etc/certs/jdoo\-client.pem
 .Ve
 .PP
 By default self signed client certificates are not allowed. If
 you want to use a self signed certificate from a client it has to
 be allowed explicitly with the \s-1ALLOWSELFCERTIFICATION\s0 statement.
 .PP
-For more information on how to use Monit with \s-1SSL\s0 and for more
+For more information on how to use Jdoo with \s-1SSL\s0 and for more
 information about certificates and generating pem files, please
 consult the \s-1README\s0.SSL file accompanying the software.
 .PP
@@ -2645,7 +2645,7 @@ or
 If you do not use the \s-1ADDRESS\s0 statement the http server will
 accept connections on any/all local addresses.
 .PP
-It is possible to hide monit's httpd server version, which 
+It is possible to hide Jdoo's httpd server version, which
 usually is available in httpd header responses and in error 
 pages.
 .PP
@@ -2655,35 +2655,35 @@ pages.
 \&    signature {enable|disable}
 .Ve
 .PP
-Use \fIdisable\fR to hide the server signature \- Monit will only
-report its name (e.g. 'monit' instead of for example 'monit
+Use \fIdisable\fR to hide the server signature \- Jdoo will only
+report its name (e.g. 'jdoo' instead of for example 'jdoo
 4.2'). By default the version signature is enabled. It is worth
 to stress that this option provides no security advantage and 
 falls into the \*(L"security through obscurity\*(R" category.
 .PP
-If you remove the httpd statement from the config file, monit
+If you remove the httpd statement from the config file, Jdoo
 will stop the httpd server on configuration reload. Likewise if
-you change the port number, Monit will restart the http server
+you change the port number, Jdoo will restart the http server
 using the new specified port number.
 .PP
-The status page displayed by the Monit web server is
-automatically refreshed with the same poll time set for the monit
+The status page displayed by the Jdoo web server is
+automatically refreshed with the same poll time set for the Jdoo
 daemon.
 .PP
 \&\fBNote:\fR
 .PP
-We strongly recommend that you start Monit with http support (and
+We strongly recommend that you start Jdoo with http support (and
 bind the server to localhost, only, unless you are behind a
 firewall). The built-in web-server is small and does not use much
-resources, and more \fIimportantly\fR, Monit can use the http server
-for interprocess communication between a Monit client and a monit
+resources, and more \fIimportantly\fR, Jdoo can use the http server
+for interprocess communication between a Jdoo client and a Jdoo
 daemon.
 .PP
-For instance, you \fImust\fR start a Monit daemon with http support
+For instance, you \fImust\fR start a Jdoo daemon with http support
 if you want to be able to use most of the available console
-commands. I.e. 'Monit stop all', 'Monit start all' etc.
+commands. I.e. 'jdoo stop all', 'jdoo start all' etc.
 .PP
-If a Monit daemon is running in the background we will ask the
+If a Jdoo daemon is running in the background we will ask the
 daemon (via the \s-1HTTP\s0 protocol) to execute the above commands.
 That is, the daemon is requested to start and stop the services.
 This ensures that a daemon will not restart a service that you
@@ -2691,22 +2691,22 @@ requested to stop and that (any) timeout lock will be removed
 from a service when you start it.
 .SS "\s-1FIPS\s0 support"
 .IX Subsection "FIPS support"
-Monit built-in web-server support the OpenSSL \s-1FIPS\s0 module. 
+Jdoo built-in web-server support the OpenSSL \s-1FIPS\s0 module.
 To enable this mode, your OpenSSL library must first be built
-with \s-1FIPS\s0 support. Then in the Monit control file, simply
+with \s-1FIPS\s0 support. Then in the Jdoo control file, simply
 add this \fIset\fR statement at the top;
 .PP
 .Vb 1
 \& set fips
 .Ve
 .PP
-Note that the \s-1FIPS\s0 module may not be supported in the lates 
+Note that the \s-1FIPS\s0 module may not be supported in the lates
 version of OpenSSL. So make sure that your version of OpenSSL
 support the \s-1FIPS\s0 object module before attempting to enable this
-in Monit.
-.SS "Monit \s-1HTTPD\s0 Authentication"
-.IX Subsection "Monit HTTPD Authentication"
-Monit supports two types of authentication schema's for
+in Jdoo.
+.SS "jdoo \s-1HTTPD\s0 Authentication"
+.IX Subsection "jdoo HTTPD Authentication"
+Jdoo supports two types of authentication schema's for
 connecting to the httpd server, (three, if you count \s-1SSL\s0 client
 certificate validation). Both schema's can be used together or by
 itself. You \fBmust\fR choose at least one.
@@ -2754,12 +2754,12 @@ requested document.
 The biggest weakness with Basic Authentication is that the
 username and password is sent in clear-text (i.e. base64 encoded)
 over the network. It is therefor recommended that you do not use
-this authentication method unless you run the Monit http server
+this authentication method unless you run the jdoo http server
 with \fIssl\fR support. With ssl support it is completely safe to
 use Basic Authentication since \fBall\fR http data, including Basic
 Authentication headers will be encrypted.
 .PP
-Monit will use Basic Authentication if an allow statement
+Jdoo will use Basic Authentication if an allow statement
 contains a username and a password separated with a single ':'
 character, like so: \fIallow username:password\fR. The username and
 password must be written in clear-text. Special characters
@@ -2768,20 +2768,20 @@ can be used but the password has to be quoted.
 \&\s-1PAM\s0 is supported as well on platforms which provide \s-1PAM\s0 (such
 as Linux, Mac \s-1OS\s0 X, FreeBSD, NetBSD). The syntax is:
 \&\fIallow \f(CI@mygroup\fI\fR which provides access to the user of group
-called \fImygroup\fR. Monit uses \s-1PAM\s0 service called \fImonit\fR for
+called \fImygroup\fR. Jdoo uses \s-1PAM\s0 service called \fIjdoo\fR for
 \&\s-1PAM\s0 authentication, see \s-1PAM\s0 manual page for detailed instructions
 how to set the \s-1PAM\s0 service and \s-1PAM\s0 authentication plugins.
-Example Monit \s-1PAM\s0 for Mac \s-1OS\s0 X \- /etc/pam.d/monit:
+Example jdoo \s-1PAM\s0 for Mac \s-1OS\s0 X \- /etc/pam.d/jdoo:
 .PP
 .Vb 5
-\&  # monit: auth account password session
+\&  # jdoo: auth account password session
 \&  auth       sufficient     pam_securityserver.so
 \&  auth       sufficient     pam_unix.so
 \&  auth       required       pam_deny.so
 \&  account    required       pam_permit.so
 .Ve
 .PP
-And configuration part for monitrc which allows only group admins
+And configuration part for jdoorc which allows only group admins
 authenticated using via \s-1PAM\s0 to access the http interface:
 .PP
 .Vb 1
@@ -2793,7 +2793,7 @@ user:passwd entry per line), like so: \fIallow
 [cleartext|crypt|md5] /path [users]\fR. By default cleartext
 passwords are read. In case the passwords are digested it is
 necessary to specify the cryptographic method. If you do not want
-all users in the password file to have access to Monit you can
+all users in the password file to have access to Jdoo you can
 specify only those users that should have access, in the allow
 statement. Otherwise all users are added.
 .PP
@@ -2807,7 +2807,7 @@ Example1:
 .PP
 If you use this method together with a host list, then only
 clients from the listed hosts will be allowed to connect to the
-Monit http server and each client will be asked to provide a
+Jdoo http server and each client will be asked to provide a
 username and a password.
 .PP
 Example2:
@@ -2824,7 +2824,7 @@ allow entries with username and password or password files as in
 example 1 above.
 .PP
 Finally it is possible to define some users as read-only. A
-read-only user can read the Monit web pages but will \fInot\fR get
+read-only user can read the Jdoo web pages but will \fInot\fR get
 access to push-buttons and cannot change a service from the web
 interface.
 .PP
@@ -2842,25 +2842,26 @@ is defined as a read-only user, while the \fIadmin\fR user has all
 access rights.
 .PP
 If you use Basic Authentication it is a good idea to set the
-access permission for the control file (~/.monitrc) to only
-readable and writable for the user running monit, because the
+access permission for the control file (~/.jdoorc) to only
+readable and writable for the user running Jdoo, because the
 password is written in clear-text. (Use this command, /bin/chmod
-600 ~/.monitrc). In fact, since Monit \fBversion 3.0\fR, Monit will
-complain and exit if the control file is readable by others.
+600 ~/.jdoorc). In fact, since Monit \fBversion 3.0\fR, Monit will
+complain and exit if the control file is readable by others. Jdoo
+is based off version 5.2.5 of Monit.
 .PP
 Clients trying to connect to the server but supply the wrong
 username and/or password are logged with their ip-address.
 .PP
-If the Monit command line interface is being used, at least one
-cleartext password is necessary. Otherwise, the Monit command
-line interface will not be able to connect to the Monit daemon
+If the Jdoo command line interface is being used, at least one
+cleartext password is necessary. Otherwise, the Jdoo command
+line interface will not be able to connect to the Jdoo daemon
 server.
 .SH "DEPENDENCIES"
 .IX Header "DEPENDENCIES"
-If specified in the control file, Monit can do dependency
+If specified in the control file, Jdoo can do dependency
 checking before start, stop, monitoring or unmonitoring of
 services. The dependency statement may be used within any service
-entries in the Monit control file.
+entries in the Jdoo control file.
 .PP
 The syntax for the depend statement is simply:
 .IP "\s-1DEPENDS\s0 on service[, service [,...]]" 4
@@ -2885,7 +2886,7 @@ service.
 Here is an example where we set up an apache service entry to
 depend on the underlying apache binary. If the binary should
 change an alert is sent and apache is not monitored anymore. The
-rationale is security and that Monit should not execute a
+rationale is security and that Jdoo should not execute a
 possibly cracked apache binary.
 .PP
 .Vb 7
@@ -2932,49 +2933,49 @@ database depends on the file-system to be mounted before it
 starts. See also the example section below for examples using the
 depend statement.
 .PP
-Here we describe how Monit will function with the above
+Here we describe how Jdoo will function with the above
 dependencies:
 .IP "If no servers are running" 4
 .IX Item "If no servers are running"
-Monit will start the servers in the following order: \fId\fR, \fIc\fR,
+Jdoo will start the servers in the following order: \fId\fR, \fIc\fR,
 \&\fIb\fR, \fIa\fR
 .IP "If all servers are running" 4
 .IX Item "If all servers are running"
-When you run 'Monit stop all' this is the stop order: \fIa\fR, \fIb\fR,
-\&\fIc\fR, \fId\fR. If you run 'Monit stop d' then \fIa\fR, \fIb\fR and \fIc\fR
+When you run 'jdoo stop all' this is the stop order: \fIa\fR, \fIb\fR,
+\&\fIc\fR, \fId\fR. If you run 'jdoo stop d' then \fIa\fR, \fIb\fR and \fIc\fR
 are also stopped because they depend on \fId\fR and finally \fId\fR is
 stopped.
 .IP "If \fIa\fR does not run" 4
 .IX Item "If a does not run"
-When Monit runs it will start \fIa\fR
+When Jdoo runs it will start \fIa\fR
 .IP "If \fIb\fR does not run" 4
 .IX Item "If b does not run"
-When Monit runs it will first stop \fIa\fR then start \fIb\fR and
+When Jdoo runs it will first stop \fIa\fR then start \fIb\fR and
 finally start \fIa\fR again.
 .IP "If \fIc\fR does not run" 4
 .IX Item "If c does not run"
-When Monit runs it will first stop \fIa\fR and \fIb\fR then start \fIc\fR
+When Jdoo runs it will first stop \fIa\fR and \fIb\fR then start \fIc\fR
 and finally start \fIb\fR then \fIa\fR.
 .IP "If \fId\fR does not run" 4
 .IX Item "If d does not run"
-When Monit runs it will first stop \fIa\fR, \fIb\fR and \fIc\fR then start
+When Jdoo runs it will first stop \fIa\fR, \fIb\fR and \fIc\fR then start
 \&\fId\fR and finally start \fIc\fR, \fIb\fR then \fIa\fR.
 .IP "If the control file contains a depend loop." 4
 .IX Item "If the control file contains a depend loop."
 A depend loop is for example; a\->b and b\->a or a\->b\->c\->a.
 .Sp
-When Monit starts it will check for such loops and complain and
+When Jdoo starts it will check for such loops and complain and
 exit if a loop was found. It will also exit with a complaint if a
 depend statement was used that does not point to a service in the
 control file.
 .SH "THE RUN CONTROL FILE"
 .IX Header "THE RUN CONTROL FILE"
-The preferred way to set up Monit is to write a \fI.monitrc\fR file
+The preferred way to set up Jdoo is to write a \fI.jdoorc\fR file
 in your home directory. When there is a conflict between the
 command-line arguments and the arguments in this file, the
 command-line arguments take precedence. To protect the security
 of your control file and passwords the control file must have
-permissions \fIno more than 0700\fR (u=xrw,g=,o=); Monit will
+permissions \fIno more than 0700\fR (u=xrw,g=,o=); Jdoo will
 complain and exit otherwise.
 .SS "Run Control Syntax"
 .IX Subsection "Run Control Syntax"
@@ -2999,7 +3000,7 @@ item to configure.
 .IX Item "2. One or more service entry statements."
 Each service entry consists of the keywords `check', followed by
 the service type. Each entry requires a <unique> descriptive
-name, which may be freely chosen. This name is used by monit
+name, which may be freely chosen. This name is used by Jdoo
 to refer to the service internally and in all interactions
 with the user.
 .PP
@@ -3008,7 +3009,7 @@ Currently, six types of check statements are supported:
 .IX Item "1. CHECK PROCESS <unique name> <PIDFILE <path> | MATCHING <regex>>"
 <path> is the absolute path to the program's pidfile. If the
 pidfile does not exist or does not contain the pid number of a
-running process, Monit will call the entry's start method if
+running process, Jdoo will call the entry's start method if
 defined.
 <regex> is alternative process specification using pattern matching
 to process name (command line) from process table instead of pidfile.
@@ -3016,27 +3017,27 @@ The first match is used so this form of check is useful for unique
 pattern matching \- the pidfile should be used where possible as it
 defines expected pid exactly (pattern matching won't be useful for
 Apache in most cases for example).
-The pattern can be obtained using \fImonit procmatch \*(L".*\*(R"\fR \s-1CLI\s0 command
-which lists all processes visible to Monit or using the \fIps\fR utility.
+The pattern can be obtained using \fIjdoo procmatch \*(L".*\*(R"\fR \s-1CLI\s0 command
+which lists all processes visible to jdoo or using the \fIps\fR utility.
 The \*(L"procmatch\*(R" \s-1CLI\s0 command can be used to test your pattern as well.
-If Monit runs in passive mode or the start methods is not defined,
-Monit will just send alerts on errors.
+If Jdoo runs in passive mode or the start methods is not defined,
+Jdoo will just send alerts on errors.
 .IP "2. \s-1CHECK\s0 \s-1FILE\s0 <unique name> \s-1PATH\s0 <path>" 4
 .IX Item "2. CHECK FILE <unique name> PATH <path>"
 <path> is the absolute path to the file. If the file does not
-exist or disappeared, Monit will call the entry's start method if
+exist or disappeared, Jdoo will call the entry's start method if
 defined, if <path> does not point to a regular file type (for
-instance a directory), Monit will disable monitoring of this
-entry. If Monit runs in passive mode or the start methods is not
-defined, Monit will just send alerts on errors.
+instance a directory), Jdoo will disable monitoring of this
+entry. If Jdoo runs in passive mode or the start methods is not
+defined, Jdoo will just send alerts on errors.
 .IP "3. \s-1CHECK\s0 \s-1FIFO\s0 <unique name> \s-1PATH\s0 <path>" 4
 .IX Item "3. CHECK FIFO <unique name> PATH <path>"
 <path> is the absolute path to the fifo. If the fifo does not
-exist or disappeared, Monit will call the entry's start method if
+exist or disappeared, Jdoo will call the entry's start method if
 defined, if <path> does not point to a fifo type (for
-instance a directory), Monit will disable monitoring of this
-entry. If Monit runs in passive mode or the start methods is not
-defined, Monit will just send alerts on errors.
+instance a directory), Jdoo will disable monitoring of this
+entry. If Jdoo runs in passive mode or the start methods is not
+defined, Jdoo will just send alerts on errors.
 .IP "4. \s-1CHECK\s0 \s-1FILESYSTEM\s0 <unique name> \s-1PATH\s0 <path>" 4
 .IX Item "4. CHECK FILESYSTEM <unique name> PATH <path>"
 <path> is the path to the filesystem block special device, mount point,
@@ -3047,18 +3048,18 @@ use a mount point (for example /data), be careful, because if the
 filesystem is unmounted the test will still be true because the mount
 point exist.
 .Sp
-If the filesystem becomes unavailable, Monit will call the entry's
+If the filesystem becomes unavailable, Jdoo will call the entry's
 start method if defined. if <path> does not point to a filesystem,
-Monit will disable monitoring of this entry. If Monit runs in
-passive mode or the start methods is not defined, Monit will just
+Jdoo will disable monitoring of this entry. If Jdoo runs in
+passive mode or the start methods is not defined, Jdoo will just
 send alerts on errors.
 .IP "5. \s-1CHECK\s0 \s-1DIRECTORY\s0 <unique name> \s-1PATH\s0 <path>" 4
 .IX Item "5. CHECK DIRECTORY <unique name> PATH <path>"
 <path> is the absolute path to the directory. If the directory
-does not exist or disappeared, Monit will call the entry's start
-method if defined, if <path> does not point to a directory, monit
-will disable monitoring of this entry. If Monit runs in passive
-mode or the start methods is not defined, Monit will just send
+does not exist or disappeared, Jdoo will call the entry's start
+method if defined, if <path> does not point to a directory, Jdoo
+will disable monitoring of this entry. If Jdoo runs in passive
+mode or the start methods is not defined, Jdoo will just send
 alerts on errors.
 .IP "6. \s-1CHECK\s0 \s-1HOST\s0 <unique name> \s-1ADDRESS\s0 <host address>" 4
 .IX Item "6. CHECK HOST <unique name> ADDRESS <host address>"
@@ -3085,11 +3086,11 @@ insensitive.
 \& Keyword         Function
 \& \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
 \& set daemon      Set a background poll interval in seconds.
-\& set init        Set Monit to run from init. Monit will not
+\& set init        Set Jdoo to run from init. Jdoo will not
 \&                 transform itself into a daemon process.
 \& set logfile     Name of a file to dump error\- and status\-
 \&                 messages to. If syslog is specified as the 
-\&                 file, Monit will utilize the syslog daemon
+\&                 file, Jdoo will utilize the syslog daemon
 \&                 to log messages. This can optionally be 
 \&                 followed by \*(Aqfacility <facility>\*(Aq where 
 \&                 facility is \*(Aqlog_local0\*(Aq \- \*(Aqlog_local7\*(Aq or 
@@ -3097,21 +3098,21 @@ insensitive.
 \&                 LOG_USER is used.
 \& set mailserver  The mailserver used for sending alert
 \&                 notifications. If the mailserver is not 
-\&                 defined, Monit will try to use \*(Aqlocalhost\*(Aq 
+\&                 defined, Jdoo will try to use \*(Aqlocalhost\*(Aq
 \&                 as the smtp\-server for sending mail. You 
-\&                 can add more mail servers, if Monit cannot
+\&                 can add more mail servers, if Jdoo cannot
 \&                 connect to the first server it will try the
 \&                 next server and so on.
 \& set mail\-format Set a global mail format for all alert
-\&                 messages emitted by monit.
-\& set idfile      Explicit set the location of the Monit id
-\&                 file. E.g. set idfile /var/monit/id.
-\& set pidfile     Explicit set the location of the Monit lock
-\&                 file. E.g. set pidfile /var/run/xyzmonit.pid.
-\& set statefile   Explicit set the location of the file Monit 
+\&                 messages emitted by Jdoo.
+\& set idfile      Explicit set the location of the Jdoo id
+\&                 file. E.g. set idfile /var/jdoo/id.
+\& set pidfile     Explicit set the location of the Jdoo lock
+\&                 file. E.g. set pidfile /var/run/xyzjdoo.pid.
+\& set statefile   Explicit set the location of the file Jdoo
 \&                 will write state data to. If not set, the
-\&                 default is $HOME/.monit.state. 
-\& set httpd port  Activates Monit http server at the given 
+\&                 default is $HOME/.jdoo.state.
+\& set httpd port  Activates Jdoo http server at the given
 \&                 port number.
 \& ssl enable      Enables ssl support for the httpd server.
 \&                 Requires the use of the pemfile statement.
@@ -3119,8 +3120,8 @@ insensitive.
 \&                 It is equal to omitting any ssl statement.
 \& pemfile         Set the pemfile to be used with ssl.
 \& clientpemfile   Set the pemfile to be used when client
-\&                 certificates should be checked by monit.
-\& address         If specified, the http server will only 
+\&                 certificates should be checked by Jdoo.
+\& address         If specified, the http server will only
 \&                 accept connect requests to this addresses
 \&                 This statement is an optional part of the
 \&                 set httpd statement.
@@ -3132,7 +3133,7 @@ insensitive.
 \&                 optional part of the set httpd statement.
 \& read\-only       Set the user defined in username:password
 \&                 to read only. A read\-only user cannot change
-\&                 a service from the Monit web interface.
+\&                 a service from the Jdoo web interface.
 \& include         include a file or files matching the globstring
 \&
 \& Here are the legal service entry keywords:
@@ -3166,7 +3167,7 @@ insensitive.
 \&                 used to specify a user id and a group id the
 \&                 program (process) should switch to upon start.
 \&                 This feature can only be used if the superuser
-\&                 is running monit. 2) uid and gid may also be
+\&                 is running Jdoo. 2) uid and gid may also be
 \&                 used as standalone statements in a file service
 \&                 entry to test a file\*(Aqs uid and gid attributes.
 \& host            The hostname or IP address to test the port
@@ -3178,16 +3179,16 @@ insensitive.
 \&                 is also optional. If this statement is not
 \&                 prefixed with a host\-statement, localhost is
 \&                 used as the hostname to test the port at.
-\& type            Specifies the socket type Monit should use when
+\& type            Specifies the socket type Jdoo should use when
 \&                 testing a connection to a port. If the type
 \&                 keyword is omitted, tcp is used. This keyword
 \&                 must be followed by either tcp, udp or tcpssl.
-\& tcp             Specifies that Monit should use a TCP 
+\& tcp             Specifies that Jdoo should use a TCP
 \&                 socket type (stream) when testing a port.
-\& tcpssl          Specifies that Monit should use a TCP socket
+\& tcpssl          Specifies that Jdoo should use a TCP socket
 \&                 type (stream) and the secure socket layer (ssl)
 \&                 when testing a port connection.
-\& udp             Specifies that Monit should use a UDP socket
+\& udp             Specifies that Jdoo should use a UDP socket
 \&                 type (datagram) when testing a port.
 \& certmd5         The md5 sum of a certificate a ssl forged 
 \&                 server has to deliver.
@@ -3195,7 +3196,7 @@ insensitive.
 \&                 found at the port. See CONNECTION TESTING
 \&                 for list of supported protocols.
 \&                 You\*(Aqre welcome to write new protocol test
-\&                 modules. If no protocol is specified Monit will
+\&                 modules. If no protocol is specified Jdoo will
 \&                 use a default test which in most cases are good
 \&                 enough.
 \& request         Specifies a server request and must come
@@ -3212,10 +3213,10 @@ insensitive.
 \& unix(socket)    Specifies a Unix socket file and used like 
 \&                 the port statement above to test a Unix 
 \&                 domain network socket connection.
-\& URL             Specify an URL string which Monit will use for
+\& URL             Specify an URL string which Jdoo will use for
 \&                 connection testing.
 \& content         Optional sub\-statement for the URL statement.
-\&                 Specifies that Monit should test the content
+\&                 Specifies that Jdoo should test the content
 \&                 returned by the server against a regular 
 \&                 expression.
 \& timeout x sec.  Define a network port connection timeout. Must
@@ -3245,10 +3246,10 @@ insensitive.
 \& mail\-format     Specifies a mail format for an alert message 
 \&                 This statement is an optional part of the
 \&                 alert statement.
-\& checksum        Specify that Monit should compute and monitor a
+\& checksum        Specify that Jdoo should compute and monitor a
 \&                 file\*(Aqs md5/sha1 checksum. May only be used in a 
 \&                 check file entry.
-\& expect          Specifies a md5/sha1 checksum string Monit 
+\& expect          Specifies a md5/sha1 checksum string Jdoo
 \&                 should expect when testing the checksum. This 
 \&                 statement is an optional part of the checksum 
 \&                 statement.
@@ -3262,15 +3263,15 @@ insensitive.
 \&                 Useful in daemon mode when the cycle is short
 \&                 and a service takes some time to start.
 \& mode            Must be followed either by the keyword active,
-\&                 passive or manual. If active, Monit will restart
+\&                 passive or manual. If active, Jdoo will restart
 \&                 the service if it is not running (this is the
-\&                 default behavior). If passive, Monit will not
+\&                 default behavior). If passive, Jdoo will not
 \&                 (re)start the service if it is not running \- it
 \&                 will only monitor and send alerts (resource
 \&                 related restart and stop options are ignored
-\&                 in this mode also). If manual, Monit will enter
+\&                 in this mode also). If manual, Jdoo will enter
 \&                 active mode only if a service was started under
-\&                 monit\*(Aqs control otherwise the service isn\*(Aqt
+\&                 Jdoo\*(Aqs control otherwise the service isn\*(Aqt
 \&                 monitored.
 \& cpu             Must be followed by a compare operator, a number 
 \&                 with "%" and an action. This statement is used
@@ -3314,7 +3315,7 @@ insensitive.
 \&                 service depends on.
 .Ve
 .PP
-Here's the complete list of reserved \fBkeywords\fR used by monit:
+Here's the complete list of reserved \fBkeywords\fR used by jdoo:
 .PP
 \&\fIif\fR, \fIthen\fR, \fIelse\fR, \fIset\fR, \fIdaemon\fR, \fIlogfile\fR,
 \&\fIsyslog\fR, \fIaddress\fR, \fIhttpd\fR, \fIssl\fR, \fIenable\fR, \fIdisable\fR,
@@ -3338,7 +3339,7 @@ Here's the complete list of reserved \fBkeywords\fR used by monit:
 \&\fIcredentials\fR, \fIfips\fR and \fIfailed\fR
 .PP
 And here is a complete list of \fBnoise keywords\fR ignored by
-monit:
+Jdoo:
 .PP
 \&\fIis\fR, \fIas\fR, \fIare\fR, \fIon(ly)\fR, \fIwith(in|out)\fR, \fIand\fR, \fIhas\fR,
 \&\fIusing\fR, \fIuse\fR, \fIthe\fR, \fIsum\fR, \fIprogram(s)\fR, \fIthan\fR, \fIfor\fR,
@@ -3371,7 +3372,7 @@ Checking process without pidfile:
 \& check process matching "/sbin/dynamic_pager \-F /private/var/vm/swapfile"
 .Ve
 .PP
-To have Monit start the server if it's not running, add a start
+To have jdoo start the server if it's not running, add a start
 statement:
 .PP
 .Vb 3
@@ -3382,12 +3383,12 @@ statement:
 .PP
 Here's a more advanced example for monitoring an apache
 web-server listening on the default port number for \s-1HTTP\s0 and
-\&\s-1HTTPS\s0. In this example Monit will restart apache if it's not
-accepting connections at the port numbers. The method Monit use
+\&\s-1HTTPS\s0. In this example Jdoo will restart apache if it's not
+accepting connections at the port numbers. The method Jdoo use
 for a process restart is to first execute the stop-program, wait
 up to 30s for the process to stop and then execute the start-program
 and wait up to 30s for it to start. The length of start or stop
-timeout can be overridden using the 'timeout' option. If Monit was
+timeout can be overridden using the 'timeout' option. If Jdoo was
 unable to stop or start the service a failed alert message will
 be sent if you have requested alert messages to be sent.
 .PP
@@ -3402,12 +3403,12 @@ be sent if you have requested alert messages to be sent.
 This example demonstrate how you can run a program as a specified
 user (uid) and with a specified group (gid). Many daemon programs
 will do the uid and gid switch by them self, but for those
-programs that does not (e.g. Java programs), monit's ability to
+programs that does not (e.g. Java programs), Jdoo's ability to
 start a program as a certain user can be very useful. In this
 example we start the Tomcat Java Servlet Engine as the standard
-\&\fInobody\fR user and group. Please note that Monit will only switch
-uid and gid for a program if the super-user is running monit,
-otherwise Monit will simply ignore the request to change uid and
+\&\fInobody\fR user and group. Please note that Jdoo will only switch
+uid and gid for a program if the super-user is running Jdoo,
+otherwise Jdoo will simply ignore the request to change uid and
 gid.
 .PP
 .Vb 7
@@ -3455,7 +3456,7 @@ vhosts, hence the host statement before port:
 \&       if failed host www.tildeslash.com port 80 then alert
 .Ve
 .PP
-To make sure that Monit is communicating with a http server a
+To make sure that Jdoo is communicating with a http server a
 protocol test can be added:
 .PP
 .Vb 6
@@ -3512,9 +3513,9 @@ if not send an alert:
 \&          then alert
 .Ve
 .PP
-In the following example we ask Monit to compute and verify the
+In the following example we ask Jdoo to compute and verify the
 checksum for the underlying apache binary used by the start and
-stop programs. If the the checksum test should fail, monitoring
+stop programs. If the checksum test should fail, monitoring
 will be disabled to prevent possibly starting a compromised
 binary:
 .PP
@@ -3529,13 +3530,13 @@ binary:
 \&       if failed checksum then unmonitor
 .Ve
 .PP
-In this example we ask Monit to test the checksum for a document
+In this example we ask Jdoo to test the checksum for a document
 on a remote server. If the checksum was changed we send an alert:
 .PP
 .Vb 5
 \& check host tildeslash with address www.tildeslash.com
 \&       if failed port 80 protocol http 
-\&          and request "/monit/dist/monit\-4.0.tar.gz"
+\&          and request "/jdoo/dist/jdoo\-4.0.tar.gz"
 \&              with checksum f9d26b8393736b5dfad837bb13780786
 \&       then alert
 .Ve
@@ -3585,9 +3586,9 @@ start, the \fBevery\fR statement is handy:
 .Ve
 .PP
 Here is an example where we group together two database entries
-so you can manage them together, e.g.; 'Monit \-g database start
+so you can manage them together, e.g.; 'jdoo \-g database start
 all'. The mode statement is also illustrated in the first entry
-and have the effect that Monit will not try to (re)start this
+and have the effect that Jdoo will not try to (re)start this
 service if it is not running:
 .PP
 .Vb 5
@@ -3646,7 +3647,7 @@ statement and a file check dependency:
 \&              subject:  apache $EVENT \- $ACTION
 \&              message:  This event occurred on $HOST at $DATE. 
 \&              Your faithful employee,
-\&              monit
+\&              jdoo
 \&      }
 \&      if failed host www.tildeslash.com  port 80 then restart
 \&      if 3 restarts within 5 cycles then timeout
@@ -3738,7 +3739,7 @@ Finally an example with all statements:
 \&       group server
 \&       if timestamp > 7 days then restart
 \&       every 2 cycles
-\&       alert bofh@bar with mail\-format {from: monit@foo.bar.no}
+\&       alert bofh@bar with mail\-format {from: jdoo@foo.bar.no}
 \&       depends on datafs
 \&
 \& check file httpd.conf with path /etc/httpd/httpd.conf
@@ -3746,7 +3747,7 @@ Finally an example with all statements:
 \&       if timestamp was changed 
 \&          then exec "/usr/local/apache/bin/apachectl graceful"
 \&       every 2 cycles
-\&       alert bofh@bar with mail\-format {from: monit@foo.bar.no}
+\&       alert bofh@bar with mail\-format {from: jdoo@foo.bar.no}
 \&       depends on datafs
 \&
 \& check file httpd_bin with path /usr/local/apache/bin/httpd
@@ -3759,7 +3760,7 @@ Finally an example with all statements:
 \&       if changed size then alert
 \&       if changed timestamp then alert
 \&       every 2 cycles
-\&       alert bofh@bar with mail\-format {from: monit@foo.bar.no}
+\&       alert bofh@bar with mail\-format {from: jdoo@foo.bar.no}
 \&       alert foo@bar on { checksum, size, timestamp, uid, gid } 
 \&       depends on datafs
 \&
@@ -3798,46 +3799,46 @@ statements are optional and the order of the optional statements
 is not important.
 .SH "FILES"
 .IX Header "FILES"
-\&\fI~/.monitrc\fR  
+\&\fI~/.jdoorc\fR
    Default run control file
 .PP
-\&\fI/etc/monit/monitrc\fR
+\&\fI/etc/jdoo/jdoorc\fR
    If the control file is not found in the default 
-   location and /etc/monit/ contains a \fImonitrc\fR file, this
+   location and /etc/jdoo/ contains a \fIjdoorc\fR file, this
    file will be used instead.
 .PP
-\&\fI./monitrc\fR  
+\&\fI./jdoorc\fR
    If the control file is not found in either of the
    previous two locations, and the current working 
-   directory contains a \fImonitrc\fR file, this file is 
+   directory contains a \fIjdoorc\fR file, this file is
    used instead.
 .PP
-\&\fI~/.monit.pid\fR
+\&\fI~/.jdoo.pid\fR
    Lock file to help prevent concurrent runs (non-root
    mode).
 .PP
-\&\fI/var/run/monit.pid\fR
+\&\fI/var/run/jdoo.pid\fR
    Lock file to help prevent concurrent runs (root mode,
    Linux systems).
 .PP
-\&\fI/etc/monit.pid\fR
+\&\fI/etc/jdoo.pid\fR
    Lock file to help prevent concurrent runs (root mode,
    systems without /var/run).
 .PP
-\&\fI~/.monit.state\fR  
-   Monit save its state to this file and utilize 
+\&\fI~/.jdoo.state\fR
+   Jdoo save its state to this file and utilize
    information found in this file to recover from 
    a crash. This is a binary file and its content is 
-   only of interest to monit. You may set the location
-   of this file in the Monit control file or by using 
-   the \-s switch when Monit is started.
+   only of interest to Jdoo. You may set the location
+   of this file in the Jdoo control file or by using
+   the \-s switch when Jdoo is started.
 .PP
-\&\fI~/.monit.id\fR  
-    Monit save its unique id to this file.
+\&\fI~/.jdoo.id\fR
+    Jdoo save its unique id to this file.
 .SH "ENVIRONMENT"
 .IX Header "ENVIRONMENT"
-No environment variables are used by Monit. However, when Monit
-execute a script or a program Monit will set several environment
+No environment variables are used by Jdoo. However, when Jdoo
+execute a script or a program Jdoo will set several environment
 variables which can be utilized by the executable. The following
 and \fIonly\fR the following environment variables are available:
 .IP "\s-1MONIT_EVENT\s0" 4
@@ -3848,7 +3849,7 @@ The event that occurred on the service
 A description of the error condition
 .IP "\s-1MONIT_SERVICE\s0" 4
 .IX Item "MONIT_SERVICE"
-The name of the service (from monitrc) on which the event
+The name of the service (from jdoorc) on which the event
 occurred.
 .IP "\s-1MONIT_DATE\s0" 4
 .IX Item "MONIT_DATE"
@@ -3882,24 +3883,24 @@ or on a more verbose \s-1PATH\s0 must provide means to set these
 variables by them self.
 .SH "SIGNALS"
 .IX Header "SIGNALS"
-If a Monit daemon is running, \s-1SIGUSR1\s0 wakes it up from its sleep
+If a jdoo daemon is running, \s-1SIGUSR1\s0 wakes it up from its sleep
 phase and forces a poll of all services. \s-1SIGTERM\s0 and \s-1SIGINT\s0 will
-gracefully terminate a Monit daemon. The \s-1SIGTERM\s0 signal is sent
-to a Monit daemon if Monit is started with the \fIquit\fR action
+gracefully terminate a jdoo daemon. The \s-1SIGTERM\s0 signal is sent
+to a jdoo daemon if jdoo is started with the \fIquit\fR action
 argument.
 .PP
-Sending a \s-1SIGHUP\s0 signal to a running Monit daemon will force
+Sending a \s-1SIGHUP\s0 signal to a running jdoo daemon will force
 the daemon to reinitialize itself, specifically it will reread
 configuration, close and reopen log files.
 .PP
-Running Monit in foreground while a background Monit daemon is
+Running Jdoo in foreground while a background Jdoo daemon is
 running will wake up the daemon.
 .SH "NOTES"
 .IX Header "NOTES"
 This is a very silent program. Use the \-v switch if you want to
-see what Monit is doing, and tail \-f the logfile. Optionally for
-testing purposes; you can start Monit with the \-Iv switch. Monit
-will then print debug information to the console, to stop monit
+see what Jdoo is doing, and tail \-f the logfile. Optionally for
+testing purposes; you can start jdoo with the \-Iv switch. Jdoo
+will then print debug information to the console, to stop jdoo
 in this mode, simply press CTRL^C (i.e. \s-1SIGINT\s0) in the same
 console.
 .PP

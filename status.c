@@ -90,14 +90,14 @@ int status(char *level) {
   char *auth= NULL;
 
   if(!exist_daemon()) {
-    LogError("%s: no status available -- the monit daemon is not running\n",
-      prog);
+    LogError("%s: no status available -- the " PACKAGE_NAME " daemon is not "
+             " running\n", prog);
     return status;
   }
 
   if(!(sock= socket_new(Run.bind_addr?Run.bind_addr:"localhost", Run.httpdport,
                         SOCKET_TCP, Run.httpdssl, NET_TIMEOUT))) {
-    LogError("%s: error connecting to the monit daemon\n", prog);
+    LogError("%s: error connecting to the " PACKAGE_NAME " daemon\n", prog);
     return status;
   }
 
