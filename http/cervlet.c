@@ -1832,7 +1832,7 @@ static void print_service_rules_resource(HttpResponse res, Service_T s) {
         case RESOURCE_ID_SYSLOAD1:
         case RESOURCE_ID_SYSLOAD5:
         case RESOURCE_ID_SYSLOAD15:
-          out_print(res, "If %s %.1f %s ", operatornames[q->operator], q->limit, Util_getEventratio(a->failed, buf, sizeof(buf)));
+          out_print(res, "If %s %.1f %s ", operatornames[q->operator], (double) q->limit, Util_getEventratio(a->failed, buf, sizeof(buf)));
           out_print(res, "then %s ", Util_describeAction(a->failed, buf, sizeof(buf)));
           out_print(res, "else if succeeded %s ", Util_getEventratio(a->succeeded, buf, sizeof(buf)));
           out_print(res, "then %s", Util_describeAction(a->succeeded, buf, sizeof(buf)));
