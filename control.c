@@ -112,7 +112,7 @@ int control_service_daemon(const char *S, const char *action) {
   
   s = socket_new(Run.bind_addr ? Run.bind_addr : "localhost", Run.httpdport, SOCKET_TCP, Run.httpdssl, NET_TIMEOUT);
   if (!s) {
-    LogError("%s: Cannot connect to the monit daemon. Did you start it with http support?\n", prog);
+    LogError("%s: Cannot connect to the " PACKAGE_NAME " daemon. Did you start it with http support?\n", prog);
     return FALSE;
   }
 
@@ -129,7 +129,7 @@ int control_service_daemon(const char *S, const char *action) {
         strlen("action=") + strlen(action),
         auth ? auth : "",
         action) < 0) {
-    LogError("%s: Cannot send the command '%s' to the monit daemon -- %s", prog, action ? action : "null", STRERROR);
+    LogError("%s: Cannot send the command '%s' to the " PACKAGE_NAME " daemon -- %s", prog, action ? action : "null", STRERROR);
     goto err1;
   }
 

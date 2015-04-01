@@ -98,7 +98,7 @@ int can_http() {
     
     if(! has_hosts_allow() && ! Run.credentials) {
       
-      LogError("%s: monit httpd not started since no connect allowed\n",
+      LogError("%s: " PACKAGE_NAME " httpd not started since no connect allowed\n",
 	  prog);
       
       return FALSE;

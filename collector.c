@@ -87,13 +87,13 @@ int handle_mmonit(Event_T E) {
     return rv;
 
   while(!(socket = socket_create_t(C->url->hostname, C->url->port, SOCKET_TCP, C->ssl, C->timeout))) {
-    LogError("M/Monit: cannot open a connection to %s -- %s\n", C->url->url, STRERROR);
+    LogError(PACKAGE_NAME ": cannot open a connection to %s -- %s\n", C->url->url, STRERROR);
 
     if((C = C->next)) {
-      LogInfo("M/Monit: trying next server %s\n", C->url->url);
+      LogInfo(PACKAGE_NAME ": trying next server %s\n", C->url->url);
       continue;
     } else {
-      LogError("M/Monit: no server available\n");
+      LogError(PACKAGE_NAME ": no server available\n");
       rv = HANDLER_MMONIT;
       goto exit2;
     }
@@ -102,7 +102,7 @@ int handle_mmonit(Event_T E) {
   D = status_xml(E, E ? LEVEL_SUMMARY : LEVEL_FULL, 2, socket_get_local_host(socket));
 
   if(!data_send(socket, C, D)) {
-    LogError("M/Monit: communication failed\n");
+    LogError(PACKAGE_NAME ": communication failed\n");
     rv = HANDLER_MMONIT;
     goto exit1;
   }
@@ -112,11 +112,11 @@ int handle_mmonit(Event_T E) {
   socket_shutdown_write(socket);
   
   if(!data_check(socket, C)) {
-    LogError("M/Monit: communication failed (%s message)\n", E ? "event" : "status");
+    LogError(PACKAGE_NAME ": communication failed (%s message)\n", E ? "event" : "status");
     rv = HANDLER_MMONIT;
     goto exit1;
   }
-  DEBUG("M/Monit: %s message sent to %s\n", E ? "event" : "status", C->url->url);
+  DEBUG(PACKAGE_NAME ": %s message sent to %s\n", E ? "event" : "status", C->url->url);
 
 exit1:
   FREE(D);
@@ -161,7 +161,7 @@ static int data_send(Socket_T socket, Mmonit_T C, char *D) {
          D);
   FREE(auth);
   if(rv <0) {
-    LogError("M/Monit: error sending data to %s -- %s\n", C->url->url, STRERROR);
+    LogError(PACKAGE_NAME ": error sending data to %s -- %s\n", C->url->url, STRERROR);
     return FALSE;
   }
   return TRUE;
@@ -179,13 +179,13 @@ static int data_check(Socket_T socket, Mmonit_T C) {
   char buf[STRLEN];
 
   if(!socket_readln(socket, buf, sizeof(buf))) {
-    LogError("M/Monit: error receiving data from %s -- %s\n", C->url->url, STRERROR);
+    LogError(PACKAGE_NAME ": error receiving data from %s -- %s\n", C->url->url, STRERROR);
     return FALSE;
   }
   Util_chomp(buf);
   n = sscanf(buf, "%*s %d", &status);
   if(n != 1 || (status >= 400)) {
-    LogError("M/Monit: message sending failed to %s -- %s\n", C->url->url, buf);
+    LogError(PACKAGE_NAME ": message sending failed to %s -- %s\n", C->url->url, buf);
     return FALSE;
   }
   return TRUE;

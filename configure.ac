@@ -51,13 +51,13 @@ AM_PROG_CC_C_O
 AC_PROG_MAKE_SET
 AC_PROG_LEX
 	if test "$LEX" != flex; then
-		AC_MSG_ERROR([monit requires flex, not lex])
+		AC_MSG_ERROR([jdoo requires flex, not lex])
 	fi
 AM_PROG_LEX
 AC_PROG_YACC
 AC_CHECK_PROGS(YACC, 'bison -y' byacc yacc)
 if test "x$YACC" = "x"; then
-		AC_MSG_ERROR([monit requires bison, byacc or yacc])
+		AC_MSG_ERROR([jdoo requires bison, byacc or yacc])
 fi
 
 # ------------------------------------------------------------------------
@@ -549,7 +549,7 @@ if test "$use_largefiles" = 1; then
                 echo "### Solaris requires 64-bit support for large files and resource monitoring ###"
                 echo "### enabled.                                                                ###"
                 echo "###                                                                         ###"
-                echo "### Compile monit with 64-bit support (see PLATFORMS file for details)      ###"
+                echo "### Compile jdoo with 64-bit support (see PLATFORMS file for details)       ###"
                 echo "###############################################################################"
 		AC_MSG_ERROR([Solaris requires 64-bit support for large files and resource monitoring enabled])
             fi

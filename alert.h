@@ -35,10 +35,10 @@
 
 
 /** Default mail from string */
-#define ALERT_FROM    "monit@$HOST"
+#define ALERT_FROM    "jdoo@$HOST"
 
 /** Default mail subject */
-#define ALERT_SUBJECT "monit alert --  $EVENT $SERVICE"
+#define ALERT_SUBJECT "jdoo alert --  $EVENT $SERVICE"
 
 /** Default mail message */
 #define ALERT_MESSAGE "$EVENT Service $SERVICE \r\n"\
@@ -49,7 +49,7 @@
 	              "\tDescription: $DESCRIPTION\r\n"\
 		      "\r\n"\
 		      "Your faithful employee,\r\n"\
-	              "Monit\r\n"
+	              "Jdoo\r\n"
 
 
 /**

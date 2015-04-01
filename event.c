@@ -90,7 +90,7 @@ EventTable_T Event_Table[]= {
   {Event_Gid,        "GID failed",              "GID succeeded",              "GID changed",              "GID not changed"},
   {Event_Heartbeat,  "Heartbeat failed",        "Heartbeat succeeded",        "Heartbeat changed",        "Heartbeat not changed"},
   {Event_Icmp,       "ICMP failed",             "ICMP succeeded",             "ICMP changed",             "ICMP not changed"},
-  {Event_Instance,   "Monit instance failed",   "Monit instance succeeded",   "Monit instance changed",   "Monit instance not changed"},
+  {Event_Instance,   PACKAGE_NAME " instance failed",   PACKAGE_NAME " instance succeeded",   PACKAGE_NAME " instance changed",   PACKAGE_NAME " instance not changed"},
   {Event_Invalid,    "Invalid type",            "Type succeeded",             "Type changed",             "Type not changed"},
   {Event_Nonexist,   "Does not exist",          "Exists",                     "Existence changed",        "Existence not changed"},
   {Event_Permission, "Permission failed",       "Permission succeeded",       "Permission changed",       "Permission not changed"},
@@ -249,7 +249,7 @@ Service_T Event_get_source(Event_T E) {
   ASSERT(E);
 
   if (!(s = Util_getService(E->source)))
-    LogError("Service %s not found in monit configuration\n", E->source);
+    LogError("Service %s not found in " PACKAGE_NAME " configuration\n", E->source);
 
   return s;
 }
@@ -570,7 +570,7 @@ void Event_queue_process() {
             Run.handler_queue[HANDLER_MMONIT]--;
             handlers_passed++;
           } else {
-            LogError("M/Monit handler failed, retry scheduled for next cycle\n");
+            LogError(PACKAGE_NAME " handler failed, retry scheduled for next cycle\n");
             Run.handler_flag |= HANDLER_MMONIT;
           }
         }

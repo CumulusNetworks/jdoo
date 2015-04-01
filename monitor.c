@@ -386,7 +386,7 @@ static void do_reinit() {
     monit_http(START_HTTP);
 
   /* send the monit startup notification */
-  Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_RELOAD, "Monit reloaded");
+  Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_RELOAD, PACKAGE_NAME " reloaded");
 
   if(Run.mmonits && ((status = pthread_create(&heartbeatThread, NULL, heartbeat, NULL)) != 0))
     LogError("%s: Failed to create the heartbeat thread -- %s\n", prog, strerror(status));
@@ -496,7 +496,7 @@ static void do_exit() {
     LogInfo("%s daemon with pid [%d] killed\n", prog, (int)getpid());
 
     /* send the monit stop notification */
-    Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_STOP, "Monit stopped");
+    Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_STOP, PACKAGE_NAME " stopped");
   }
   gc();
   exit(0);
@@ -522,7 +522,7 @@ static void do_default() {
       LogInfo("Starting %s daemon\n", prog);
     
     if (Run.startdelay)
-        LogInfo("Monit start delay set -- pause for %ds\n", Run.startdelay);
+        LogInfo(PACKAGE_NAME " start delay set -- pause for %ds\n", Run.startdelay);
 
     if (Run.init != TRUE)
       daemonize(); 
@@ -556,7 +556,7 @@ static void do_default() {
       monit_http(START_HTTP);
     
     /* send the monit startup notification */
-    Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_START, "Monit started");
+    Event_post(Run.system, Event_Instance, STATE_CHANGED, Run.system->action_MONIT_START, PACKAGE_NAME " started");
 
     if(Run.mmonits && ((status = pthread_create(&heartbeatThread, NULL, heartbeat, NULL)) != 0))
       LogError("%s: Failed to create the heartbeat thread -- %s\n", prog, strerror(status));
@@ -721,7 +721,7 @@ static void help() {
   printf(" reload              - Reinitialize monit\n");
   printf(" status              - Print full status information for each service\n");
   printf(" summary             - Print short status information for each service\n");
-  printf(" quit                - Kill monit daemon process\n");
+  printf(" quit                - Kill " PACKAGE_NAME " daemon process\n");
   printf(" validate            - Check all services and start if not running\n");
   printf(" procmatch <pattern> - Test process matching pattern\n");
   printf("\n");
@@ -752,7 +752,7 @@ static void *heartbeat(void *args) {
   struct timespec wait;
 
   set_signal_block(&ns, NULL);
-  LogInfo("M/Monit heartbeat started\n");
+  LogInfo(PACKAGE_NAME " heartbeat started\n");
   LOCK(heartbeatMutex)
   {
     while (! Run.stopped && ! Run.doreload) {
@@ -765,7 +765,7 @@ static void *heartbeat(void *args) {
     }
   }
   END_LOCK;
-  LogInfo("M/Monit heartbeat stopped\n");
+  LogInfo(PACKAGE_NAME " heartbeat stopped\n");
   return NULL;
 }
 
