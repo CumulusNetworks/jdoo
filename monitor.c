@@ -178,7 +178,8 @@ int do_wakeupcall() {
   
   if ((pid = exist_daemon()) > 0) {
     kill(pid, SIGUSR1);
-    LogInfo("%s daemon at %d awakened\n", prog, pid);
+    if (Run.debug)
+      LogInfo("%s daemon at %d awakened\n", prog, pid);
     
     return TRUE;
   }
@@ -328,7 +329,8 @@ static void do_init() {
 static void do_reinit() {
   int status;
 
-  LogInfo("Awakened by the SIGHUP signal\n");
+  if (Run.debug)
+    LogInfo("Awakened by the SIGHUP signal\n");
   LogInfo("Reinitializing %s - Control file '%s'\n", prog, Run.controlfile);
   
   if(Run.mmonits && heartbeatRunning) {
@@ -573,7 +575,8 @@ static void do_default() {
 
       if (Run.dowakeup) {
         Run.dowakeup = FALSE;
-        LogInfo("Awakened by User defined signal 1\n");
+        if (Run.debug)
+          LogInfo("Awakened by User defined signal 1\n");
       }
       
       if (Run.stopped)
