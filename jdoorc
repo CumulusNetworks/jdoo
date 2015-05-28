@@ -244,5 +244,7 @@
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-   include /etc/jdoo/jdoorc.d/*
+   include /etc/jdoo/jdoorc.d/cron
+   include /etc/jdoo/jdoorc.d/openssh-server
+   include /etc/jdoo/jdoorc.d/*.rc
 #
