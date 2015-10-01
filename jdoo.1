@@ -1305,10 +1305,7 @@ statements in [brackets]),
 .IX Item "IF resource operator value [[<X>] <Y> CYCLES] THEN action [ELSE IF SUCCEEDED [[<X>] <Y> CYCLES] THEN action]"
 .PP
 \&\fIresource\fR is a choice of \*(L"\s-1CPU\s0\*(R", \*(L"\s-1TOTALCPU\s0\*(R",
-\&\*(L"\s-1CPU\s0([user|system|wait])\*(R", \*(L"\s-1MEMORY\s0\*(R", \*(L"\s-1SWAP\s0\*(R", \*(L"\s-1CHILDREN\s0\*(R", \*(L"\s-1TOTALMEMORY\s0\*(R",
-\&\*(L"\s-1LOADAVG\s0([1min|5min|15min])\*(R". Some resource tests can be used
-inside a check system entry, some in a check process entry and
-some in both:
+\&\*(L"\s-1CPU\s0([user|system|wait])\*(R", \*(L"\s-1MEMORY\s0\*(R", \*(L"\s-1SWAP\s0\*(R", \*(L"\s-1CHILDREN\s0\*(R", \*(L"\s-1TOTALMEMORY\s0\*(R", \&\*(L"\s-1LOADAVG\s0([1min|5min|15min])\*(R", \*(L"\s-1SYSLOADAVG\s0([1min|5min|15min])". Some resource tests can be used inside a check system entry, some in a check process entry and some in both:
 .PP
 System only resource tests:
 .PP
@@ -1332,6 +1329,10 @@ child processes as workers.
 .PP
 \&\s-1TOTALMEMORY\s0 is the memory usage of the process and its child
 processes in either percent or as an amount (Byte, kB, \s-1MB\s0, \s-1GB\s0).
+.PP
+\&\s-1SYSLOADAVG\s0([1min|5min|15min]) refers to the system's load average normalized with the number of processors on the system.
+The system load average is the number of processes in the system run
+queue, averaged over the specified time period divide by the number of processors in the system and multiplied by 100. This results in a percentage representation of the utilization of the system.
 .PP
 System and process resource tests:
 .PP
@@ -3294,6 +3295,18 @@ insensitive.
 \&                 average over a number of cycles. If the compare 
 \&                 expression matches then the specified action is 
 \&                 executed.
+\& sysloadavg      Must be followed by [1min,5min,15min] in (), a
+\&                 compare operator, a number and an action. This
+\&                 statement is used to check the system load
+\&                 average over a number of cycles and is expressed
+\&                 as a percentage. This statement unlike loadavg
+\&                 takes into account the total number of cores on the
+\&                 system, using the calculation:
+\&
+\&                     loadavg / cores * 100
+\&
+\&                 If the compare expression matches then the specified
+\&                 action is executed.
 \& children        This is the number of child processes spawn by a
 \&                 process. The syntax is the same as above.
 \& totalmem        The equivalent of mem, except totalmem is an
@@ -3328,7 +3341,7 @@ Here's the complete list of reserved \fBkeywords\fR used by jdoo:
 \&\fIpassive\fR, \fImanual\fR, \fIdepends\fR, \fIhost\fR, \fIdefault\fR, \fIhttp\fR,
 \&\fIftp\fR, \fIsmtp\fR, \fIpop\fR, \fIntp3\fR, \fInntp\fR, \fIimap\fR, \fIclamav\fR, 
 \&\fIssh\fR, \fIdwp\fR, \fIldap2\fR, \fIldap3\fR, \fItns\fR, \fIrequest\fR, \fIcpu\fR, 
-\&\fImem\fR, \fItotalmem\fR, \fIswap\fR, \fIchildren\fR, \fIloadavg\fR, \fItimestamp\fR, 
+\&\fImem\fR, \fItotalmem\fR, \fIswap\fR, \fIchildren\fR, \fIloadavg\fR, \fIsysloadavg\fR, \fItimestamp\fR, 
 \&\fIchanged\fR, \fIsecond(s)\fR, \fIminute(s)\fR, \fIhour(s)\fR, \fIday(s)\fR, 
 \&\fIspace\fR, \fIinode\fR, \fIpid\fR, \fIppid\fR, \fIperm(ission)\fR, \fIicmp\fR,
 \&\fIprocess\fR, \fIfile\fR, \fIdirectory\fR, \fIfilesystem\fR, \fIsize\fR, \fIaction\fR,
